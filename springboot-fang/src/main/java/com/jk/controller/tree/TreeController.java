@@ -18,6 +18,22 @@ public class TreeController {
     @Autowired
     private TreeService treeService;
 
+    /**
+     *跳转到新增房源页面
+     * */
+    @RequestMapping(value = "toAddHouseMessage")
+    public String toAddHouseMessage(){
+        return "house/addHouse";
+    }
+
+    /**
+     * 跳转查看房源信息列表
+     * @return
+     */
+    @RequestMapping(value = "toShowHouse")
+    public String toShowHouse(){
+        return "showHouse";
+    }
 
     //查询树
     //递归查询树

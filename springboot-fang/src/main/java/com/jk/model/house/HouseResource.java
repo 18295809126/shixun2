@@ -1,0 +1,317 @@
+package com.jk.model.house;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class HouseResource implements Serializable {
+
+    private static final long serialVersionUID = -3822704392257469295L;
+
+    //主键ID
+    private String id;
+    //与人员表关联
+    private String emp_id;
+
+    private String name;
+    //主题1
+    private String title;
+    //价格2
+    private Integer price;
+    //室
+    private Integer room;
+    //厅
+    private Integer hall;
+    //卫
+    private Integer toilet;
+    //建筑面积
+    private Double  house_area;
+    //所在小区2
+    private String  community;
+    //省
+    private Integer province;
+    //市
+    private Integer city;
+    //县
+    private Integer county;
+    //建筑年代1
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date building_time;
+    //房屋类型1
+    private String room_type;
+    //房屋朝向
+    private String room_direction;
+    //所在楼层1
+    private String house_floor;
+    //装修程度
+    private String decorate;
+    //房屋单价
+    private Double unit_price;
+    //参考月供
+    private Double monthly_payments;
+    //核心卖点
+    private String selling_point;
+    //业主心态
+    private String owner_mentality;
+    //小区配套
+    private String community_complete;
+    //服务介绍
+    private String service_introduce;
+    //发布时间1
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date release_time;
+    //房号
+    private String room_num;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getEmp_id() {
+        return emp_id;
+    }
+
+    public void setEmp_id(String emp_id) {
+        this.emp_id = emp_id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public Integer getRoom() {
+        return room;
+    }
+
+    public void setRoom(Integer room) {
+        this.room = room;
+    }
+
+    public Integer getHall() {
+        return hall;
+    }
+
+    public void setHall(Integer hall) {
+        this.hall = hall;
+    }
+
+    public Integer getToilet() {
+        return toilet;
+    }
+
+    public void setToilet(Integer toilet) {
+        this.toilet = toilet;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCommunity() {
+        return community;
+    }
+
+    public void setCommunity(String community) {
+        this.community = community;
+    }
+
+    public Integer getProvince() {
+        return province;
+    }
+
+    public void setProvince(Integer province) {
+        this.province = province;
+    }
+
+    public Integer getCity() {
+        return city;
+    }
+
+    public void setCity(Integer city) {
+        this.city = city;
+    }
+
+    public Integer getCounty() {
+        return county;
+    }
+
+    public void setCounty(Integer county) {
+        this.county = county;
+    }
+
+    public String getBuilding_time() {
+        if(building_time==null){
+            return null;
+        }
+        SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
+        return sim.format(building_time);
+    }
+
+    public void setBuilding_time(Date building_time) {
+        this.building_time = building_time;
+    }
+
+    public String getRoom_type() {
+        return room_type;
+    }
+
+    public void setRoom_type(String room_type) {
+        this.room_type = room_type;
+    }
+
+    public String getRoom_direction() {
+        return room_direction;
+    }
+
+    public void setRoom_direction(String room_direction) {
+        this.room_direction = room_direction;
+    }
+
+
+
+    public String getDecorate() {
+        return decorate;
+    }
+
+    public void setDecorate(String decorate) {
+        this.decorate = decorate;
+    }
+
+    public Double getUnit_price() {
+        return unit_price;
+    }
+
+    public void setUnit_price(Double unit_price) {
+        this.unit_price = unit_price;
+    }
+
+    public Double getMonthly_payments() {
+        return monthly_payments;
+    }
+
+    public void setMonthly_payments(Double monthly_payments) {
+        this.monthly_payments = monthly_payments;
+    }
+
+    public String getSelling_point() {
+        return selling_point;
+    }
+
+    public void setSelling_point(String selling_point) {
+        this.selling_point = selling_point;
+    }
+
+    public String getOwner_mentality() {
+        return owner_mentality;
+    }
+
+    public void setOwner_mentality(String owner_mentality) {
+        this.owner_mentality = owner_mentality;
+    }
+
+    public String getCommunity_complete() {
+        return community_complete;
+    }
+
+    public void setCommunity_complete(String community_complete) {
+        this.community_complete = community_complete;
+    }
+
+    public String getService_introduce() {
+        return service_introduce;
+    }
+
+    public void setService_introduce(String service_introduce) {
+        this.service_introduce = service_introduce;
+    }
+
+    public String getRelease_time() {
+        if(release_time==null){
+            return null;
+        }
+        SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
+        return sim.format(release_time);
+    }
+
+    public void setRelease_time(Date release_time) {
+        this.release_time = release_time;
+    }
+
+    public String getRoom_num() {
+        return room_num;
+    }
+
+    public void setRoom_num(String room_num) {
+        this.room_num = room_num;
+    }
+
+    public Double getHouse_area() {
+        return house_area;
+    }
+
+    public void setHouse_area(Double house_area) {
+        this.house_area = house_area;
+    }
+
+    public String getHouse_floor() {
+        return house_floor;
+    }
+
+    public void setHouse_floor(String house_floor) {
+        this.house_floor = house_floor;
+    }
+
+    @Override
+    public String toString() {
+        return "HouseResource{" +
+                "id='" + id + '\'' +
+                ", emp_id='" + emp_id + '\'' +
+                ", name='" + name + '\'' +
+                ", title='" + title + '\'' +
+                ", price=" + price +
+                ", room=" + room +
+                ", hall=" + hall +
+                ", toilet=" + toilet +
+                ", house_area=" + house_area +
+                ", community='" + community + '\'' +
+                ", province=" + province +
+                ", city=" + city +
+                ", county=" + county +
+                ", building_time=" + building_time +
+                ", room_type='" + room_type + '\'' +
+                ", room_direction='" + room_direction + '\'' +
+                ", house_floor='" + house_floor + '\'' +
+                ", decorate='" + decorate + '\'' +
+                ", unit_price=" + unit_price +
+                ", monthly_payments=" + monthly_payments +
+                ", selling_point='" + selling_point + '\'' +
+                ", owner_mentality='" + owner_mentality + '\'' +
+                ", community_complete='" + community_complete + '\'' +
+                ", service_introduce='" + service_introduce + '\'' +
+                ", release_time=" + release_time +
+                ", room_num='" + room_num + '\'' +
+                '}';
+    }
+}
