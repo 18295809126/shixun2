@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 樱井小暮
-  Date: 2018/3/5
-  Time: 16:36
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -15,8 +8,8 @@
     <link rel="stylesheet" href="/js/layui-v2.2.5/layui/css/layui.css">
     <script type="application/javascript" src="/js/layui-v2.2.5/layui/layui.js"></script>
 
-    <link rel="stylesheet" href="/js/layDate-v5.0.9/laydate/theme/default/laydate.css"/>
-    <script src="/js/layDate-v5.0.9/laydate/laydate.js"></script>
+    <%--<link rel="stylesheet" href="/js/layDate-v5.0.9/laydate/theme/default/laydate.css"/>
+    <script src="/js/layDate-v5.0.9/laydate/laydate.js"></script>--%>
 </head>
 <body class="layui-layout-body">
 
