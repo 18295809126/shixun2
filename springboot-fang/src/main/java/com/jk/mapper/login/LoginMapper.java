@@ -10,6 +10,6 @@ import java.util.Map;
 @Mapper
 @Component
 public interface LoginMapper {
-    @Select("SELECT * FROM t_emp where phonenumer=#{phonenumer}")
-    Temp login(String phonenumer);
+    @Select("SELECT * FROM t_emp WHERE loginnumber=#{loginnumber}")
+    Temp login(String loginnumber);
 }

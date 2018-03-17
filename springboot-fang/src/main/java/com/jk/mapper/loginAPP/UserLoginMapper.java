@@ -7,6 +7,6 @@ import org.springframework.stereotype.Component;
 @Mapper
 @Component
 public interface UserLoginMapper {
-    @Select("SELECT * FROM t_emp where loginnumber=#{loginnumber}")
-    Temp getUserNumber(String loginnumber);
+    @Select("SELECT * FROM t_emp where phonenumer=#{phonenumer}")
+    Temp getUserNumber(String phonenumer);
 }
