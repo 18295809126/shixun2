@@ -11,6 +11,6 @@ import java.util.List;
 @Component
 public interface TreeMapper {
 
-    @Select("select * from t_tree")
+    @Select("select * from t_tree0")
     List<Tree> getTree();
 }

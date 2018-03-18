@@ -17,58 +17,63 @@
     <link type="text/css" rel="stylesheet" href="<%=request.getContextPath() %>/js/unslider/css/css.css">
     <script src="<%=request.getContextPath() %>/js/unslider/js/index.js"></script>
 </head>
-<hr>   <div>
+<hr>
+ <center>
+        <div>
          <h1>${house.title}</h1>
          <br>
-         <h2> <font color="#ff8c00">${house.price}万</font> &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;${house.room}室${house.hall}厅&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;${house.house_area}平方米</h2>
+            <h2> <font color="#ff8c00">${house.price}万</font> &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;<font color="#ff8c00">${house.room}室${house.hall}厅</font>&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;<font color="#ff8c00">${house.house_area}平方米</font></h2>
         </div>
-
-<div class="layui-carousel" id="test10">
+ </center>
+   <div style="margin-left: 280px" class="layui-carousel" id="test10">
     <div carousel-item="" id="imgs">
     </div>
-</div>
+   </div>
 
 
-       <DIV>
+
 
          <hr color="#cccccc" size="100%"/>
-           <h2>  房屋信息: </h2>金科房产提示：非安选房源，在售状态请与经纪人确认 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;房屋编码:&nbsp;&nbsp;&nbsp;&nbsp;${house.room_num}&nbsp;&nbsp;&nbsp;&nbsp;发布时间:${house.release_time}
+           <h2 >  <font color="#008b8b">房屋信息</font>
+           </h2>
          <br>
-           <br>
+<br>
           <table border="0">
               <tr>
-                  <td style="padding-left: 20px"> <font color="#7fff00">小区名称:</font></td>
+                  <td>小区名称:</td>
                   <td>${house.community}</td>
-                  <td style="padding-left: 50px"><font color="#7fff00">地区位置:</font>:</td>
+                  <td style="padding-left: 50px">地区位置:</td>
                   <td>海淀-上地</td>
-                  <td style="padding-left: 50px"><font color="#7fff00">房屋户型:</font>:</td>
+                  <td style="padding-left: 50px">房屋户型:</td>
                   <td>${house.room}室${house.hall}厅${house.toilet}卫</td>
-                  <td style="padding-left: 50px"><font color="#7fff00">装修程度:</font>:</td>
+                  <td style="padding-left: 50px">装修程度:</td>
                   <td>${house.decorate}</td>
               </tr>
               <tr>
-              <td style="padding-left: 20px"><font color="#7fff00">建筑类型:</font>:</td>
+              <td >建筑类型:</td>
               <td>${house.name}</td>
               </td>
-              <td style="padding-left: 50px"><font color="#7fff00">建筑面积:</font>:</td>
+              <td style="padding-left: 50px">建筑面积:</td>
               <td>${house.house_area}平方米</td> </td>
-              <td style="padding-left: 50px"><font color="#7fff00">房屋朝向:</font>:</td>
+              <td style="padding-left: 50px">房屋朝向:</td>
               <td>${house.room_direction}</td>
-              <td style="padding-left: 50px"><font color="#7fff00">所在楼层:</font>:</td>
+              <td style="padding-left: 50px">所在楼层:</td>
               <td>${house.house_floor}</td>
               </tr>
               <tr>
-              <td style="padding-left: 20px"><font color="#7fff00">建造年代:</font>:</td>
+              <td style=""><font >建造年代:</font>:</td>
               <td>${house.building_time}</td>
-              <td style="padding-left: 50px"><font color="#7fff00">房屋单价:</font>:</td>
+              <td style="padding-left: 50px">房屋单价:</td>
               <td>${house.unit_price}元/m2</td> </td>
-              <td style="padding-left: 50px"><font color="#7fff00">参考首付:</font>:</td>
+              <td style="padding-left: 50px">参考首付:</td>
               <td>257万</td>
-              <td style="padding-left: 50px"><font color="#7fff00">参考月供:</font>:</td>
+              <td style="padding-left: 50px">参考月供:</td>
               <td>${house.monthly_payments}元</td>
           </tr>
           </table>
-    <br><br><br>
+    <br><br>
+金科房产提示：非安选房源，在售状态请与经纪人确认 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;房屋编码:&nbsp;&nbsp;&nbsp;&nbsp;${house.room_num}&nbsp;&nbsp;&nbsp;&nbsp;发布时间:${house.release_time}
+<br>
 <hr color="#cccccc" size="100%"/>
 <h2><font color="#008b8b">核心卖点</font></h2><br><br><br>
 ${house.selling_point}<br><br><br>
@@ -77,7 +82,7 @@ ${house.selling_point}<br><br><br>
 ${house.owner_mentality}<br><br><br>
 <hr color="#cccccc" size="100%"/>
 <h2><font color="#008b8b">小区配套</font></h2><br><br><br>
-${house.community_complete}</DIV>
+${house.community_complete}
 </body>
 <script>
     $(function () {

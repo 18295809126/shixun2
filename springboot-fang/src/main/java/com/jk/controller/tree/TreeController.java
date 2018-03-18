@@ -2,6 +2,7 @@ package com.jk.controller.tree;
 
 import com.jk.model.tree.Tree;
 import com.jk.service.tree.TreeService;
+import com.jk.utils.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,36 +36,46 @@ public class TreeController {
         return "showHouse";
     }
 
-    //查询树
-    //递归查询树
+    /**
+     * house 树
+     */
     @RequestMapping(value = "queryTree")
     @ResponseBody
-    public List<Map<String,Object>> getTree(){
-        List<Tree> list =treeService.getTree();
-        return treestr(list,0);
+    public String getTree(){
+        List<Tree> list = treeService.getTree();
+        List<Map<String, Object>> maps = printTree(list, 0);
+        String s = JsonUtil.entityToJson(maps);
+        return s;
     }
 
-    public List<Map<String,Object>> treestr(List<Tree>list,Integer pid){
-        List<Map<String,Object>> newlist = new ArrayList<Map<String, Object>>();
+    /**
+     * 整理菜单
+     * @return
+     */
+    public List<Map<String,Object>> printTree(List<Tree> list,Integer pid){
+        List<Map<String,Object>> li = new ArrayList<Map<String,Object>>();
         for (int i = 0; i < list.size(); i++) {
             Map<String,Object> map = null;
-            Tree tree = list.get(i);
-            if(tree.getPid()==pid){
-                map = new HashMap<String, Object>();
-                map.put("id",tree.getId());
-                map.put("url",tree.getUrl());
-                map.put("name",tree.getName());
-                map.put("children",treestr(list,tree.getId()));
+            Tree houseTree = list.get(i);
+            if(houseTree.getPid() == pid){
+                map = new HashMap<String,Object>();
+                map.put("id", houseTree.getId());
+                map.put("title", houseTree.getTitle());
+                map.put("href", houseTree.getHref());
+                map.put("spread", houseTree.getSpread());
+                map.put("icon", houseTree.getIcon());
+                map.put("pid", houseTree.getPid());
+                map.put("children", printTree(list,houseTree.getId()));
             }
-            if(map!=null){
-                List<Map<String,Object>> li = (List<Map<String, Object>>) map.get("children");
-                if(li.size()<=0){
-                    li.remove("children");
+            if(map != null){
+                List<Map<String,Object>> l = (List<Map<String, Object>>)map.get("children");
+                if(l.size() == 0){
+                    map.remove("children");
                 }
-                newlist.add(map);
+                li.add(map);
             }
         }
-        return newlist;
+        return li;
 
     }
 }

@@ -20,8 +20,8 @@
 </head>
 <body>
 <%--新增按钮--%>
-<button class="layui-btn" id="add"><i class="layui-icon">&#xe654;</i></button>
-<a href="javascript:toadd()">新增</a>
+<button class="layui-btn" id="add"><i class="layui-icon">添加</i></button>
+<%--<a href="javascript:toadd()">新增</a>--%>
 <%--展示列表--%>
 <table class="layui-hide" id="test" lay-filter="demo"></table>
 <%--新增form--%>

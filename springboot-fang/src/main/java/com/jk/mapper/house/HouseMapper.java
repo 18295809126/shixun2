@@ -86,6 +86,6 @@ public interface HouseMapper {
      * 修改房源信息
      * @param house
      */
-    @Update("update t_sell_house_resource set emp_id = #{emp_id},title = #{title},price = #{price},room = #{room},hall = #{hall},toilet = #{toilet},house_area = #{house_area},community = #{community},province = #{province},city = #{city},county = #{county},building_time = #{building_time},room_type = #{room_type},room_direction = #{room_direction},house_floor = #{house_floor},decorate = #{decorate},unit_price = #{unit_price},monthly_payments = #{monthly_payments},selling_point = #{selling_point},owner_mentality = #{owner_mentality},community_complete = #{community_complete},service_introduce = #{service_introduce},release_time = #{release_time},room_num = #{room_num}")
+    @Update("update t_sell_house_resource set emp_id = #{emp_id},title = #{title},price = #{price},room = #{room},hall = #{hall},toilet = #{toilet},house_area = #{house_area},community = #{community},province = #{province},city = #{city},county = #{county},building_time = #{building_time},room_type = #{room_type},room_direction = #{room_direction},house_floor = #{house_floor},decorate = #{decorate},unit_price = #{unit_price},monthly_payments = #{monthly_payments},selling_point = #{selling_point},owner_mentality = #{owner_mentality},community_complete = #{community_complete},service_introduce = #{service_introduce},release_time = #{release_time},room_num = #{room_num} where id = #{id}")
     void updateHouseDatasource(HouseResource house);
 }

@@ -75,7 +75,7 @@
     </form>
 </div>
 <%--新增按钮--%>
-<button class="layui-btn" id="add"><i class="layui-icon">&#xe654;</i></button>
+<button class="layui-btn" id="add"><i class="layui-icon">添加</i></button>
 
 <script>
     $(function () {
