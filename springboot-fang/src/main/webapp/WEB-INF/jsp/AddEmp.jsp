@@ -18,10 +18,10 @@
     <script type="application/javascript" src="/js/layui-v2.2.5/layui/layui.js"></script>
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
-<body>
+<body >
 <%--新增form--%>
-<div id="addstaff" >
-    <form class="layui-form" id="addstaffForm" >
+<div id="addstaff" style="padding-left: 300px; " style="background:url('http://1708bone.oss-cn-beijing.aliyuncs.com/file1521386800800.jpg?Expires=1836746798&OSSAccessKeyId=LTAIDWJJcHLYf4PW&Signature=iS9vEcpJqIFYcHlr0lcWxaeh%2FDA%3D') no-repeat;">
+    <form class="layui-form" id="addstaffForm" data-align="center">
 
         <input type="hidden" name="id" id="id" value="${emp.id}">
 
@@ -34,10 +34,12 @@
 
         <div class="layui-form-item">
             <label class="layui-form-label">员工微信:</label>
+            <div class="layui-upload-list" id="demo4" ></div>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" id="test3">微信上传</button>
+
                 <input type="hidden" name="weixin" id="image2" value="${emp.weixin}">
-                <div class="layui-upload-list" id="demo4" ></div>
+
             </div>
             <div class="layui-input-inline">
                 <div  id="demo3"></div>
@@ -66,16 +68,20 @@
 
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">封面</label>
+            <div class="layui-upload-list" id="demo2"></div>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" id="test2">多图片上传</button>
-                <div class="layui-upload-list" id="demo2"></div>
+
                 <input type="hidden" name="photo" id="image" value="${emp.photo}">
             </div>
         </div>
+
     </form>
+    <div id="addstaf" style="padding-left: 130px; ">
+        <%--新增按钮--%>
+        <button class="layui-btn" id="add"><i class="layui-icon">保存</i></button>
+    </div>
 </div>
-<%--新增按钮--%>
-<button class="layui-btn" id="add"><i class="layui-icon">添加</i></button>
 
 <script>
     $(function () {
@@ -154,10 +160,9 @@
                         data:$("#addstaffForm").serialize(),
                         success:function (map) {
                             if(map.success){
-                                layer.alert("操作成功！");
+                                alert("操作成功！");
                                 location.href="../Emp/toEmp.do";
-
-                            }else {
+                            }else{
                                 layer.alert("出错了！");
                                 location.href="../Emp/toEmp.do";
                             }

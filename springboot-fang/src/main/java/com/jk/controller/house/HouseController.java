@@ -133,7 +133,7 @@ public class HouseController {
         ModelAndView mv = new ModelAndView();
         HouseResource houseResource = houseService.queryHouseById(id);
         mv.addObject("houseResource",houseResource);
-        mv.setViewName("house/addHouse");
+        mv.setViewName("house/updateHouse");
         return mv;
     }
     /**
