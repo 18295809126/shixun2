@@ -17,7 +17,7 @@
 <%--新增房源信息--%>
 
 <%--修改房源信息--%>
-<form class="layui-form" id="addHouseForm">
+<form class="layui-form" id="updHouseForm">
     <input type="hidden" name="id" id="id" value="${houseResource.id}">
     <div class="layui-form-item" style="width:1000px">
         <label class="layui-form-label">房屋主题</label>
@@ -164,11 +164,11 @@
         $.ajax({
             url:"../house/addHouseDatasource",
             type:"post",
-            data:$("#addHouseForm").serialize(),
+            data:$("#updHouseForm").serialize(),
             dataType:"json",
             success:function(data){
                 if(data.success == true){
-                    alert("添加成功");
+                    alert("修改成功");
                     location.href="../house/toShowHouse.do";
                 }
             }

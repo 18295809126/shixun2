@@ -6,10 +6,13 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ *
+ */
 public class HouseResource implements Serializable {
 
-    private static final long serialVersionUID = -3822704392257469295L;
 
+    private static final long serialVersionUID = 9020724501996853893L;
     //主键ID
     private String id;
     //与人员表关联
@@ -64,6 +67,46 @@ public class HouseResource implements Serializable {
     private Date release_time;
     //房号
     private String room_num;
+
+    private Integer  price_min;
+
+    private Integer  price_max;
+
+    private  Double   house_areaMin;
+
+    private  Double   house_areaMax;
+
+    public Integer getPrice_min() {
+        return price_min;
+    }
+
+    public void setPrice_min(Integer price_min) {
+        this.price_min = price_min;
+    }
+
+    public Integer getPrice_max() {
+        return price_max;
+    }
+
+    public void setPrice_max(Integer price_max) {
+        this.price_max = price_max;
+    }
+
+    public Double getHouse_areaMin() {
+        return house_areaMin;
+    }
+
+    public void setHouse_areaMin(Double house_areaMin) {
+        this.house_areaMin = house_areaMin;
+    }
+
+    public Double getHouse_areaMax() {
+        return house_areaMax;
+    }
+
+    public void setHouse_areaMax(Double house_areaMax) {
+        this.house_areaMax = house_areaMax;
+    }
 
     public String getId() {
         return id;
@@ -165,7 +208,7 @@ public class HouseResource implements Serializable {
         if(building_time==null){
             return null;
         }
-        SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sim=new SimpleDateFormat("yyyy-MM-dd");
         return sim.format(building_time);
     }
 

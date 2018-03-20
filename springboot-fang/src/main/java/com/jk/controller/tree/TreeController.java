@@ -78,4 +78,13 @@ public class TreeController {
         return li;
 
     }
+
+    /**
+     * 跳转我的发布
+     * @return
+     */
+    @RequestMapping(value = "toShowMyPublish")
+    public String toShowMyPublish(){
+        return "/showMyPublish";
+    }
 }

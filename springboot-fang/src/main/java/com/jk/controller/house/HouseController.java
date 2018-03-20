@@ -5,6 +5,7 @@ import com.jk.model.decorate.Decorate;
 import com.jk.model.house.Community;
 import com.jk.model.house.HouseResource;
 import com.jk.model.housetype.HouseType;
+import com.jk.model.login.Temp;
 import com.jk.model.pic.HousePhoto;
 import com.jk.service.house.HouseService;
 import com.jk.utils.OssClienUtils;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,22 +32,70 @@ public class HouseController {
     @Autowired
     private HouseService houseService;
 
+//    /**
+//     * 查询房源信息
+//     * @return houseResourceList
+//     */
+//    @RequestMapping(value = "getHouseResourceList")
+//    @ResponseBody
+//    public Map<String,Object> getHouseResourceList(Integer page,Integer limit){
+//        Map<String,Object> map= new HashMap<String, Object>();
+//        List<HouseResource> houseResourceList = houseService.getHouseResourceList(page,limit);
+//        System.out.println(houseResourceList);
+//        map.put("data",houseResourceList);
+//        map.put("count",houseResourceList.size());
+//        map.put("msg","");
+//        map.put("code",0);
+//        return map;
+//    }
+
+
+
+
     /**
-     * 查询房源信息
+     * 查询房源信息分页
      * @return houseResourceList
      */
     @RequestMapping(value = "getHouseResourceList")
     @ResponseBody
-    public Map<String,Object> getHouseResourceList(Integer page,Integer limit){
-        Map<String,Object> map= new HashMap<String, Object>();
-        List<HouseResource> houseResourceList = houseService.getHouseResourceList(page,limit);
-        System.out.println(houseResourceList);
-        map.put("data",houseResourceList);
-        map.put("count",houseResourceList.size());
-        map.put("msg","");
-        map.put("code",0);
-        return map;
+    public String getHouseResourceList(HouseResource houseResource, Integer page, Integer limit) {
+
+        page =(page-1)* limit;
+        Map map = new HashMap();
+        map.put("page", page);
+        map.put("limit",limit);
+        map.put("city",houseResource.getCity());
+        map.put("county",houseResource.getCounty());
+        map.put("title",houseResource.getTitle());
+        map.put("house_areaMin",houseResource.getHouse_areaMin());
+        map.put("house_areaMax",houseResource.getHouse_areaMax());
+        map.put("building_time",houseResource.getBuilding_time());
+        map.put("room",houseResource.getRoom());
+        map.put("hall",houseResource.getHall());
+        map.put("toilet",houseResource.getToilet());
+        map.put("decorate",houseResource.getDecorate());
+        map.put("price_min",houseResource.getPrice_min());
+        map.put("price_max",houseResource.getPrice_max());
+        return queryHouseList(map);
     }
+
+    /**
+     * 条件查询房源信息
+     * @param map
+     * @return
+     */
+    private String queryHouseList(Map<String,String> map) {
+        String booklist="";
+        try {
+            System.out.println(map);
+            booklist=houseService.queryHouseList(map);
+            return  booklist;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return booklist;
+    }
+
 
     /**
      * 删除房源信息
@@ -234,4 +284,33 @@ public class HouseController {
    public String toShowHouse(){
         return "showHouse";
    }
+
+
+
+
+    /**
+     * 我的发布
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "getHouseResourceListByEmp")
+    @ResponseBody
+    public Map<String,Object> getHouseResourceListByEmp(HttpServletRequest request,Integer page,Integer limit){
+        Map<String,Object> map = new HashMap<String, Object>();
+        HttpSession session = request.getSession();
+        Temp temp = (Temp) session.getAttribute(session.getId());
+        System.out.println(temp.getId());
+        List<HouseResource> tempList =  houseService.getHouseResourceListByEmp(temp.getId(),page,limit);
+        System.out.println(tempList);
+        map.put("data",tempList);
+        map.put("msg","");
+        map.put("code",0);
+        map.put("count",houseService.getCountHouseResourceListByEmp(temp.getId()).size());
+        return map;
+    }
+
+    @RequestMapping(value = "addHouse")
+    public String addHouse(){
+        return "house/addHouse";
+    }
 }

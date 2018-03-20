@@ -1,5 +1,6 @@
 package com.jk.service.house;
 
+import com.alibaba.fastjson.JSONObject;
 import com.jk.mapper.house.HouseMapper;
 import com.jk.model.area.Area;
 import com.jk.model.decorate.Decorate;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -101,6 +103,31 @@ public class HouseServiceImpl implements HouseService {
     @Override
     public void updateHouseDatasource(HouseResource house) {
         houseMapper.updateHouseDatasource(house);
+    }
+
+    @Override
+    public String queryHouseList(Map<String, String> map) {
+        long total = houseMapper.queryHouseList(map).size();
+        List<HouseResource> list = houseMapper.queryHouseListPage(map);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("code", 0);
+        jsonObject.put("msg", "");
+        jsonObject.put("count", total);
+        jsonObject.put("data", list);
+
+        return jsonObject.toString();
+    }
+
+    @Override
+    public List<HouseResource> getHouseResourceListByEmp(String eid,Integer page, Integer limit) {
+        page=(page-1)*limit;
+        return houseMapper.getHouseResourceListByEmp(eid,page,limit);
+    }
+
+    @Override
+    public List<HouseResource> getCountHouseResourceListByEmp(String eid) {
+        return houseMapper.getCountHouseResourceListByEmp(eid);
     }
 
 }

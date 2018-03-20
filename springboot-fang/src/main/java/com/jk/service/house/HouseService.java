@@ -10,6 +10,7 @@ import com.jk.model.pic.HousePhoto;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 public interface HouseService {
 
@@ -62,4 +63,10 @@ public interface HouseService {
      * @param house
      */
     void updateHouseDatasource(HouseResource house);
+
+    String queryHouseList(Map<String, String> map);
+
+    List<HouseResource> getHouseResourceListByEmp(String eid,Integer page, Integer limit);
+
+    List<HouseResource> getCountHouseResourceListByEmp(String eid);
 }
