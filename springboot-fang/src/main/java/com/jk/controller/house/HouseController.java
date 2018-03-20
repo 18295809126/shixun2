@@ -1,5 +1,6 @@
 package com.jk.controller.house;
 
+import com.jk.model.Notice.Notice;
 import com.jk.model.area.Area;
 import com.jk.model.decorate.Decorate;
 import com.jk.model.house.Community;
@@ -20,10 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "house")
@@ -336,4 +334,165 @@ public class HouseController {
     public String addHouse(){
         return "house/addHouse";
     }
+
+	//新增图片（富文本）
+    /**
+     * 富文本编辑器图片上传
+     * @param request
+     * @param file
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "headNoticeImgUpload",method = RequestMethod.POST)
+    @ResponseBody
+    public HashMap upload(HttpServletRequest request, MultipartFile file) throws Exception {
+        HashMap<String,Object> map = new HashMap<String, Object>();
+        HashMap<String,Object> map2 = new HashMap<String, Object>();
+        try {
+            if (file == null || file.getSize() <= 0) {
+                throw new Exception("图片不能为空");
+            }
+            String  nameHz= file.getOriginalFilename(); //上传的文件名 + 后缀    如  asd.png
+            String type = "";
+            if(nameHz.contains(".png") || nameHz.contains(".jpg")){
+                type="img";
+            }
+            if(nameHz.contains(".mp4") || nameHz.contains(".ogv")){
+                type="video";
+            }else {
+                type="file";
+            }
+            OssClienUtils ossClient = new OssClienUtils();
+            String keyName = ossClient.uploadImg2Oss(file,type);
+            String imgUrl = ossClient.getImgUrl(keyName);
+            System.out.println(imgUrl);
+            map2.put("src",imgUrl);//图片url
+            map2.put("width","10px");//图片url
+            map2.put("height","10px");//图片url
+            map.put("code",0);//0表示成功，1失败
+            map.put("msg","上传成功");//提示消息
+            map.put("data",map2);
+        }catch (Exception e){
+            map.put("code",1);//0表示成功，1失败
+            map.put("msg","上传失败");//提示消息
+            e.printStackTrace();
+        }
+      /*  String result = new JSONObject(map).toString();*/
+        return map;
+    }
+    @RequestMapping(value = "addNotice")
+    @ResponseBody
+    public Map<String,Object> addNotice(Notice notice, HttpServletRequest request){
+        Map<String,Object> map=new HashMap<String, Object>();
+        try{
+            HttpSession session = request.getSession();
+            Temp emp = (Temp) session.getAttribute(session.getId());
+            notice.setId(UUID.randomUUID().toString().replaceAll("-",""));
+            notice.setEmpid(emp.getId());
+            notice.setEmpname(emp.getName());
+            notice.setAuditFlag(1);
+            notice.setEmpnum(emp.getPhonenumer());
+            notice.setReleasetime(new Date());
+            houseService.addNotice(notice);
+            map.put("success",true);
+        }catch (Exception e){
+            e.printStackTrace();
+            map.put("success",false);
+        }
+        return map;
+    }
+
+    /**
+     * 查询公告
+     * @return
+     */
+    @RequestMapping(value = "getNotice")
+    @ResponseBody
+    public Map<String,Object> getNotice(Integer page,Integer limit){
+        Map<String,Object> map= new HashMap<String, Object>();
+        List<Notice> notice = houseService.getNotice(page,limit);
+        System.out.println(notice);
+        map.put("data",notice);
+        map.put("count",notice.size());
+        map.put("msg","");
+        map.put("code",0);
+        return map;
+    }
+
+    /**
+     * 修改发布公告为通过
+     * @param id
+     * @return
+     */
+    @RequestMapping("updateFlagto2")
+    @ResponseBody
+    public Map<String,Object> updateFlagto2(String id){
+        Map<String,Object> map = new HashMap<String, Object>();
+        try{
+            houseService.updateFlag2(id);
+            map.put("success",true);
+        }catch (Exception e){
+            e.printStackTrace();
+            map.put("success",false);
+        }
+        return map;
+    }
+
+    /**
+     * 修改发布公告为通过
+     * @param id
+     * @return
+     */
+    @RequestMapping("updateFlagto3")
+    @ResponseBody
+    public Map<String,Object> updateFlagto3(String id){
+        Map<String,Object> map = new HashMap<String, Object>();
+        try{
+            houseService.updateFlagto3(id);
+            map.put("success",true);
+        }catch (Exception e){
+            e.printStackTrace();
+            map.put("success",false);
+        }
+        return map;
+    }
+
+     /**
+     * 修改发布公告为通过
+     * @param id
+     * @return
+     */
+    @RequestMapping("updateFlagTo2")
+    @ResponseBody
+    public Map<String,Object> updateFlagTo2(String id){
+        Map<String,Object> map = new HashMap<String, Object>();
+        try{
+            houseService.updateFlagTo2(id);
+            map.put("success",true);
+        }catch (Exception e){
+            e.printStackTrace();
+            map.put("success",false);
+        }
+        return map;
+    }
+
+
+    /**
+     * 分页查询发布公告信息
+     * @param page
+     * @param limit
+     * @return
+     */
+    @RequestMapping(value = "queryNotice")
+    @ResponseBody
+    public Map<String,Object> queryNotice(Integer page,Integer limit){
+        Map<String,Object> map = new HashMap<String, Object>();
+        List<Notice> noticeList = houseService.queryNotice(page,limit);
+        map.put("data",noticeList);
+        map.put("count",noticeList.size());
+        map.put("msg","");
+        map.put("code",0);
+        return map;
+    }
+
 }

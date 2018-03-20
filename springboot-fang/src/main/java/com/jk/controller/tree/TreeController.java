@@ -92,4 +92,30 @@ public class TreeController {
     public String getkaka(){
         return "log";
     }
+
+	/**
+     * 跳转发布公告页面
+     * @return
+     */
+    @RequestMapping(value = "toAddNotice")
+    public String toAddNotice(){
+        return "notice/addNotice";
+    }
+
+    /**
+     * 跳转公告查看页面
+     * @return
+     */
+    @RequestMapping(value = "toShowNotice")
+    public String toShowNotice(){
+        return "notice/showNotice";
+    }
+
+    /**
+     * 跳转到登录员工发布的公告页面
+     */
+    @RequestMapping(value = "toQueryNotice")
+    public String toQueryNotice(){
+        return "notice/showEmpNotice";
+    }
 }

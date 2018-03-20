@@ -2,6 +2,7 @@ package com.jk.service.house;
 
 import com.alibaba.fastjson.JSONObject;
 import com.jk.mapper.house.HouseMapper;
+import com.jk.model.Notice.Notice;
 import com.jk.model.area.Area;
 import com.jk.model.decorate.Decorate;
 import com.jk.model.house.Community;
@@ -138,4 +139,42 @@ public class HouseServiceImpl implements HouseService {
         return houseMapper.getCountHouseResourceListByEmp(eid);
     }
 
+	@Override
+    public void addNotice(Notice notice) {
+        houseMapper.addNotice(notice);
+    }
+
+    @Override
+    public List<Notice> getNotice(Integer page, Integer limit) {
+        page=(page-1)*limit;
+        return houseMapper.getNotice(page,limit);
+    }
+
+    @Override
+    public void updateFlag2(String id) {
+        houseMapper.updateFlag2(id);
+    }
+
+    @Override
+    public void updateFlagto3(String id) {
+        houseMapper.updateFlagto3(id);
+    }
+
+    @Override
+    public void updateFlagTo2(String id) {
+        houseMapper.updateFlagTo2(id);
+    }
+
+    /**
+     * 分页查询发布公告信息
+     * @param page
+     * @param limit
+     * @return
+     */
+    @Override
+    public List<Notice> queryNotice(Integer page, Integer limit) {
+        page = (page - 1) * limit;
+        List<Notice> noticeList = houseMapper.queryNotice(page,limit);
+        return noticeList;
+    }
 }

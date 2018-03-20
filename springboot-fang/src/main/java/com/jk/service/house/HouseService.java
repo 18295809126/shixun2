@@ -1,5 +1,6 @@
 package com.jk.service.house;
 
+import com.jk.model.Notice.Notice;
 import com.jk.model.area.Area;
 import com.jk.model.decorate.Decorate;
 import com.jk.model.house.Community;
@@ -68,4 +69,17 @@ public interface HouseService {
     List<HouseResource> getHouseResourceListByEmp(String eid,Integer page, Integer limit);
 
     List<HouseResource> getCountHouseResourceListByEmp(String eid);
+
+	void addNotice(Notice notice);
+
+    List<Notice> getNotice(Integer page, Integer limit);
+
+    void updateFlag2(String id);
+
+    void updateFlagto3(String id);
+
+    void updateFlagTo2(String id);
+
+    List<Notice> queryNotice(Integer page, Integer limit);
 }
+

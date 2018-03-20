@@ -1,5 +1,6 @@
 package com.jk.mapper.house;
 
+import com.jk.model.Notice.Notice;
 import com.jk.model.area.Area;
 import com.jk.model.decorate.Decorate;
 import com.jk.model.house.Community;
@@ -108,4 +109,19 @@ public interface HouseMapper {
             "LEFT JOIN t_community co ON shr.community=co.id where shr.emp_id=#{eid}" +
             "limit #{page},#{limit}")
     List<HouseResource> getHouseResourceListByEmp(@Param("eid") String eid,@Param("page") Integer page,@Param("limit") Integer limit);
+
+	@Insert("insert into t_notice(id,empid,empnum,releasetime,content,headline,empname,auditFlag) values(#{id},#{empid},#{empnum},#{releasetime},#{content},#{headline},#{empname},#{auditFlag})")
+    void addNotice(Notice notice);
+    @Select("select id,empid,empnum,releasetime,content,headline,empname,auditFlag from t_notice limit #{page},#{limit}")
+    List<Notice> getNotice(@Param("page") Integer page, @Param("limit")Integer limit);
+
+    @Update("update t_notice set auditFlag=2 where id=#{id} and auditFlag=1")
+    void updateFlag2(String id);
+    @Update("update t_notice set auditFlag=3 where id=#{id} and auditFlag=2")
+    void updateFlagto3(String id);
+    @Update("update t_notice set auditFlag=2 where id=#{id} and auditFlag=3")
+    void updateFlagTo2(String id);
+
+    @Select("select * from t_notice")
+    List<Notice> queryNotice(@Param("page")Integer page, @Param("limit") Integer limit);
 }
