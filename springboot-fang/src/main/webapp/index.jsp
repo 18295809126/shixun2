@@ -42,20 +42,41 @@
                     <div class="layui-tab-item layui-show">
                         <div class="layui-container">
                             <div class="layui-row">
-                                <div class="layui-col-md6" style="background: #A7F43D;height: 50%">
-                                    你的内容 6/12
+                                <div class="layui-col-md6" style="background: white;height: 50%">
+                                    <div class="layui-collapse">
+                                        <div class="layui-colla-item">
+                                            <h2 class="layui-colla-title">左上区域</h2>
+                                            <div class="layui-colla-content layui-show">内容区域</div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="layui-col-md6" style="background: gold;height: 50%" >
-                                    你的内容 6/12
+                                <div class="layui-col-md6" style="background: white;height: 50%" >
+                                    <div class="layui-collapse">
+                                        <div class="layui-colla-item">
+                                            <h2 class="layui-colla-title">右上区域</h2>
+                                            <div class="layui-colla-content layui-show">内容区域</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="layui-row">
-                                <div class="layui-col-md6" style="background: #00F7DE;height: 50%">
-                                    你的内容 6/12
+                                <div class="layui-col-md6" style="background: white;height: 50%">
+                                    <div class="layui-collapse">
+                                        <div class="layui-colla-item">
+                                            <h2 class="layui-colla-title">左下区域</h2>
+                                            <div class="layui-colla-content layui-show">内容区域</div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="layui-col-md6" style="background: #eb7350;height: 50%">
-                                    <center><h1>公告栏</h1></center>
-                                    <%--location.href="../house/getHouseResourceList";--%>
+                                <div class="layui-col-md6" style="background: white;height: 50%">
+                                    <div class="layui-collapse">
+                                        <div class="layui-colla-item">
+                                            <h2 class="layui-colla-title">公告</h2>
+                                            <div class="layui-colla-content layui-show">
+                                                <table id="notice" class="layui-table" lay-filter="test"></table>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -68,6 +89,7 @@
 
 </body>
  <script>
+
     var $;
     layui.use(['element'], function(){
         $ = layui.jquery
@@ -186,6 +208,29 @@
         return ulHtml;
     }
 
-
+    /*公告*/
+    layui.use(['table','form','laydate'], function() {
+        var table = layui.table,
+            laydate = layui.laydate;
+        var form = layui.form;
+        table.render({
+            elem: '#notice'
+            , url: ''
+            , page: true
+            ,height:300
+            , cols: [[ //表头
+                 {field: 'id', title: 'ID', width: 60, sort: true, fixed: 'left'}
+                , {field: 'headline', title: '标题', width: 120, fixed: 'left'}
+                , {field: 'empname', title: '发布人姓名', width: 120}
+                , {field: 'empnum', title: '发布人手机号', width: 130}
+                , {
+                    field: 'xx', title: '操作', width: 120, templet: function (d) {
+                        return '<a href="javascript:？？？？？" class="layui-btn layui-btn-sm">详情</a>';
+                        return '<a href="javascript:？？？？？" class="layui-btn layui-btn-sm">联系发布人</a>';
+                    }
+                }
+            ]]
+        });
+    });
 </script>
 </html>
