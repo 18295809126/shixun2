@@ -15,6 +15,12 @@ spring:
         url: jdbc:mysql://rm-2zebj150s7a6v277zqo.mysql.rds.aliyuncs.com:3306/1708bone?useUnicode=true&characterEncoding=utf-8&useSSL=true
         username: root
         password: 1708bROOT
+    data:
+        mongodb:
+          host: 127.0.0.1
+          database: 1708blog
+          port: 27017
+
 
 ###################以下为druid增加的配置###########################
         type: com.alibaba.druid.pool.DruidDataSource

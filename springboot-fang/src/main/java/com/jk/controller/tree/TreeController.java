@@ -87,4 +87,9 @@ public class TreeController {
     public String toShowMyPublish(){
         return "/showMyPublish";
     }
+    //跳日志管理
+    @RequestMapping(value = "getkaka")
+    public String getkaka(){
+        return "log";
+    }
 }

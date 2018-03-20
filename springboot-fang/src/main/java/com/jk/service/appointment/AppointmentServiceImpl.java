@@ -6,6 +6,7 @@ import com.jk.utils.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
@@ -20,9 +21,11 @@ public class AppointmentServiceImpl implements AppointmentService {
      * @param appointment
      */
     @Override
-    public void addAppointment(Appointment appointment) {
+    public void addAppointment(Appointment appointment, HttpServletRequest request) {
         appointment.setId(UUIDUtils.UUID());
         appointment.setAppointmentTime(new Date());
+        String emp_id = (String) request.getSession().getAttribute("id");
+        appointment.setEmp_id(emp_id);
         appointmentMapper.addAppointment(appointment);
     }
 

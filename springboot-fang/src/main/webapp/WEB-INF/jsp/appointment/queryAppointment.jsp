@@ -17,11 +17,11 @@
             //,height: 480
             ,url: '../appointment/getAppointmentList.do' //数据接口
             ,page: true //开启分页
-            ,cellMinWidth: 80
+            //,cellMinWidth: 100
             ,cols: [[ //表头
                  {field: 'id', title: '选择',width:80, sort: true, fixed: 'left',type:'checkbox'}
-                ,{field: 'title', title: '房源', width:150, fixed: 'left'}
-                ,{field: 'community', title: '所在小区', width:100, fixed: 'left',
+                ,{field: 'title', title: '房源', fixed: 'left', width: 80}
+                ,{field: 'community', title: '所在小区', fixed: 'left', width: 100,
                     templet: function (d) {
                         if (d.community == 1) {
                             return "育新花园";
@@ -32,11 +32,12 @@
                         }
                     }
                 }
-                ,{field: 'userName', title: '用户名', width:100}
-                ,{field: 'userSex', title: '性别', width:100,}
-                ,{field: 'userPhonenum', title: '联系方式', width:120, sort: true}
-                ,{field: 'appointmentTime', title: '预约时间', width: 150}
-                ,{field: 'xxx', title: '删除', width: 160,templet:function (d) {
+                ,{field: 'userName', title: '用户名',width:120,}
+                ,{field: 'userSex', title: '性别',}
+                ,{field: 'userPhonenum', title: '联系方式',width:150,sort: true}
+                ,{field: 'name', title: '员工名称', width: 100,}
+                ,{field: 'reservations_time', title: '看房时间',width:200}
+                ,{field: 'xxx', title: '删除',templet:function (d) {
                     return '<a href="javascript:delHouse('+'\''+d.id+'\''+')" class="layui-btn layui-btn-sm">删除</a>';
                 }}
             ]]

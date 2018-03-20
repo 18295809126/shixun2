@@ -13,102 +13,81 @@
 
 <form class="layui-form" id="houseForm">
 
-                <div class="layui-form-item">
-                    <label class="layui-form-label">房屋标题</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="title"id="uname"  size="10" lay-verify="title" autocomplete="off" placeholder="请输入标题" lay-verify="required" class="layui-input">
-                    </div>
-                </div>
+    <div class="layui-form-item" style="width:1000px">
+        <label class="layui-form-label">房屋标题</label>
+        <div class="layui-input-inline" style="width: 200px; display: inline-block; margin-left: 10px; float: left;">
+            <input type="text" name="title"id="uname"  size="10" lay-verify="title" autocomplete="off" placeholder="请输入标题" lay-verify="required" class="layui-input">
+        </div>
+        <label class="layui-form-label">建造年代</label>
+        <div class="layui-input-block" style="width: 200px; display: inline-block; margin-left: 10px; float: left;">
+            <input type="text" name="building_time" id="building_time"   lay-verify="" placeholder="请输入年代：yyyy" autocomplete="off" class="layui-input">
+        </div>
 
-                <div class="layui-form-item">
-                    <label class="layui-form-label">建造年代</label>
-                    <div class="layui-input-block" style="width: 150px">
-                        <input type="text" name="building_time" id="building_time"   lay-verify="" placeholder="请输入年代：yyyy" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
+        <label class="layui-form-label">房屋户型</label>
+        <div class="layui-input-block" style="width: 65px; display: inline-block; margin-left: 10px; float: left;">
+            <input type="text" name="room" id="room" required  lay-verify="required" placeholder="室" autocomplete="off" class="layui-input" style="width:50px">
+        </div>
+        <div class="layui-input-block" style="width: 65px; display: inline-block; margin-left: 5px; float: left;">
+            <input type="text" name="hall" id="hall" required  lay-verify="required" placeholder="厅" autocomplete="off" class="layui-input" style="width:50px">
+        </div>
+        <div class="layui-input-block" style="width: 65px; display: inline-block; margin-left: 5px; float: left;">
+            <input type="text" name="toilet" id="toilet" required  lay-verify="required" placeholder="卫" autocomplete="off" class="layui-input" style="width:50px">
+        </div>
+    </div>
 
-                <div class="layui-form-item" style="width:350px">
-                    <label class="layui-form-label">房屋户型</label>
-                    <div class="layui-input-block" style="width: 65px; display: inline-block; margin-left: 1px; float: left;">
-                        <input type="text" name="room" id="room" required  lay-verify="required" placeholder="室" autocomplete="off" class="layui-input" style="width:50px">
-                    </div>
-                    <div class="layui-input-block" style="width: 65px; display: inline-block; margin-left: 5px; float: left;">
-                        <input type="text" name="hall" id="hall" required  lay-verify="required" placeholder="厅" autocomplete="off" class="layui-input" style="width:50px">
-                    </div>
-                    <div class="layui-input-block" style="width: 65px; display: inline-block; margin-left: 5px; float: left;">
-                        <input type="text" name="toilet" id="toilet" required  lay-verify="required" placeholder="卫" autocomplete="off" class="layui-input" style="width:50px">
-                    </div>
+    <div class="layui-form-item" style="width:1000px">
+        <label class="layui-form-label">房屋面积</label>
+        <div class="layui-input-inline" style="width: 65px; display: inline-block; margin-left: 10px; float: left;">
+            <input name="house_areaMin" placeholder="/m²" autocomplete="off" class="layui-input" type="text">
+        </div>
+        <div class="layui-form-mid">-</div>
+        <div class="layui-input-inline" style="width: 65px; display: inline-block; margin-left: 10px; float: left;">
+            <input name="house_areaMax" placeholder="/m²" autocomplete="off" class="layui-input" type="text">
+        </div>
 
-                </div>
+        <label class="layui-form-label">售价区间</label>
+        <div class="layui-input-inline" style="width: 65px; display: inline-block; margin-left: 10px; float: left;">
+            <input type="text" name="price_min" id="price_min" placeholder="￥" autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-form-mid">-</div>
+        <div class="layui-input-inline" style="width: 65px; display: inline-block; margin-left: 10px; float: left;">
+            <input type="text" name="price_max" id="price_max" placeholder="￥" autocomplete="off" class="layui-input">
+        </div>
+        <label class="layui-form-label">装修情况</label>
+        <div class="layui-input-inline" style="width: 200px; display: inline-block; margin-left: 10px; float: left;">
+            <select name="decorate" id="decorate">
+            </select>
+        </div>
+    </div>
 
+    <div class="layui-form-item">
+        <label class="layui-form-label">房屋地区</label>
+        <div class="layui-input-inline">
+            <select name="province" id="province" lay-filter="province">
+                <option value="-1">请选择省</option>
+            </select>
+        </div>
+        <div class="layui-input-inline">
+            <select name="city" id="city" lay-filter="city">
+                <option value="-1">请选择市</option>
+            </select>
+        </div>
+        <div class="layui-input-inline">
+            <select name="county" id="county">
+                <option value="-1">请选择县/区</option>
+            </select>
+        </div>
+    </div>
 
-                <div class="layui-form-item">
-                    <div class="layui-inline">
-                        <label class="layui-form-label">房屋面积</label>
-                        <div class="layui-input-inline" style="width: 100px;">
-                            <input name="house_areaMin" placeholder="/m²" autocomplete="off" class="layui-input" type="text">
-                        </div>
-                        <div class="layui-form-mid">-</div>
-                        <div class="layui-input-inline" style="width: 100px;">
-                            <input name="house_areaMax" placeholder="/m²" autocomplete="off" class="layui-input" type="text">
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="layui-form-item">
-                    <div class="layui-inline">
-                        <label class="layui-form-label">售价区间</label>
-                        <div class="layui-input-inline" style="width: 100px;">
-                            <input type="text" name="price_min" id="price_min" placeholder="￥" autocomplete="off" class="layui-input">
-                        </div>
-                        <div class="layui-form-mid">-</div>
-                        <div class="layui-input-inline" style="width: 100px;">
-                            <input type="text" name="price_max" id="price_max" placeholder="￥" autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
-                </div>
-
-
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label">装修情况</label>
-                    <div class="layui-input-inline">
-                        <select name="decorate" id="decorate">
-                        </select>
-                    </div>
-                </div>
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label">房屋地区</label>
-                    <div class="layui-input-inline">
-                        <select name="province" id="province" lay-filter="province">
-                            <option value="-1">请选择省</option>
-                        </select>
-                    </div>
-                    <div class="layui-input-inline">
-                        <select name="city" id="city" lay-filter="city">
-                            <option value="-1">请选择市</option>
-                        </select>
-                    </div>
-                    <div class="layui-input-inline">
-                        <select name="county" id="county">
-                            <option value="-1">请选择县/区</option>
-                        </select>
-                    </div>
-                </div>
-
-
-                <div id="pTable" style=" height:100%;margin:0;height:100%">
-                    <div>
-                        &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<a class="layui-btn layui-btn-danger layui-btn-mini"  onclick="toHouseAdd()">新增</a>
-                        <a class="layui-btn layui-btn-danger layui-btn-mini" id="searchSellHouse">搜索</a>
-                        <button type="reset" class="layui-btn layui-btn-mini">重置</button>
-                        <table class="layui-table" id="layui_table_id" lay-filter="test"></table>
-                        <div id="laypage"></div>
-                    </div>
-                </div>
-
+    <div id="pTable" style=" height:100%;margin:0;height:100%">
+        <div>
+            &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<a class="layui-btn layui-btn-danger layui-btn-mini"  onclick="toHouseAdd()">新增</a>
+            <a class="layui-btn layui-btn-danger layui-btn-mini" id="searchSellHouse">搜索</a>
+            <button type="reset" class="layui-btn layui-btn-mini">重置</button>
+            <table class="layui-table" id="layui_table_id" lay-filter="test"></table>
+            <div id="laypage"></div>
+        </div>
+    </div>
 </form>
 </body>
 <script>
@@ -237,9 +216,9 @@
             elem: '#layui_table_id'
             , url: '../house/getHouseResourceList'
             ,page:true
+            ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
             ,cols: [[ //表头
-                {field: 'XX', title: '', checkbox:true, width: 80, sort: true, fixed: 'left'},
-                {field: 'id', title: 'ID',width:80, sort: true, fixed: 'left'}
+                {field: 'id', title: 'XX',width:80, sort: true, fixed: 'left', checkbox:true}
                 ,{field: 'title', title: '主题', width:80, fixed: 'left'}
                 ,{field: 'price', title: '价格', width:80}
                 ,{field: 'community', title: '所在小区', width:100}

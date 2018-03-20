@@ -23,7 +23,7 @@
     <form class="layui-form" id="addAppointmentForm">
         <input type="hidden" value="${house.id}" name="houseid"/>
         <div class="layui-form-item" style="width:300px">
-            <label class="layui-form-label">名称</label>
+            <label class="layui-form-label">姓名</label>
             <div class="layui-input-block">
                 <input type="text" name="userName"  id="userName" required  lay-verify="required" autocomplete="off" class="layui-input">
             </div>
@@ -40,6 +40,12 @@
             <label class="layui-form-label">联系方式</label>
             <div class="layui-input-block">
                 <input type="text" name="userPhonenum"  id="userPhonenum" required  lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item" style="width:300px">
+            <label class="layui-form-label">预约看房</label>
+            <div class="layui-input-block">
+                <input type="text" name="reservations_time"  id="reservations_time" required  lay-verify="required" autocomplete="off" class="layui-input">
             </div>
         </div>
             <center>
@@ -94,7 +100,7 @@
               <td style=""><font >建造年代:</font>:</td>
               <td>${house.building_time}</td>
               <td style="padding-left: 50px">房屋单价:</td>
-              <td>${house.unit_price}元/m2</td> </td>
+              <td>${house.unit_price}元/㎡</td> </td>
               <td style="padding-left: 50px">参考首付:</td>
               <td>257万</td>
               <td style="padding-left: 50px">参考月供:</td>
@@ -181,6 +187,15 @@ ${house.community_complete}
             ins3.reload(options);
         });
 
+        //预约看房时间
+        layui.use('laydate', function(){
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#reservations_time',//指定元素
+            });
+        });
+
     });
     function addAppointment() {
         addtab("");
@@ -216,7 +231,7 @@ ${house.community_complete}
                         if (data.success == true){
                             alert("预约成功")
                             layer.close(index);
-                            $("#addAppointmentForm").reset();
+                            $("#addAppointmentForm").clear();
                             location.href="../house/toShowHouse.do";
                         }
                     }
