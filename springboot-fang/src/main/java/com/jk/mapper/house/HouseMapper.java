@@ -3,7 +3,6 @@ package com.jk.mapper.house;
 import com.jk.model.area.Area;
 import com.jk.model.decorate.Decorate;
 import com.jk.model.house.Community;
-import com.jk.model.house.House;
 import com.jk.model.house.HouseResource;
 import com.jk.model.housetype.HouseType;
 import com.jk.model.pic.HousePhoto;

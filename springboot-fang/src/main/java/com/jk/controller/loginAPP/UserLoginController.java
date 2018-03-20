@@ -51,6 +51,7 @@ public class UserLoginController {
             if (emp != null){
                 session.setAttribute(session.getId(),emp);
                 map.put("success",true);
+                request.getSession().setAttribute("id",emp.getId());
             }else {
                 map.put("success",false);
                 map.put("messager","用户不存在");

@@ -5,7 +5,6 @@ import com.jk.mapper.house.HouseMapper;
 import com.jk.model.area.Area;
 import com.jk.model.decorate.Decorate;
 import com.jk.model.house.Community;
-import com.jk.model.house.House;
 import com.jk.model.house.HouseResource;
 import com.jk.model.housetype.HouseType;
 import com.jk.model.pic.HousePhoto;
@@ -47,7 +46,9 @@ public class HouseServiceImpl implements HouseService {
     @Override
     public void addHouseDatasource(HouseResource house, HttpServletRequest request) {
         String uuid = UUID.randomUUID().toString().replaceAll("-","");
+        String emp_id = (String) request.getSession().getAttribute("id");
         house.setId(uuid);
+        house.setEmp_id(emp_id);
         houseMapper.addHouseDatasource(house);
         //将房源ID存在session里
         request.getSession().setAttribute("houseid",house.getId());
@@ -100,8 +101,15 @@ public class HouseServiceImpl implements HouseService {
         return houseMapper.queryHouseById(id);
     }
 
+    /**
+     * 修改房源信息
+     * @param house
+     * @param request
+     */
     @Override
-    public void updateHouseDatasource(HouseResource house) {
+    public void updateHouseDatasource(HouseResource house,HttpServletRequest request) {
+        String emp_id = (String) request.getSession().getAttribute("id");
+        house.setEmp_id(emp_id);
         houseMapper.updateHouseDatasource(house);
     }
 

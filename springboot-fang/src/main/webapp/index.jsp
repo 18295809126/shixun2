@@ -36,11 +36,29 @@
         <div style="padding: 15px;">
             <div class="layui-tab" lay-filter="myTab" lay-allowclose="true">
                 <ul class="layui-tab-title">
-                    <li class="layui-this" lay-id="11">我爱我家</li>
+                    <li class="layui-this" lay-id="11">欢迎</li>
                 </ul>
                 <div class="layui-tab-content">
-                    <div class="layui-tab-item layui-show">首页
-
+                    <div class="layui-tab-item layui-show">
+                        <div class="layui-container">
+                            <div class="layui-row">
+                                <div class="layui-col-md6" style="background: #A7F43D;height: 50%">
+                                    你的内容 6/12
+                                </div>
+                                <div class="layui-col-md6" style="background: gold;height: 50%" >
+                                    你的内容 6/12
+                                </div>
+                            </div>
+                            <div class="layui-row">
+                                <div class="layui-col-md6" style="background: #00F7DE;height: 50%">
+                                    你的内容 6/12
+                                </div>
+                                <div class="layui-col-md6" style="background: #eb7350;height: 50%">
+                                    <center><h1>公告栏</h1></center>
+                                    <%--location.href="../house/getHouseResourceList";--%>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -165,7 +165,7 @@ public class HouseController {
             //判断id是否为空 不为空走修改
             if (house.getId() != null && house.getId() != "") {
                 map.put("success", true);
-                houseService.updateHouseDatasource(house);
+                houseService.updateHouseDatasource(house,request);
             }else{
                 houseService.addHouseDatasource(house,request);
                 map.put("success", true);
@@ -184,6 +184,16 @@ public class HouseController {
         HouseResource houseResource = houseService.queryHouseById(id);
         mv.addObject("houseResource",houseResource);
         mv.setViewName("house/updateHouse");
+        return mv;
+    }
+
+    @RequestMapping(value = "queryHouseByIds")
+    @ResponseBody
+    public ModelAndView queryHouseByIds(String id){
+        ModelAndView mv = new ModelAndView();
+        HouseResource houseResource = houseService.queryHouseById(id);
+        mv.addObject("houseResource",houseResource);
+        mv.setViewName("house/updateMyHouse");
         return mv;
     }
     /**
@@ -283,6 +293,19 @@ public class HouseController {
    @RequestMapping(value = "toShowHouse")
    public String toShowHouse(){
         return "showHouse";
+   }/**
+
+     * 新增完成以后跳转到房源展示页面
+     * @return
+     */
+   @RequestMapping(value = "toShowMyHouse")
+   public String toShowMyHouse(){
+        return "showMyPublish";
+   }
+
+   @RequestMapping("addMyHouse")
+   public String addMyHouse(){
+       return "house/addMyHouse";
    }
 
 

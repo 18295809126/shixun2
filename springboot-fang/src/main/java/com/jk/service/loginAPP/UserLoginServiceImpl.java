@@ -52,7 +52,7 @@ public class UserLoginServiceImpl implements UserLoginService{
         Temp empSmS = userLoginMapper.getUserNumber(phonenumer);
         if (empSmS != null){
             int random = (int) ((Math.random()*9+1)*100000);
-            sendSMS(phonenumer,random);
+            /*sendSMS(phonenumer,random);*/
             redisTemplate.opsForValue().set(phonenumer+"checkcode",random+"",5, TimeUnit.MINUTES);
             System.out.println(redisTemplate.opsForValue().get(phonenumer+"checkcode"));
             return 1;

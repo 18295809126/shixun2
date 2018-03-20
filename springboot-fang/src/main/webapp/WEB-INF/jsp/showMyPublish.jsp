@@ -25,17 +25,23 @@
             elem: '#houses'
             , url: '../house/getHouseResourceListByEmp.do'
             , page: true
+            ,height:450
             , cols: [[ //表头
-                {field: 'XX', title: '', checkbox:true, width: 80, sort: true, fixed: 'left'}
-                , {field: 'id', title: 'ID', width: 80, sort: true, fixed: 'left'}
-                , {field: 'title', title: '主题', width: 130, fixed: 'left'}
-                , {field: 'price', title: '价格', width: 80}
-                , {field: 'community', title: '所在小区', width: 100}
-                , {field: 'building_time', title: '建筑年代', width: 120, sort: true}
-                , {field: 'house_floor', title: '房屋楼层', width: 100}
-                , {field: 'release_time', title: '发布时间', width: 120, sort: true}
-                , {field: 'house_area', title: '面积', width: 103, sort: true}
+                {field: 'XX', title: '', checkbox:true, width: 30, sort: true, fixed: 'left'}
+                , {field: 'id', title: 'ID', width: 60, sort: true, fixed: 'left'}
+                , {field: 'title', title: '主题', width: 60, fixed: 'left'}
+                , {field: 'price', title: '价格', width: 60}
+                , {field: 'community', title: '所在小区', width: 60}
+                , {field: 'building_time', title: '建筑年代', width: 100, sort: true}
+                , {field: 'house_floor', title: '房屋楼层', width: 80}
+                , {field: 'release_time', title: '发布时间', width: 110, sort: true}
+                , {field: 'house_area', title: '面积', width: 73, sort: true}
                 , {field: 'decorate', title: '装修程度', width: 80}
+                , {
+                    field: 'xx', title: '新增', width: 60, templet: function (d) {
+                        return '<a href="javascript:toAddHouse()" class="layui-btn layui-btn-sm">跳转</a>';
+                    }
+                }
                 , {
                     field: 'xx', title: '详情', width: 80, templet: function (d) {
                         return '<a href="javascript:showHouseAllLists(' + '\'' + d.id + '\'' + ')" class="layui-btn layui-btn-sm">查看</a>';
@@ -78,7 +84,20 @@
         })
     }
 
+    //详情房源数据
+    function showHouseAllLists(id){
+        location.href="../house/showHouseInfo.do?id="+id;
+    }
 
+    function updHouses(id) {
+        location.href="../house/queryHouseByIds.do?id="+id;
+
+    }
+
+    //跳转新增页面
+    function toAddHouse(){
+        location.href="../house/addMyHouse.do";
+    }
 
 </script>
 </html>
