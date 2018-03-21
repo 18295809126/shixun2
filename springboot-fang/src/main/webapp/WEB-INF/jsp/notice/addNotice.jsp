@@ -26,13 +26,10 @@
     <textarea id="content" name="content" style="display: none;"></textarea>
     <center>
     <div class="layui-form-item" style="width:1000px">
-
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             <a class="layui-btn layui-btn-mini" onclick="addNotice()" lay-event="edit">提交</a>
-
     </div>
     </center>
-
 
 </form>
 </body>
@@ -46,7 +43,7 @@
                 ,type: 'post' //默认post
             }
         });
-    indexsfour =layedit.build('content', {
+      indexsfour =layedit.build('content', {
         height: 280, //设置编辑器高度
     }); //建立编辑器
 });

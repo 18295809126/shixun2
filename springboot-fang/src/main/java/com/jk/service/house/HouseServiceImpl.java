@@ -8,6 +8,7 @@ import com.jk.model.decorate.Decorate;
 import com.jk.model.house.Community;
 import com.jk.model.house.HouseResource;
 import com.jk.model.housetype.HouseType;
+import com.jk.model.login.Temp;
 import com.jk.model.pic.HousePhoto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -176,5 +177,20 @@ public class HouseServiceImpl implements HouseService {
         page = (page - 1) * limit;
         List<Notice> noticeList = houseMapper.queryNotice(page,limit);
         return noticeList;
+    }
+
+    @Override
+    public List<Notice> getNoticeInfo(Integer page, Integer limit) {
+        return houseMapper.getNoticeInfo(page,limit);
+    }
+
+    @Override
+    public List<Notice> getNoticeById(String id) {
+        return houseMapper.getNoticeById(id);
+    }
+
+    @Override
+    public List<Temp> getEmpEmail(String id) {
+        return houseMapper.getEmpEmail(id);
     }
 }

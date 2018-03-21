@@ -10,23 +10,23 @@
 
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <div class="layui-logo">一组</div>
+        <div class="layui-logo"><h2>༺ཉི།千钧阁།ཉྀ༻</h2></div>
 
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                    真水无香
+                    <img src='${emp.photo}' class="layui-nav-img">
+                    ${emp.name}
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">基本资料</a></dd>
+                    <dd> <a href="javascript:buttonss()">查看日志</a></dd>
                     <dd><a href="">安全设置</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item"><a href="">注销</a></li>
+            <li class="layui-nav-item"><a href="">主页面</a></li>
         </ul>
     </div>
-
+    <div id="wahaha" style=" display: none;"><table id="loguser" lay-filter="test"></table></div>
     <div class="layui-side layui-bg-black">
         <div class="navBar layui-side-scroll"></div>
     </div>
@@ -73,7 +73,7 @@
                                         <div class="layui-colla-item">
                                             <h2 class="layui-colla-title">公告</h2>
                                             <div class="layui-colla-content layui-show">
-                                                <table id="notice" class="layui-table" lay-filter="test"></table>
+                                                <table id="notices" class="layui-table" lay-filter="test"></table>
                                             </div>
                                         </div>
                                     </div>
@@ -85,6 +85,31 @@
             </div>
         </div>
     </div>
+</div>
+
+<div id="showNotice" style="display: none">
+    <textarea id="content" class="layui-textarea" style="display: none;">
+
+    </textarea>
+</div>
+
+<div style="display:none" id="321">
+
+    <form class="layui-form" id="fasong">
+        <label class="layui-form-label">收件人</label>
+        <div class="layui-input-block">
+            <input type="text" id="mail" name="mail" required  lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+        </div>
+        <label class="layui-form-label">主题</label>
+        <div class="layui-input-block">
+            <input type="text" name="headline" required  lay-verify="required" placeholder="请输入主题" autocomplete="off" class="layui-input">
+        </div>
+        <label class="layui-form-label">内容</label>
+        <div>
+            <textarea id="fwbbjq" name="content" class="layui-textarea"></textarea>
+        </div>
+    </form>
+
 </div>
 
 </body>
@@ -208,29 +233,189 @@
         return ulHtml;
     }
 
+    //查询日志弹框
+    function buttonss(){
+        $("#wahaha").val("getkaka.do");
+        //示范一个公告层
+        layer.open({
+            type: 1,
+            title: false, //不显示标题栏,
+            closeBtn: false,
+            area: '1000px;',
+            shade: 0.8,
+            id: 'LAY_layuipro', //设定一个id，防止重复弹出,
+            btn: ['进攻Σ(っ °Д °;)っ', '滚犊子(ノ｀Д)ノ'],
+            btnAlign: 'c',
+            moveType: 1, //拖拽模式，0或者1,
+            /*content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">你知道吗？亲！<br>layer ≠ layui<br><br>layer只是作为Layui的一个弹层模块，由于其用户基数较大，所以常常会有人以为layui是layerui<br><br>layer虽然已被 Layui 收编为内置的弹层模块，但仍然会作为一个独立组件全力维护、升级。<br><br>我们此后的征途是星辰大海 ^_^</div>'*/
+            content: $("#wahaha"),
+            success: function (layero) {
+                var btn = layero.find('.layui-layer-btn');
+                btn.find('.layui-layer-btn0').attr({
+                    /*href: 'http://www.layui.com/'*/
+                    href: "getkaka.do"
+                    , target: '_blank'
+                });
+            }
+        })
+    }
+
+    //查询日志页面
+    layui.use('table', function(){
+        var table = layui.table;
+        //第一个实例
+        table.render({
+            elem: '#loguser'
+            //,height: 480
+            ,url: 'login/getPerson' //数据接口
+            ,cols: [[ //表头
+                {field: 'id', title: '日志ID',width:180,align:'center', sort: true,type:'checkbox'}
+                ,{field: 'username', title: '登陆姓名',width:200,align:'center'}
+                ,{field: 'newDate', title: '日志日期',width:200,align:'center',sort: true}
+                ,{field: 'flag', title: '登陆状态',width:200,align:'center',sort: true}
+                ,{field: 'address', title: 'IP地址',width:200,align:'center',sort: true}
+            ]]
+            , height: 330
+        });
+    });
+
     /*公告*/
     layui.use(['table','form','laydate'], function() {
         var table = layui.table,
             laydate = layui.laydate;
         var form = layui.form;
         table.render({
-            elem: '#notice'
-            , url: ''
+            elem: '#notices'
+            , url: '../house/getNoticeInfo.do'
             , page: true
             ,height:300
             , cols: [[ //表头
-                 {field: 'id', title: 'ID', width: 60, sort: true, fixed: 'left'}
-                , {field: 'headline', title: '标题', width: 120, fixed: 'left'}
-                , {field: 'empname', title: '发布人姓名', width: 120}
-                , {field: 'empnum', title: '发布人手机号', width: 130}
+                  {field: 'id', title: 'ID', width: 50, sort: true, fixed: 'left'}
+                , {field: 'headline', title: '标题', width: 100, fixed: 'left'}
+                , {field: 'empname', title: '发布人姓名', width: 80}
+                , {field: 'empnum', title: '发布人手机号', width: 120}
                 , {
-                    field: 'xx', title: '操作', width: 120, templet: function (d) {
-                        return '<a href="javascript:？？？？？" class="layui-btn layui-btn-sm">详情</a>';
-                        return '<a href="javascript:？？？？？" class="layui-btn layui-btn-sm">联系发布人</a>';
+                    field: 'xx', title: '详情', width: 80, templet: function (d) {
+                        return '<a href="javascript:showNotice('+'\''+d.id+'\''+')" class="layui-btn layui-btn-sm">查看</a>';
+                    }
+                },
+                {
+                    field: 'xx', title: '联系发布人', width: 90, templet: function (d) {
+                        return '<a href="javascript:toSendEmail('+'\''+d.id+'\''+')" class="layui-btn layui-btn-sm">邮件</a>';
                     }
                 }
             ]]
         });
     });
+
+  function showNotice(id) {
+      $.ajax({
+          url:"../house/getNoticeById.do",
+          data:{"id":id},
+          dataType:"json",
+          type:"post",
+          success:function (data) {
+                 contents=data.content;
+                    alert(contents);
+                  layui.use(['layedit','form'], function(){
+                  layedit = layui.layedit;
+                  var form=layui.form;
+
+                  $("#content").val(contents);
+                  layedit.build('content'); //建立编辑器
+                  form.render();
+              })
+          },error:function () {
+              alert("GG");
+          }
+
+      })
+      //弹框
+      layui.use('layer', function(){
+          var layer = layui.layer;
+          layer.open({
+              title:'查看详情',
+              type: 1,
+              content:$("#showNotice"),//这里content是一个普通的String
+              area:['800px', '420px'],
+              offset:'auto',
+              btn:['确认'],
+              yes: function(index, layero){
+                  layedit.sync(indexs);
+              }
+          });
+      });
+
+  }
+
+ function toSendEmail(id) {
+     $.ajax({
+         url:"../house/getEmpEmail.do",
+         data:{"id":id},
+         type:"post",
+         dataType:"json",
+         success:function(data){
+             emails=data.email;
+
+             layui.use(['layedit','form'], function(){
+                 layedit = layui.layedit;
+                 var form=layui.form;
+                 $("#mail").val(emails);
+
+                 layedit.build('fwbbjq'); //建立编辑器
+                 form.render();
+             });
+         },
+     })
+     //弹框
+     layui.use('layer', function(){
+         var layer = layui.layer;
+       var  mains = layer.open({
+             title:'联系发送人',
+             type: 1,
+             content:$("#321"),//这里content是一个普通的String
+             area:['900', '500'],
+             offset:'auto',
+             btn:['发送'],
+             yes: function(index, layero){
+                 upEmail();
+                 layer.close(mains);
+                 layedit.sync(indexs);
+             }
+         });
+     });
+ }
+
+    function upEmail(){
+        $.ajax({
+            url:"../house/sendEmail.do",
+            type:"post",
+            data:$("#fasong").serialize(),
+            dataType:"text",
+            success:function(){
+                alert("成功")
+            },
+            error:function(){
+                alert("成功")
+            }
+        })
+    }
+
+    //登陆用户头像名字展示
+    layui.use('table', function(){
+        var table = layui.table;
+
+        table.render({
+            elem: '#logtitle'
+            ,url:'../Emp/showEmp.do'
+            ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+            ,cols: [[
+                ,{field:'name', width:80, title: '用户名'}
+                ,{field: 'photo', title: '图片', width: 130,templet:'<div><img src="{{d.photo}}"></div>'}
+            ]]
+        });
+    });
+
+
 </script>
 </html>

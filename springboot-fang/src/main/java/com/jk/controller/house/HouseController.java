@@ -9,6 +9,7 @@ import com.jk.model.housetype.HouseType;
 import com.jk.model.login.Temp;
 import com.jk.model.pic.HousePhoto;
 import com.jk.service.house.HouseService;
+import com.jk.utils.EmailUtil;
 import com.jk.utils.OssClienUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,8 +20,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 @Controller
@@ -159,12 +163,14 @@ public class HouseController {
     @ResponseBody
     public Map<String,Object> addHouseDatasource(HouseResource house, HttpServletRequest request){
         Map<String,Object> map = new HashMap<String,Object>();
+        Integer housing_state = 1;
         try {
             //判断id是否为空 不为空走修改
             if (house.getId() != null && house.getId() != "") {
                 map.put("success", true);
                 houseService.updateHouseDatasource(house,request);
             }else{
+                house.setHousing_state(housing_state);
                 houseService.addHouseDatasource(house,request);
                 map.put("success", true);
             }
@@ -493,6 +499,67 @@ public class HouseController {
         map.put("msg","");
         map.put("code",0);
         return map;
+    }
+
+    /**
+     * 查询公告
+     * @param page
+     * @param limit
+     * @return
+     */
+    @RequestMapping(value = "getNoticeInfo")
+    @ResponseBody
+    public Map<String,Object> getNoticeInfo(Integer page,Integer limit){
+        Map<String,Object> map = new HashMap<String, Object>();
+        List<Notice> noticeList = houseService.getNoticeInfo(page,limit);
+        map.put("data",noticeList);
+        map.put("count",noticeList.size());
+        map.put("msg","");
+        map.put("code",0);
+        return map;
+    }
+
+    @RequestMapping("getNoticeById")
+    @ResponseBody
+    public Map<String,Object> getNoticeById(String id){
+        Map<String,Object> map = new HashMap<String, Object>();
+        List<Notice> noticeList = houseService.getNoticeById(id);
+        ArrayList<String> list = new ArrayList<>();
+        for (Notice notice : noticeList) {
+            list.add(notice.getContent());
+        }
+        map.put("content",list);
+        return map;
+    }
+
+    @RequestMapping("getEmpEmail")
+    @ResponseBody
+    public Map<String,Object> getEmpEmail(String id){
+        Map<String,Object> map = new HashMap<String, Object>();
+        List<Temp> temp = houseService.getEmpEmail(id);
+        System.out.println(temp);
+        ArrayList<String> list = new ArrayList<>();
+        for (Temp temp1 : temp) {
+            list.add(temp1.getMail());
+        }
+        map.put("email",list);
+        return map;
+    }
+
+    @RequestMapping("sendEmail")
+    public void sendEmail(Notice notice){
+        System.out.println(notice);
+        try {
+            ArrayList<File> files = new ArrayList<File>();
+            for (int i = 0; i < 1; i++) {
+                files.add(new File("C:\\Users\\xzkp\\Downloads\\b1cf771d3991e90ee9f9a749563b241b.jpg"));
+            }
+            EmailUtil.sendHtmlAndFailMail(notice.getMail(),notice.getHeadline(),"hello",files);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 
 }

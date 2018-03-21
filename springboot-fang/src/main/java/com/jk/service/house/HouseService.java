@@ -6,6 +6,7 @@ import com.jk.model.decorate.Decorate;
 import com.jk.model.house.Community;
 import com.jk.model.house.HouseResource;
 import com.jk.model.housetype.HouseType;
+import com.jk.model.login.Temp;
 import com.jk.model.pic.HousePhoto;
 
 import javax.servlet.http.HttpServletRequest;
@@ -81,5 +82,11 @@ public interface HouseService {
     void updateFlagTo2(String id);
 
     List<Notice> queryNotice(Integer page, Integer limit);
+
+    List<Notice> getNoticeInfo(Integer page, Integer limit);
+
+    List<Notice> getNoticeById(String id);
+
+    List<Temp> getEmpEmail(String id);
 }
 

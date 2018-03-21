@@ -68,6 +68,26 @@ public class HouseResource implements Serializable {
     //房号
     private String room_num;
 
+    //租金
+    private  Double   rent_money;
+
+    //押金
+    private  Double   deposit_money;
+    //押金业务字段   将押金转换为汉字
+    private String chineseMepositMoney;
+
+    public String getChineseMepositMoney() {
+        return chineseMepositMoney;
+    }
+
+    public void setChineseMepositMoney(String chineseMepositMoney) {
+        this.chineseMepositMoney = chineseMepositMoney;
+    }
+
+    //房源状态（1、待租 2、已售）
+    private Integer housing_state;
+
+
     private Integer  price_min;
 
     private Integer  price_max;
@@ -326,6 +346,30 @@ public class HouseResource implements Serializable {
         this.house_floor = house_floor;
     }
 
+    public Double getRent_money() {
+        return rent_money;
+    }
+
+    public void setRent_money(Double rent_money) {
+        this.rent_money = rent_money;
+    }
+
+    public Double getDeposit_money() {
+        return deposit_money;
+    }
+
+    public void setDeposit_money(Double deposit_money) {
+        this.deposit_money = deposit_money;
+    }
+
+    public Integer getHousing_state() {
+        return housing_state;
+    }
+
+    public void setHousing_state(Integer housing_state) {
+        this.housing_state = housing_state;
+    }
+
     @Override
     public String toString() {
         return "HouseResource{" +
@@ -355,6 +399,13 @@ public class HouseResource implements Serializable {
                 ", service_introduce='" + service_introduce + '\'' +
                 ", release_time=" + release_time +
                 ", room_num='" + room_num + '\'' +
+                ", rent_money=" + rent_money +
+                ", deposit_money=" + deposit_money +
+                ", housing_state=" + housing_state +
+                ", price_min=" + price_min +
+                ", price_max=" + price_max +
+                ", house_areaMin=" + house_areaMin +
+                ", house_areaMax=" + house_areaMax +
                 '}';
     }
 }

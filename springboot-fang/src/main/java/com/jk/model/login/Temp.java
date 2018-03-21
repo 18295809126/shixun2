@@ -23,6 +23,16 @@ public class Temp implements Serializable {
 
     private String yzm;
 
+    private String mail;
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
     public String getId() {
         return id;
     }

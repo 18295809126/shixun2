@@ -50,6 +50,7 @@ public class UserLoginController {
         try {
             if (emp != null){
                 session.setAttribute(session.getId(),emp);
+                session.setAttribute("emp",emp);
                 map.put("success",true);
                 request.getSession().setAttribute("id",emp.getId());
             }else {

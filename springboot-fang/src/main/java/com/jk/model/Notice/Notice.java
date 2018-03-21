@@ -24,6 +24,17 @@ public class Notice implements Serializable {
 
     private Integer auditFlag;
 
+    private String mail;
+
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
     public String getId() {
         return id;
     }
@@ -102,7 +113,8 @@ public class Notice implements Serializable {
                 ", content='" + content + '\'' +
                 ", headline='" + headline + '\'' +
                 ", empname='" + empname + '\'' +
-                ", auditFlag='" + auditFlag + '\'' +
+                ", auditFlag=" + auditFlag +
+                ", mail='" + mail + '\'' +
                 '}';
     }
 }
