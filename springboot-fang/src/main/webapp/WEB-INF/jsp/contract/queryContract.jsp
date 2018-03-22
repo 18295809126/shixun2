@@ -29,23 +29,23 @@
                 ,{field: 'lease_name', title: '出租方', fixed: 'left', width: 80}
                 ,{field: 'lessee_name', title: '承租方', fixed: 'left', width: 80}
                 ,{field: 'title', title: '房屋租赁', fixed: 'left', width: 80}
-                ,{field: 'rent_time', title: '起租时间', fixed: 'left', width: 90}
-                ,{field: 'finish_time', title: '到租时间', fixed: 'left', width: 90}
+                ,{field: 'rent_time', title: '起租时间', fixed: 'left', width: 120}
+                ,{field: 'finish_time', title: '到租时间', fixed: 'left', width: 120}
                 ,{field: 'payment_name', title: '付款方式关联id', fixed: 'left', width: 80}
                 ,{field: 'name', title: '分期状态关联id', fixed: 'left', width: 80}
-                ,{field: 'generation_time', title: '合同生成日期', fixed: 'left', width: 90}
-                ,{field: 'mention_rent', title: '收租金时间', fixed: 'left', width: 70}
+                ,{field: 'generation_time', title: '合同生成日期', fixed: 'left', width: 120}
+                ,{field: 'mention_rent', title: '收租金时间', fixed: 'left', width: 100}
                 ,{field: 'liquidated_damages', title: '违约金', fixed: 'left', width: 80}
-                ,{field: 'one_money', title: '第一次支付金额', fixed: 'left', width: 80}
+                ,{field: 'one_money', title: '第一次支付金额', fixed: 'left', width: 130}
                 ,{field: 'xxx', title: '删除',templet:function (d) {
                     return '<a href="javascript:delHouse('+'\''+d.code+'\''+')" class="layui-btn layui-btn-sm">删除</a>';
                 }}
-                ,{field: 'xxx', title: '生成',templet:function (d) {
+                /*,{field: 'xxx', title: '生成',templet:function (d) {
                     return '<a href="javascript:createWord('+'\''+d.code+'\''+')" class="layui-btn layui-btn-sm">word</a>';
                 }}
                 ,{field: 'xxx', title: '生成',templet:function (d) {
                     return '<a href="javascript:createPdf('+'\''+d.code+'\''+')" class="layui-btn layui-btn-sm">pdf</a>';
-                }}
+                }}*/
             ]]
             , height: 540
             ,done: function(res, curr, count){

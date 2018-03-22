@@ -8,7 +8,9 @@ import com.jk.model.house.Community;
 import com.jk.model.house.HouseResource;
 import com.jk.model.housetype.HouseType;
 import com.jk.model.login.Temp;
+import com.jk.model.payment.Payment;
 import com.jk.model.pic.HousePhoto;
+import com.jk.model.stages.Stages;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
@@ -233,4 +235,35 @@ public interface HouseMapper {
      */
     @Delete("delete from t_contract where code=#{code}")
     void delContract(String code);
+
+    /**
+     * 查询房源和员工名称
+     * @return
+     */
+    @Select("SELECT shr.id,shr.title,e.name AS emp_id FROM t_sell_house_resource shr \n" +
+            "LEFT JOIN t_emp e ON e.id=shr.emp_id")
+    List<HouseResource> getHouseAndEmp();
+
+    /**
+     * 查询分期方式
+     * @return
+     */
+    @Select("SELECT id,NAME FROM t_stages order by id asc")
+    List<Stages> getStagingType();
+
+    /**
+     * 查询付款方式
+     * @return
+     */
+    @Select("SELECT id,payment_name FROM t_payment")
+    List<Payment> getPaymentType();
+
+    /**
+     * 查询租金
+     * @param id
+     * @return
+     */
+    @Select("SELECT shr.rent_money,shr.deposit_money,e.name AS NAME FROM t_sell_house_resource shr\n" +
+            "LEFT JOIN t_emp e ON e.id=shr.emp_id where  shr.id=#{id}")
+    List<HouseResource> getRent(String id);
 }

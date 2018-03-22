@@ -15,8 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * 注册拦截器   
  * Created by SYSTEM on 2017/8/16.   
  */
-@Configuration
-//@EnableWebMvc
+//@Configuration
 public class WebAppConfig extends WebMvcConfigurerAdapter {
 
     @Bean

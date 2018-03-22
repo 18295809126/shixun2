@@ -8,7 +8,9 @@ import com.jk.model.house.Community;
 import com.jk.model.house.HouseResource;
 import com.jk.model.housetype.HouseType;
 import com.jk.model.login.Temp;
+import com.jk.model.payment.Payment;
 import com.jk.model.pic.HousePhoto;
+import com.jk.model.stages.Stages;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -95,5 +97,14 @@ public interface HouseService {
     List<Contract> getContractList(Integer page, Integer limit);
 
     void delContract(String code);
+
+    List<HouseResource> getHouseAndEmp();
+
+    List<Stages> getStagingType();
+
+    List<Payment> getPaymentType();
+
+    List<HouseResource> getRent(String id);
+
 }
 

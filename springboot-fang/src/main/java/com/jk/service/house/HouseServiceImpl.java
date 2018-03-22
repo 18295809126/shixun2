@@ -10,7 +10,9 @@ import com.jk.model.house.Community;
 import com.jk.model.house.HouseResource;
 import com.jk.model.housetype.HouseType;
 import com.jk.model.login.Temp;
+import com.jk.model.payment.Payment;
 import com.jk.model.pic.HousePhoto;
+import com.jk.model.stages.Stages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -213,5 +215,25 @@ public class HouseServiceImpl implements HouseService {
     @Override
     public void delContract(String code) {
         houseMapper.delContract(code);
+    }
+
+    @Override
+    public List<HouseResource> getHouseAndEmp() {
+        return houseMapper.getHouseAndEmp();
+    }
+
+    @Override
+    public List<Stages> getStagingType() {
+        return houseMapper.getStagingType();
+    }
+
+    @Override
+    public List<Payment> getPaymentType() {
+        return houseMapper.getPaymentType();
+    }
+
+    @Override
+    public List<HouseResource> getRent(String id) {
+        return houseMapper.getRent(id);
     }
 }

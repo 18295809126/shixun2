@@ -8,7 +8,9 @@ import com.jk.model.house.Community;
 import com.jk.model.house.HouseResource;
 import com.jk.model.housetype.HouseType;
 import com.jk.model.login.Temp;
+import com.jk.model.payment.Payment;
 import com.jk.model.pic.HousePhoto;
+import com.jk.model.stages.Stages;
 import com.jk.service.house.HouseService;
 import com.jk.utils.EmailUtil;
 import com.jk.utils.OssClienUtils;
@@ -26,6 +28,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -616,6 +620,86 @@ public class HouseController {
         }catch (Exception e){
             e.printStackTrace();
             map.put("success",false);
+        }
+        return map;
+    }
+
+    /**
+     * 查询房源信息
+     * @return
+     */
+    @RequestMapping("getHouseAndEmp")
+    @ResponseBody
+    public List<HouseResource> getHouseAndEmp(){
+        return houseService.getHouseAndEmp();
+    }
+
+    /**
+     * 查询分期
+     * @return
+     */
+    @RequestMapping("getStagingType")
+    @ResponseBody
+    public List<Stages> getStagingType(){
+        return houseService.getStagingType();
+    }
+
+    /**
+     * 查询付款方式
+     * @return
+     */
+    @RequestMapping("getPaymentType")
+    @ResponseBody
+    public List<Payment> getPaymentType(){
+        return houseService.getPaymentType();
+    }
+
+    /**
+     * 查询租金
+     * @param id
+     * @return
+     */
+    @RequestMapping("getRent")
+    @ResponseBody
+    public List<HouseResource> getRent(String id){
+        return houseService.getRent(id);
+    }
+
+    /**
+     * 计算钱
+     * @param contract
+     * @return
+     */
+    @RequestMapping("calculateMonet")
+    @ResponseBody
+    public Map<String,Object> calculateMonet(Contract contract){
+        Map<String,Object> map=new HashMap<String, Object>();
+        String rent_time = contract.getRent_time();
+        String finish_time = contract.getFinish_time();
+        SimpleDateFormat sim= new SimpleDateFormat("yyyy-MM-dd");
+        Date parse = null;
+        Date parse1 =null;
+        try {
+            parse = sim.parse(finish_time);
+            parse1 = sim.parse(rent_time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        long finishtime = parse.getTime();
+        long renttime = parse1.getTime();
+        long aa=finishtime-renttime;
+        System.out.println(finishtime);
+        System.out.println(renttime);
+        if(aa<0){
+            map.put("msg",false);
+        }else{
+            long dayCount=aa/(3600*24*1000);
+            int cc= (int) (dayCount % 30 == 0 ? (dayCount / 30) : (dayCount / 30)+1);
+            System.out.println(cc);
+            System.out.println(dayCount);
+            double one_money = (cc * (contract.getRent_money()) / (contract.getStaging_state())) + contract.getDeposit_money();
+            System.out.println(one_money);
+            map.put("one_money",one_money);
         }
         return map;
     }
