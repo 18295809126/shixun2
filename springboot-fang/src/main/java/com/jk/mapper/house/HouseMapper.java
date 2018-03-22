@@ -2,6 +2,7 @@ package com.jk.mapper.house;
 
 import com.jk.model.Notice.Notice;
 import com.jk.model.area.Area;
+import com.jk.model.contract.Contract;
 import com.jk.model.decorate.Decorate;
 import com.jk.model.house.Community;
 import com.jk.model.house.HouseResource;
@@ -200,4 +201,36 @@ public interface HouseMapper {
     @Select("SELECT e.id,e.mail FROM t_emp e\n" +
             "LEFT JOIN t_notice n ON e.id=n.empid WHERE n.id=#{id}")
     List<Temp> getEmpEmail(String id);
+
+	    /**
+     * 新增合同
+     * @param contract
+     */
+    @Select("INSERT INTO t_contract(code,lease_name,lessee_name,house_id,rent_time,finish_time,payment_method,staging_state,generation_time,mention_rent,liquidated_damages,one_money) " +
+            "values(#{code},#{lease_name},#{lessee_name},#{house_id},#{rent_time},#{finish_time},#{payment_method},#{staging_state},#{generation_time},#{mention_rent},#{liquidated_damages},#{one_money})")
+    void addContract(Contract contract);
+
+    /**
+     * 修改房源状态
+     * @param house_id
+     */
+    @Update("update t_sell_house_resource set housing_state=2 where  id=#{house_id} and housing_state=1")
+    void updHouseFalg(String house_id);
+
+    /**
+     * 查询合同信息
+     * @param page
+     * @param limit
+     * @return
+     */
+
+    @Select("SELECT t.code,t.lease_name,t.lessee_name,h.title,t.rent_time,t.finish_time,h.rent_money,p.payment_name,d.name,h.deposit_money,t.generation_time,t.mention_rent,t.liquidated_damages,t.one_money FROM t_contract AS t LEFT JOIN t_sell_house_resource AS h ON t.house_id=h.id LEFT JOIN t_payment AS p ON t.payment_method =p.id LEFT JOIN t_stages AS d ON t.staging_state=d.id")
+    List<Contract> getContractList(Integer page, Integer limit);
+
+    /**
+     * 删除合同
+     * @param code
+     */
+    @Delete("delete from t_contract where code=#{code}")
+    void delContract(String code);
 }

@@ -2,6 +2,7 @@ package com.jk.service.house;
 
 import com.jk.model.Notice.Notice;
 import com.jk.model.area.Area;
+import com.jk.model.contract.Contract;
 import com.jk.model.decorate.Decorate;
 import com.jk.model.house.Community;
 import com.jk.model.house.HouseResource;
@@ -88,5 +89,11 @@ public interface HouseService {
     List<Notice> getNoticeById(String id);
 
     List<Temp> getEmpEmail(String id);
+
+	void addContract(Contract contract);
+
+    List<Contract> getContractList(Integer page, Integer limit);
+
+    void delContract(String code);
 }
 

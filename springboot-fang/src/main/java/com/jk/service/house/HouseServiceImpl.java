@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.jk.mapper.house.HouseMapper;
 import com.jk.model.Notice.Notice;
 import com.jk.model.area.Area;
+import com.jk.model.contract.Contract;
 import com.jk.model.decorate.Decorate;
 import com.jk.model.house.Community;
 import com.jk.model.house.HouseResource;
@@ -192,5 +193,25 @@ public class HouseServiceImpl implements HouseService {
     @Override
     public List<Temp> getEmpEmail(String id) {
         return houseMapper.getEmpEmail(id);
+    }
+
+	@Override
+    public void addContract(Contract contract) {
+        houseMapper.addContract(contract);
+        try{
+            houseMapper.updHouseFalg(contract.getHouse_id());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<Contract> getContractList(Integer page, Integer limit) {
+        return houseMapper.getContractList(page,limit);
+    }
+
+    @Override
+    public void delContract(String code) {
+        houseMapper.delContract(code);
     }
 }

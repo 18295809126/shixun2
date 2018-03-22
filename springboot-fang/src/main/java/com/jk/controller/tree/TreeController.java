@@ -141,4 +141,22 @@ public class TreeController {
     public String toPreviewContract(){
         return "contract/previewContract";
     }
+
+	/**
+     * 跳转新增合同页面
+     * @return
+     */
+    @RequestMapping(value = "toAddContract")
+    public String toAddContract(){
+        return "contract/addContract";
+    }
+
+    /**
+     * 查询合同信息
+     * @return
+     */
+    @RequestMapping(value = "toQueryContract")
+    public String toQueryAppointment(){
+        return "contract/queryContract";
+    }
 }

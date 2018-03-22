@@ -2,6 +2,7 @@ package com.jk.controller.house;
 
 import com.jk.model.Notice.Notice;
 import com.jk.model.area.Area;
+import com.jk.model.contract.Contract;
 import com.jk.model.decorate.Decorate;
 import com.jk.model.house.Community;
 import com.jk.model.house.HouseResource;
@@ -560,6 +561,63 @@ public class HouseController {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+    }
+
+	    /**
+     * 新增合同
+     * @param contract
+     * @return
+     */
+    @RequestMapping("addContract")
+    @ResponseBody
+    public Map<String,Object> addContract(Contract contract){
+        Map<String,Object> map=new HashMap<String, Object>();
+        try{
+            String time = String.valueOf(new Date().getTime());
+            contract.setCode(time);
+            contract.setGeneration_time(new Date());
+            houseService.addContract(contract);
+            map.put("success",true);
+        }catch (Exception e){
+            e.printStackTrace();
+            map.put("success",false);
+        }
+        return map;
+    }
+
+    /**
+     * 查询合同信息
+     * @return
+     */
+    @RequestMapping(value = "getContractList")
+    @ResponseBody
+    public Map<String,Object> getContractList(Integer page, Integer limit){
+        Map<String,Object> map = new HashMap<String, Object>();
+        List<Contract> appointmentList = houseService.getContractList(page,limit);
+        map.put("data",appointmentList);
+        map.put("count",appointmentList.size());
+        map.put("msg","");
+        map.put("code",0);
+        return map;
+    }
+
+    /**
+     * 删除合同
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "delContract")
+    @ResponseBody
+    public Map<String,Object> delContract(String code){
+        Map<String,Object> map= new HashMap<String, Object>();
+        try{
+            houseService.delContract(code);
+            map.put("success",true);
+        }catch (Exception e){
+            e.printStackTrace();
+            map.put("success",false);
+        }
+        return map;
     }
 
 }
