@@ -5,5 +5,7 @@ import com.jk.model.tree.Tree;
 import java.util.List;
 
 public interface TreeService {
-    List<Tree> getTree();
+    List<Tree> getTree(String id);
+
+    List<Tree> geturl(String id);
 }

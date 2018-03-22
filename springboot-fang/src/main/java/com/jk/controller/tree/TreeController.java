@@ -1,13 +1,17 @@
 package com.jk.controller.tree;
 
+import com.jk.model.login.Temp;
 import com.jk.model.tree.Tree;
 import com.jk.service.tree.TreeService;
 import com.jk.utils.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,13 +45,23 @@ public class TreeController {
      */
     @RequestMapping(value = "queryTree")
     @ResponseBody
-    public String getTree(){
-        List<Tree> list = treeService.getTree();
-        List<Map<String, Object>> maps = printTree(list, 0);
-        String s = JsonUtil.entityToJson(maps);
-        return s;
-    }
+    public List<Map<String,Object>> getTree(HttpServletRequest httpServletRequest){
+        HttpSession session = httpServletRequest.getSession();
+        String id = session.getId();
+        if(!StringUtils.isEmpty(session.getAttribute(id))){
+            Temp emp = (Temp) session.getAttribute(session.getId());
+            List<Tree> list = treeService.getTree(emp.getId());
+            List<Map<String, Object>> maps = printTree(list, 0);
+            //String s = JsonUtil.entityToJson(maps);
+            return maps;
 
+        }
+        else{
+
+            return null;
+        }
+
+    }
     /**
      * 整理菜单
      * @return
@@ -117,5 +131,14 @@ public class TreeController {
     @RequestMapping(value = "toQueryNotice")
     public String toQueryNotice(){
         return "notice/showEmpNotice";
+    }
+
+    /**
+     * 跳转到预览合同页面
+     * @return
+     */
+    @RequestMapping(value = "toPreviewContract")
+    public String toPreviewContract(){
+        return "contract/previewContract";
     }
 }

@@ -12,11 +12,14 @@ public class TreeServiceImpl implements TreeService {
     @Autowired
     private TreeMapper treeMapper;
 
-
-
+    @Override
+    public List<Tree> getTree(String id) {
+        return treeMapper.getTree(id);
+    }
 
     @Override
-    public List<Tree> getTree() {
-        return treeMapper.getTree();
+    public List<Tree> geturl(String id) {
+
+        return treeMapper.getUrl(id);
     }
 }

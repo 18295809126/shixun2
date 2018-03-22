@@ -129,7 +129,7 @@
                // ,{field:'photo', width:80, title: '城市'}
                 ,{field: 'photo', title: '图片', width: 130,templet:'<div><img src="{{d.photo}}"></div>'}
                 ,{field:'phonenumer', title: '手机号', width:120} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
-                ,{field:'loginnumber', title: '登陆名', sort: true}
+                ,{field:'loginnumber', title: '登陆名', width:100,sort: true}
                 ,{field:'password', title: '密码', sort: true}
                 ,{field:'33', title: '操作',align:'center', toolbar: '#barDemo'}
             ]]
