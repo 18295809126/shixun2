@@ -574,17 +574,28 @@ public class HouseController {
      */
     @RequestMapping("addContract")
     @ResponseBody
-    public Map<String,Object> addContract(Contract contract){
+    public Map<String,Object> addContract(Contract contract, HttpServletRequest request){
         Map<String,Object> map=new HashMap<String, Object>();
         try{
             String time = String.valueOf(new Date().getTime());
             contract.setCode(time);
             contract.setGeneration_time(new Date());
-            houseService.addContract(contract);
+            houseService.addContract(contract,request);
             map.put("success",true);
         }catch (Exception e){
             e.printStackTrace();
             map.put("success",false);
+        }finally {
+            try {
+                //生成word
+                houseService.toFreeWord(contract.getCode());
+                System.out.println("生成word完成——");
+                //生成pdf
+                houseService.toFreePdf(contract.getCode());
+                System.out.println("生成pdf完成——");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return map;
     }
@@ -633,6 +644,18 @@ public class HouseController {
     public List<HouseResource> getHouseAndEmp(){
         return houseService.getHouseAndEmp();
     }
+
+    /**
+     * 查询房源信息
+     * @return
+     */
+    @RequestMapping("getHouseAndEmpSell")
+    @ResponseBody
+    public List<HouseResource> getHouseAndEmpSell(){
+        return houseService.getHouseAndEmpSell();
+    }
+
+
 
     /**
      * 查询分期
@@ -703,5 +726,16 @@ public class HouseController {
         }
         return map;
     }
+
+    /**
+     * 跳转卖房合同
+     * @return
+     */
+    @RequestMapping(value = "sellHosueContrct")
+    public String sellHosueContrct(){
+        return "/contract/addSellContract";
+    }
+
+
 
 }

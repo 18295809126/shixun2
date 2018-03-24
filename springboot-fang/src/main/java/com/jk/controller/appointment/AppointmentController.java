@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,25 +16,6 @@ import java.util.Map;
 public class AppointmentController {
     @Autowired
     private AppointmentService appointmentService;
-
-    /**
-     * 新增预约信息  卢杰
-     * @param appointment
-     * @return
-     */
-    @RequestMapping(value = "addAppointment")
-    @ResponseBody
-    public Map<String,Object> addAppointment(Appointment appointment, HttpServletRequest request){
-        Map<String,Object> map = new HashMap<String,Object>();
-        try {
-            appointmentService.addAppointment(appointment,request);
-            map.put("success", true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("fail", false);
-        }
-        return map;
-    }
 
     /**
      * 跳转到预约房源信息页面

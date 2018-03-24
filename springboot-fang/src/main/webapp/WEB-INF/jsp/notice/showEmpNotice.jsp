@@ -26,13 +26,13 @@
                 ,page:true
                // ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
                 ,cols: [[ //表头
-                    {field: 'id', title: 'XX',width:80, sort: true, fixed: 'left', checkbox:true}
-                    ,{field: 'empnum', title: '手机号', width:180, fixed: 'left'}
-                    ,{field: 'headline', title: '标题', width:140, fixed: 'left'}
-                    ,{field: 'empname', title: '员工姓名', width:180, fixed: 'left'}
-                    ,{field: 'releasetime', title: '公告发布时间', width: 180, fixed: 'left'}
-                    ,{field: 'content', title: '内容', width: 180, fixed: 'left'}
-                    ,{field: 'auditFlag', title: '审核状态', fixed: 'left', width: 180,
+                    {field: 'id', title: 'XX',align:'center', sort: true, fixed: 'left', checkbox:true}
+                    ,{field: 'empnum', title: '手机号', align:'center', fixed: 'left'}
+                    ,{field: 'headline', title: '标题', align:'center', fixed: 'left'}
+                    ,{field: 'empname', title: '员工姓名', align:'center', fixed: 'left'}
+                    ,{field: 'releasetime', title: '公告发布时间', align:'center', fixed: 'left'}
+                    ,{field: 'content', title: '内容', align:'center', fixed: 'left'}
+                    ,{field: 'auditFlag', title: '审核状态', fixed: 'left', align:'center',
                         templet: function (d) {
                             if (d.auditFlag == 1) {
                                 return "待审核";
@@ -44,7 +44,7 @@
                         }
                     }
                 ]]
-                , height: 430
+                , height: 600
             });
         });
 

@@ -40,14 +40,8 @@
                 ,{field: 'xxx', title: '删除',templet:function (d) {
                     return '<a href="javascript:delHouse('+'\''+d.code+'\''+')" class="layui-btn layui-btn-sm">删除</a>';
                 }}
-                /*,{field: 'xxx', title: '生成',templet:function (d) {
-                    return '<a href="javascript:createWord('+'\''+d.code+'\''+')" class="layui-btn layui-btn-sm">word</a>';
-                }}
-                ,{field: 'xxx', title: '生成',templet:function (d) {
-                    return '<a href="javascript:createPdf('+'\''+d.code+'\''+')" class="layui-btn layui-btn-sm">pdf</a>';
-                }}*/
             ]]
-            , height: 540
+            , height: 600
             ,done: function(res, curr, count){
                 //如果是异步请求数据方式，res即为你接口返回的信息。
                 //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度

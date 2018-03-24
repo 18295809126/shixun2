@@ -69,7 +69,7 @@ public class SqlProvider {
                 "LEFT JOIN t_house_type ht ON shr.room_type=ht.id\n" +
                 "LEFT JOIN t_decorate de ON shr.decorate=de.id\n" +
                 "LEFT JOIN t_community co ON shr.community=co.id " );
-        house.append("   WHERE 1=1");
+        house.append("   WHERE shr.housing_state=1 OR shr.housing_state=3");
         if( province != null && province != -1 ){
             house.append("  and");
             house.append("  shr.province = #{province}");
@@ -201,7 +201,7 @@ public class SqlProvider {
                     "LEFT JOIN t_house_type ht ON shr.room_type=ht.id\n" +
                     "LEFT JOIN t_decorate de ON shr.decorate=de.id\n" +
                     "LEFT JOIN t_community co ON shr.community=co.id " );
-            house.append(" WHERE 1=1");
+            house.append(" WHERE shr.housing_state=1 OR shr.housing_state=3");
             if( province != null && province != -1 ){
                 house.append("  and");
                 house.append("  shr.province = #{province}");

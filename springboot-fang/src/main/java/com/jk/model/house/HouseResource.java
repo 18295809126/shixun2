@@ -96,6 +96,68 @@ public class HouseResource implements Serializable {
 
     private  Double   house_areaMax;
 
+    private  Integer  house_type;
+
+    private String value;
+
+    @Override
+    public String toString() {
+        return "HouseResource{" +
+                "id='" + id + '\'' +
+                ", emp_id='" + emp_id + '\'' +
+                ", name='" + name + '\'' +
+                ", title='" + title + '\'' +
+                ", price=" + price +
+                ", room=" + room +
+                ", hall=" + hall +
+                ", toilet=" + toilet +
+                ", house_area=" + house_area +
+                ", community='" + community + '\'' +
+                ", province=" + province +
+                ", city=" + city +
+                ", county=" + county +
+                ", building_time=" + building_time +
+                ", room_type='" + room_type + '\'' +
+                ", room_direction='" + room_direction + '\'' +
+                ", house_floor='" + house_floor + '\'' +
+                ", decorate='" + decorate + '\'' +
+                ", unit_price=" + unit_price +
+                ", monthly_payments=" + monthly_payments +
+                ", selling_point='" + selling_point + '\'' +
+                ", owner_mentality='" + owner_mentality + '\'' +
+                ", community_complete='" + community_complete + '\'' +
+                ", service_introduce='" + service_introduce + '\'' +
+                ", release_time=" + release_time +
+                ", room_num='" + room_num + '\'' +
+                ", rent_money=" + rent_money +
+                ", deposit_money=" + deposit_money +
+                ", chineseMepositMoney='" + chineseMepositMoney + '\'' +
+                ", housing_state=" + housing_state +
+                ", price_min=" + price_min +
+                ", price_max=" + price_max +
+                ", house_areaMin=" + house_areaMin +
+                ", house_areaMax=" + house_areaMax +
+                ", house_type=" + house_type +
+                ", value='" + value + '\'' +
+                '}';
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public Integer getHouse_type() {
+        return house_type;
+    }
+
+    public void setHouse_type(Integer house_type) {
+        this.house_type = house_type;
+    }
+
     public Integer getPrice_min() {
         return price_min;
     }
@@ -370,42 +432,4 @@ public class HouseResource implements Serializable {
         this.housing_state = housing_state;
     }
 
-    @Override
-    public String toString() {
-        return "HouseResource{" +
-                "id='" + id + '\'' +
-                ", emp_id='" + emp_id + '\'' +
-                ", name='" + name + '\'' +
-                ", title='" + title + '\'' +
-                ", price=" + price +
-                ", room=" + room +
-                ", hall=" + hall +
-                ", toilet=" + toilet +
-                ", house_area=" + house_area +
-                ", community='" + community + '\'' +
-                ", province=" + province +
-                ", city=" + city +
-                ", county=" + county +
-                ", building_time=" + building_time +
-                ", room_type='" + room_type + '\'' +
-                ", room_direction='" + room_direction + '\'' +
-                ", house_floor='" + house_floor + '\'' +
-                ", decorate='" + decorate + '\'' +
-                ", unit_price=" + unit_price +
-                ", monthly_payments=" + monthly_payments +
-                ", selling_point='" + selling_point + '\'' +
-                ", owner_mentality='" + owner_mentality + '\'' +
-                ", community_complete='" + community_complete + '\'' +
-                ", service_introduce='" + service_introduce + '\'' +
-                ", release_time=" + release_time +
-                ", room_num='" + room_num + '\'' +
-                ", rent_money=" + rent_money +
-                ", deposit_money=" + deposit_money +
-                ", housing_state=" + housing_state +
-                ", price_min=" + price_min +
-                ", price_max=" + price_max +
-                ", house_areaMin=" + house_areaMin +
-                ", house_areaMax=" + house_areaMax +
-                '}';
-    }
 }

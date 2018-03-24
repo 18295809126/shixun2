@@ -25,35 +25,17 @@
             elem: '#notice'
             , url: '../house/getNotice.do'
             , page: true
-            ,height:450
+            ,height:650
             , cols: [[ //表头
-                  {field: 'XX', title: '', checkbox:true, width: 30, sort: true, fixed: 'left'}
-                , {field: 'id', title: 'ID', width: 100, sort: true, fixed: 'left'}
+                  {field: 'id', title: 'xx',checkbox:true, width: 50, sort: true, fixed: 'left'}
                 , {field: 'headline', title: '主题',align:'center', width: 220, fixed: 'left'}
                 , {field: 'empname', title: '员工姓名',align:'center',align:'center', width: 160}
                 , {field: 'empnum', title: '员工联系方式',align:'center', width:160}
-                , {field: 'content', title: '内容', width: 117,align:'center', sort: true}
-                , {field: 'releasetime', title: '发布时间',align:'center', width: 120}
+                , {field: 'content', title: '内容', width: 355,align:'center', sort: true}
+                , {field: 'releasetime', title: '发布时间',align:'center', width: 200}
                 , {
-                    field: '', title: '发布状态', width: 120, templet: function (d) {
-                              if (d.auditFlag == 1) {
-                            return '<a  class="layui-btn layui-btn-sm">待审核</a>';
-                        }else if(d.auditFlag == 2){
-                            return '<a  class="layui-btn layui-btn-sm">审核通过</a>';
-                        }else{
-                            return '<a  class="layui-btn layui-btn-sm">审核不通过</a>';
-                        }
-                    }
-                }
-                , {
-                    field: 'xx', title: '操作', width: 120, templet: function (d) {
-                        if (d.auditFlag == 1) {
-                            return '<a href="javascript:updateFlag2('+'\''+d.id+'\''+')" class="layui-btn layui-btn-sm">修改状态</a>';
-                        }else if(d.auditFlag == 2){
-                            return '<a href="javascript:updateFlagto3('+'\''+d.id+'\''+')" class="layui-btn layui-btn-sm">修改状态</a>';
-                        }else{
-                            return '<a href="javascript:updateFlagto2('+'\''+d.id+'\''+')" class="layui-btn layui-btn-sm">修改状态</a>';
-                        }
+                    field: 'xx', title: '操作',align:'center', width: 280, templet: function (d) {
+                        return '<a href="javascript:updateFlag2(' + '\'' + d.id + '\'' + ')" class="layui-btn layui-btn-sm">通过</a><a href="javascript:updateFlagto3(' + '\'' + d.id + '\'' + ')" class="layui-btn layui-btn-sm">不通过</a>';
                     }
                 }
             ]]

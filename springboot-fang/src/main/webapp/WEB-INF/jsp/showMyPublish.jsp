@@ -25,35 +25,35 @@
             elem: '#houses'
             , url: '../house/getHouseResourceListByEmp.do'
             , page: true
-            ,height:450
+            ,height:600
             , cols: [[ //表头
                 {field: 'XX', title: '', checkbox:true, width: 30, sort: true, fixed: 'left'}
-                , {field: 'id', title: 'ID', width: 60, sort: true, fixed: 'left'}
-                , {field: 'title', title: '主题', width: 60, fixed: 'left'}
-                , {field: 'price', title: '价格', width: 60}
-                , {field: 'community', title: '所在小区', width: 60}
-                , {field: 'building_time', title: '建筑年代', width: 100, sort: true}
-                , {field: 'house_floor', title: '房屋楼层', width: 80}
-                , {field: 'release_time', title: '发布时间', width: 110, sort: true}
-                , {field: 'house_area', title: '面积', width: 73, sort: true}
-                , {field: 'decorate', title: '装修程度', width: 80}
+                , {field: 'id', title: 'ID', align:'center',sort: true, fixed: 'left'}
+                , {field: 'title', title: '主题', align:'center',sort: true, fixed: 'left'}
+                , {field: 'price', title: '价格', align:'center',sort: true}
+                , {field: 'community', title: '所在小区', align:'center',sort: true}
+                , {field: 'building_time', title: '建筑年代', align:'center',sort: true}
+                , {field: 'house_floor', title: '房屋楼层', align:'center',sort: true}
+                , {field: 'release_time', title: '发布时间', align:'center',sort: true}
+                , {field: 'house_area', title: '面积', align:'center',sort: true}
+                , {field: 'decorate', title: '装修程度', align:'center',sort: true}
                 , {
-                    field: 'xx', title: '新增', width: 60, templet: function (d) {
+                    field: 'xx', title: '新增', align:'center',sort: true, templet: function (d) {
                         return '<a href="javascript:toAddHouse()" class="layui-btn layui-btn-sm">跳转</a>';
                     }
                 }
                 , {
-                    field: 'xx', title: '详情', width: 80, templet: function (d) {
+                    field: 'xx', title: '详情', align:'center',sort: true, templet: function (d) {
                         return '<a href="javascript:showHouseAllLists(' + '\'' + d.id + '\'' + ')" class="layui-btn layui-btn-sm">查看</a>';
                     }
                 }
                 , {
-                    field: 'xxx', title: '删除', width: 80, templet: function (d) {
+                    field: 'xxx', title: '删除', align:'center',sort: true, templet: function (d) {
                         return '<a href="javascript:delHouses(' + '\'' + d.id + '\'' + ')" class="layui-btn layui-btn-sm">删除</a>';
                     }
                 }
                 , {
-                    field: 'xxxx', title: '修改', width: 80, templet: function (d) {
+                    field: 'xxxx', title: '修改', align:'center',sort: true, templet: function (d) {
                         return '<a href="javascript:updHouses(' + '\'' + d.id + '\'' + ')" class="layui-btn layui-btn-sm">修改</a>';
                     }
                 }

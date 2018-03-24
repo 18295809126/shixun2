@@ -159,4 +159,24 @@ public class TreeController {
     public String toQueryAppointment(){
         return "contract/queryContract";
     }
+
+/**
+     * 查询订单信息
+     * @return
+     */
+	@RequestMapping(value = "trading")
+    public String trading(){
+
+        return "Trading/trading";
+    }
+
+	/**
+     * +订单信息
+     * @return
+     */
+    @RequestMapping(value = "trading2")
+    public String trading2(){
+
+        return "Trading/Addtrading";
+    }
 }

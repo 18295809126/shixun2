@@ -64,6 +64,8 @@ public class UserLoginController {
         return map;
     }
 
+
+
     /**
      * 短信接口调用
      */
@@ -80,6 +82,23 @@ public class UserLoginController {
             map.put("success",3);
         }
 
+        return map;
+    }
+
+
+    //注销
+    @RequestMapping(value = "cancellations")
+    @ResponseBody
+    public Map<String,Object> cancellations(HttpServletRequest request){
+        HashMap<String, Object> map = new HashMap<>();
+        try {
+            HttpSession session = request.getSession();
+            session.removeAttribute("emp");
+            map.put("sussess",true);
+        }catch (Exception e){
+            e.printStackTrace();
+            map.put("success",false);
+        }
         return map;
     }
 

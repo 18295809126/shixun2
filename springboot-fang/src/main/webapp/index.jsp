@@ -5,6 +5,7 @@
     <script type="application/javascript" src="/js/jquery-3.2.1/jquery-3.2.1.min.js"></script>
     <link rel="stylesheet" href="/js/layui-v2.2.5/layui/css/layui.css">
     <script type="application/javascript" src="/js/layui-v2.2.5/layui/layui.js"></script>
+    <script src="/js/echarts/echarts.js"></script>
 </head>
 <body>
 
@@ -23,7 +24,7 @@
                     <dd><a href="">安全设置</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item"><a href="">主页面</a></li>
+            <li class="layui-nav-item"><a href="javascript:cancellation()">注销</a></li>
         </ul>
     </div>
     <div id="wahaha" style=" display: none;"><table id="loguser" lay-filter="test"></table></div>
@@ -45,16 +46,38 @@
                                 <div class="layui-col-md6" style="background: white;height: 50%">
                                     <div class="layui-collapse">
                                         <div class="layui-colla-item">
-                                            <h2 class="layui-colla-title">左上区域</h2>
-                                            <div class="layui-colla-content layui-show">内容区域</div>
+                                            <h2 class="layui-colla-title">未来五天气预报</h2>
+                                            <div class="layui-colla-content layui-show" id="weatherDiv" style="width: 400px;height: 230px">内容区域</div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="layui-col-md6" style="background: white;height: 50%" >
                                     <div class="layui-collapse">
                                         <div class="layui-colla-item">
-                                            <h2 class="layui-colla-title">右上区域</h2>
-                                            <div class="layui-colla-content layui-show">内容区域</div>
+
+                                            <h2 class="layui-colla-title">订单报表</h2>
+                                            <form id="addressForm">
+                                                <div style="margin-left: 20px;margin-top: 5px;width: 100%;height: 20%">
+                                                    <label class="layui-label">省:</label>
+                                                    <div class="layui-input-inline">
+                                                        <select name="areaprovince" id="province"  class="layui-select" onchange="querycity()">
+                                                        </select>
+                                                    </div>
+                                                    <label class="layui-label">市:</label>
+                                                    <div class="layui-input-inline">
+                                                        <select name="areacity" id="city" class="layui-select" onchange="querycountry()">
+                                                        </select>
+                                                    </div>
+                                                    <label class="layui-label">县:</label>
+                                                    <div class="layui-input-inline">
+                                                        <select name="areacountry" id="county" class="layui-select">
+                                                        </select>
+                                                    </div>
+                                                    <input class="layui-btn" type="button" value="搜索" onclick="gjss()"/>
+                                                </div>
+                                            </form>
+                                            <!--报表的div-->
+                                            <div id="bread" style="width: 100%;height: 80%"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -63,8 +86,10 @@
                                 <div class="layui-col-md6" style="background: white;height: 50%">
                                     <div class="layui-collapse">
                                         <div class="layui-colla-item">
-                                            <h2 class="layui-colla-title">左下区域</h2>
-                                            <div class="layui-colla-content layui-show">内容区域</div>
+                                            <h2 class="layui-colla-title">订单查看</h2>
+                                            <div class="layui-colla-content layui-show">
+                                                <table id="trad" lay-filter="test" align="center"></table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -167,7 +192,6 @@
 
     });
     function createFrame(url){
-        alert(url);
         return '<iframe scrolling="auto" frameborder="0"  src="'+ url + '" style="width:100%;height:100%;"></iframe>';
 
     }
@@ -416,6 +440,304 @@
         });
     });
 
+    /*订单查询*/
+    function demoReload() {
+        layui.use('table', function(){
+            var table = layui.table;
+            //第一个实例
+            table.render({
+                elem: '#trad'
+                ,height: 310
+                ,url: 'tradinguser' //数据接口
+                ,page: true //开启分页
+                ,cellMinWidth: 80
+                ,cols: [[ //表头
+                    {field: 'ordernumber', title: '订单编号',align:'center'}
+                    ,{field: 'eidname', title: '顾问名称',align:'center',sort: true}
+                    ,{field: 'roomname', title: '交易房屋',align:'center',sort: true}
+                    ,{field: 'generation_time', title: '交易时间',align:'center',sort: true}
+                    ,{field: 'tradingType', title: '交易类型', align:'center',sort: true,
+                        templet: function (d) {
+                            if (d.tradingType == 1) {
+                                return "租房";
+                            }else if(d.tradingType == 2){
+                                return "卖房";
+                            }
+                        }
+                    }
+                ]]
+            });
+        });
+    }
+    //2秒自动刷新交易订单表
+    timename = setInterval("demoReload();", 10000);
 
-</script>
+    //注销
+    function cancellation() {
+        $.ajax({
+            url:'../login/cancellations.do',
+            dataType:'json',
+            type:'post',
+            success:function (data) {
+                location.href="login.jsp";
+            }
+        })
+    }
+
+    /**
+     * 天气查询
+     */
+    $.ajax({
+        url:"../getWeather.do",
+        dataType:"json",
+        success:function(data){
+            var weekArray = data.weekList;
+            var temperatureListArray = data.temperatureList;
+            var LowListArray = data.LowList;
+            var  option = {
+                title: {
+                    text: '未来五天的天气'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data:['高温','低温']
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        data: weekArray
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value',
+                        name: '温度/℃',
+                        min: -10,
+                        max: 40,
+                        interval: 50,
+                        axisLabel: {
+                            formatter: '{value} '
+                        }
+                    }
+                ],
+                series: [
+
+                    {
+                        name:'高温',
+                        type:'line',
+                        itemStyle: {
+                            normal: {
+
+                            }
+                        },
+                        data:temperatureListArray
+                    },
+                    {
+                        name:'低温',
+                        type:'line',
+                        itemStyle : {
+                            normal : {
+                            }
+                        },
+                        data:LowListArray
+                    }
+                ]
+            };
+            // 基于准备好的dom，初始化echarts实例
+            var weatherForecastChart = echarts.init(document.getElementById('weatherDiv'));
+            // 使用刚指定的配置项和数据显示图表。
+            weatherForecastChart.setOption(option);
+        },
+        error:function() {
+            alert("网络连接错误或系统错误，请稍后再试");
+        }
+    });
+
+
+    /**
+     * 饼图报表
+     */
+    $(function(){
+        var breadChart = echarts.init(document.getElementById('bread'));
+        $.ajax({
+            url:'<%=request.getContextPath()%>/getHouse.do',
+            type:"post",
+            dataType:"json",
+            async:false,
+            success:function (data1){
+                var data2=data1;
+                var data3 = new Array();
+                for(var i = 0;i<data1.length;i++){
+                    if(data1[i].name==1){
+                        data2[i].name="卖";
+                        data3.push("卖");
+                    }else if(data1[i].name==2){
+                        data3.push("租");
+                        data2[i].name="租";
+                    }
+                }
+                option3 = {
+                    title : {
+                        text: '本月房屋交易详情',
+                        x:'center'
+                    },
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    legend: {
+                        type: 'scroll',
+                        orient: 'vertical',
+                        left: 20,
+                        top: 20,
+                        bottom: 20,
+                        data: data3,
+                    },
+                    series : [
+                        {
+                            name: '金科地产',
+                            type: 'pie',
+                            radius : '55%',
+                            center: ['50%', '60%'],
+                            data:data1,
+                            itemStyle: {
+                                emphasis: {
+                                    shadowBlur: 10,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                }
+                            }
+                        }
+                    ]
+                };
+                breadChart.setOption(option3);
+            }
+        });
+
+    })
+
+
+
+    /**
+     * 三级联动   开始
+     * */
+    /*查询省级地区*/
+    $.ajax({
+        url:"../queryProvince.do",
+        type:"post",
+        dataType:"json",
+        async:false,
+        success:function(data){
+            $("#province").html("");
+            var  province= '<option value="-1">--请选择省--</option>';
+            $.each(data,function(){
+                province += '<option value="'+this.id+'">'+this.name+'</option>'
+            })
+            $("#province").append(province);
+            $("#city").html("<option value='-1'>--请选择市--</option>");
+            $("#county").html("<option value='-1'>--请选择县--</option>")
+        }
+    });
+
+    function querycity() {
+        $.ajax({
+            url: "../queryCity.do",
+            type: "post",
+            data: {"id":$("#province").val()},
+            dataType: "json",
+            async: false,
+            success: function (cityData) {
+                var province = '<option value="-1">--请选择市--</option>';
+                $.each(cityData, function () {
+                    province += '<option value="' + this.id + '">' + this.name + '</option>'
+                })
+                $("#city").html(province);
+            }
+        })
+    }
+    function querycountry() {
+        //加载县
+        $.ajax({
+            url: "../queryCountry.do",
+            type: "post",
+            data: {"id":$("#city").val()},
+            dataType: "json",
+            async: false,
+            success: function (countyData) {
+
+                var county = $("#huiCounty").val();
+                var province = '<option value="-1">--请选择县/区--</option>';
+                $.each(countyData, function () {
+                    province += '<option value="' + this.id + '">' + this.name + '</option>'
+                })
+                $("#county").html(province);
+            }
+        })
+    }
+
+    //条件地区查询
+    function gjss(){
+        /*alert($("#addressForm").serialize());*/
+        var breadChart = echarts.init(document.getElementById('bread'));
+        $.ajax({
+            url: "../getHouseTwo.do",
+            type: "post",
+            data:$("#addressForm").serialize(),
+            dataType: "json",
+            async: false,
+            success: function (data1) {
+                var data1=data2;
+                var data3 = new Array();
+                for(var i = 0;i<data1.length;i++){
+                    if(data1[i].name==1){
+                        data2[i].name="卖";
+                        data3.push("卖");
+                    }else if(data1[i].name==2){
+                        data3.push("租");
+                        data2[i].name="租";
+                    }
+                }
+                option3 = {
+                    title : {
+                        text: '本月房屋交易详情',
+                        x:'center'
+                    },
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    legend: {
+                        type: 'scroll',
+                        orient: 'vertical',
+                        left: 20,
+                        top: 20,
+                        bottom: 20,
+                        data: data3,
+                    },
+                    series : [
+                        {
+                            name: '金科地产',
+                            type: 'pie',
+                            radius : '55%',
+                            center: ['50%', '60%'],
+                            data:data2,
+                            itemStyle: {
+                                emphasis: {
+                                    shadowBlur: 10,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                }
+                            }
+                        }
+                    ]
+                };
+                breadChart.setOption(option3);
+            }
+        })
+    }
+
+
+ </script>
 </html>

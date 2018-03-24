@@ -45,7 +45,7 @@ public interface HouseMapper {
     /**
      * 添加房源信息
      * */
-    @Insert("INSERT INTO t_sell_house_resource (id,emp_id,title,price,room,hall,toilet,house_area,community,province,city,county,building_time,room_type,room_direction,house_floor,decorate,unit_price,Monthly_payments,Selling_point,owner_mentality,community_complete,service_introduce,release_time,room_num,housing_state,deposit_money,rent_money) values(#{id},#{emp_id},#{title},#{price},#{room},#{hall},#{toilet},#{house_area},#{community},#{province},#{city},#{county},#{building_time},#{room_type},#{room_direction},#{house_floor},#{decorate},#{unit_price},#{monthly_payments},#{selling_point},#{owner_mentality},#{community_complete},#{service_introduce},#{release_time},#{room_num},#{housing_state},#{deposit_money},#{rent_money})")
+    @Insert("INSERT INTO t_sell_house_resource (id,emp_id,title,price,room,hall,toilet,house_area,community,province,city,county,building_time,room_type,room_direction,house_floor,decorate,unit_price,Monthly_payments,Selling_point,owner_mentality,community_complete,service_introduce,release_time,room_num,housing_state,deposit_money,rent_money,house_type) values(#{id},#{emp_id},#{title},#{price},#{room},#{hall},#{toilet},#{house_area},#{community},#{province},#{city},#{county},#{building_time},#{room_type},#{room_direction},#{house_floor},#{decorate},#{unit_price},#{monthly_payments},#{selling_point},#{owner_mentality},#{community_complete},#{service_introduce},#{release_time},#{room_num},#{housing_state},#{deposit_money},#{rent_money},#{house_type})")
     void addHouseDatasource(HouseResource house);
     /**
      * 向房源图片表中上传图片
@@ -91,7 +91,7 @@ public interface HouseMapper {
      * 修改房源信息
      * @param house
      */
-    @Update("update t_sell_house_resource set emp_id = #{emp_id},title = #{title},price = #{price},room = #{room},hall = #{hall},toilet = #{toilet},house_area = #{house_area},community = #{community},province = #{province},city = #{city},county = #{county},building_time = #{building_time},room_type = #{room_type},room_direction = #{room_direction},house_floor = #{house_floor},decorate = #{decorate},unit_price = #{unit_price},monthly_payments = #{monthly_payments},selling_point = #{selling_point},owner_mentality = #{owner_mentality},community_complete = #{community_complete},service_introduce = #{service_introduce},release_time = #{release_time},room_num = #{room_num} where id = #{id}")
+    @Update("update t_sell_house_resource set emp_id = #{emp_id},title = #{title},price = #{price},room = #{room},hall = #{hall},toilet = #{toilet},house_area = #{house_area},community = #{community},province = #{province},city = #{city},county = #{county},building_time = #{building_time},room_type = #{room_type},room_direction = #{room_direction},house_floor = #{house_floor},decorate = #{decorate},unit_price = #{unit_price},monthly_payments = #{monthly_payments},selling_point = #{selling_point},owner_mentality = #{owner_mentality},community_complete = #{community_complete},service_introduce = #{service_introduce},release_time = #{release_time},room_num = #{room_num},rent_money=#{rent_money},deposit_money=#{deposit_money} where id = #{id}")
     void updateHouseDatasource(HouseResource house);
 
     /**
@@ -147,7 +147,8 @@ public interface HouseMapper {
      * @param limit
      * @return
      */
-    @Select("select id,empid,empnum,releasetime,content,headline,empname,auditFlag from t_notice limit #{page},#{limit}")
+    /*@Select("select * from t_notice where auditFlag=2")*/
+    @Select("select id,empid,empnum,releasetime,content,headline,empname,auditFlag from t_notice where auditFlag=1 limit #{page},#{limit}")
     List<Notice> getNotice(@Param("page") Integer page, @Param("limit")Integer limit);
 
     /**
@@ -160,7 +161,7 @@ public interface HouseMapper {
      * 修改审核状态为不通过
      * @param id
      */
-    @Update("update t_notice set auditFlag=3 where id=#{id} and auditFlag=2")
+    @Update("update t_notice set auditFlag=3 where id=#{id}")
     void updateFlagto3(String id);
     /**
      * 修改审核状态为通过
@@ -208,8 +209,8 @@ public interface HouseMapper {
      * 新增合同
      * @param contract
      */
-    @Select("INSERT INTO t_contract(code,lease_name,lessee_name,house_id,rent_time,finish_time,payment_method,staging_state,generation_time,mention_rent,liquidated_damages,one_money) " +
-            "values(#{code},#{lease_name},#{lessee_name},#{house_id},#{rent_time},#{finish_time},#{payment_method},#{staging_state},#{generation_time},#{mention_rent},#{liquidated_damages},#{one_money})")
+    @Select("INSERT INTO t_contract(code,lease_name,lessee_name,house_id,rent_time,finish_time,payment_method,staging_state,generation_time,mention_rent,liquidated_damages,one_money,eid) " +
+            "values(#{code},#{lease_name},#{lessee_name},#{house_id},#{rent_time},#{finish_time},#{payment_method},#{staging_state},#{generation_time},#{mention_rent},#{liquidated_damages},#{one_money},#{eid})")
     void addContract(Contract contract);
 
     /**
@@ -241,7 +242,7 @@ public interface HouseMapper {
      * @return
      */
     @Select("SELECT shr.id,shr.title,e.name AS emp_id FROM t_sell_house_resource shr \n" +
-            "LEFT JOIN t_emp e ON e.id=shr.emp_id")
+            "LEFT JOIN t_emp e ON e.id=shr.emp_id where shr.housing_state=1 and shr.house_type=1")
     List<HouseResource> getHouseAndEmp();
 
     /**
@@ -266,4 +267,13 @@ public interface HouseMapper {
     @Select("SELECT shr.rent_money,shr.deposit_money,e.name AS NAME FROM t_sell_house_resource shr\n" +
             "LEFT JOIN t_emp e ON e.id=shr.emp_id where  shr.id=#{id}")
     List<HouseResource> getRent(String id);
+
+    @Select("SELECT c.lease_name,c.generation_time,c.lessee_name,c.liquidated_damages,c.rent_time,shr.rent_money as rent_money,s.name as staging_name,shr.deposit_money as deposit_money,c.finish_time,(MONTH(c.finish_time) - MONTH(c.rent_time)) yueNum,c.one_money FROM t_contract c\n" +
+            "left join  t_sell_house_resource shr on shr.id=c.house_id\n" +
+            "left join  t_stages s on s.id=c.staging_state where c.code=#{id}")
+    Contract queryContracById(String id);
+
+    @Select("SELECT shr.id,shr.title,e.name AS emp_id,shr.housing_state,shr.house_type FROM t_sell_house_resource shr \n" +
+            "LEFT JOIN t_emp e ON e.id=shr.emp_id WHERE shr.housing_state=3 AND shr.house_type=2")
+    List<HouseResource> getHouseAndEmpSell();
 }

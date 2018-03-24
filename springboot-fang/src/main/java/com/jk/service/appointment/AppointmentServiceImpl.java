@@ -15,20 +15,6 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Autowired
     private AppointmentMapper appointmentMapper;
-
-    /**
-     * 新增预约房源信息
-     * @param appointment
-     */
-    @Override
-    public void addAppointment(Appointment appointment, HttpServletRequest request) {
-        appointment.setId(UUIDUtils.UUID());
-        appointment.setAppointmentTime(new Date());
-        String emp_id = (String) request.getSession().getAttribute("id");
-        appointment.setEmp_id(emp_id);
-        appointmentMapper.addAppointment(appointment);
-    }
-
     /**
      * 查询预约房源信息   分页展示
      * @param page

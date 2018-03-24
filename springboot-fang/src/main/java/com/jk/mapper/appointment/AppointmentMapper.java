@@ -10,14 +10,6 @@ import java.util.List;
 @Component
 public interface AppointmentMapper {
     /**
-     * 新增预约信息
-     * @param appointment
-     */
-    @Insert("insert into t_appointment (id,house_id,user_name,user_sex,user_phonenum,appointment_time,emp_id,reservations_time) values (#{id},#{houseid},\n" +
-            "#{userName},#{userSex},#{userPhonenum},#{appointmentTime},#{emp_id},#{reservations_time})")
-    void addAppointment(Appointment appointment);
-
-    /**
      * 查询预约房源信息
      * @param page
      * @param limit

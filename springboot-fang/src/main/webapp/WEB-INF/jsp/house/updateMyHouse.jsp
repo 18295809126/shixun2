@@ -145,6 +145,19 @@
             </select>
         </div>
     </div>
+
+    <div class="layui-form-item" style="width:1200px">
+        <label class="layui-form-label">押金</label>
+        <div class="layui-input-block" style="width: 200px; display: inline-block; margin-left: 10px; float: left;">
+            <input type="text" value="${houseResource.deposit_money}" class="layui-input" id="deposit_money" name="deposit_money">
+        </div>
+        <label class="layui-form-label">租金</label>
+        <div class="layui-input-block" style="width: 200px; display: inline-block; margin-left: 10px; float: left;">
+            <input type="text" value="${houseResource.rent_money}" class="layui-input" id="rent_money" name="rent_money">
+        </div>
+
+    </div>
+
     <div class="layui-form-item" style="width:1000px">
         <label class="layui-form-label">上传房源相关图片</label>
         <div class="layui-upload" style="float: inherit">

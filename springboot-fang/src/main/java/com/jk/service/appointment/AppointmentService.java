@@ -7,12 +7,6 @@ import java.util.List;
 
 public interface AppointmentService {
     /**
-     * 新增预约信息
-     * @param appointment
-     */
-    void addAppointment(Appointment appointment,HttpServletRequest request);
-
-    /**
      * 查询预约房源信息  分页展示
      * @param page
      * @param limit

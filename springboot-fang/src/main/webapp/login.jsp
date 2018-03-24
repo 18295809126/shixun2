@@ -20,7 +20,9 @@
     <link rel="stylesheet" type="text/css" href="/js/jquery-easyui-1.4.1/themes/icon.css">
     <script type="text/javascript" src="/js/jquery-easyui-1.4.1/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="/js/jquery-easyui-1.4.1/locale/easyui-lang-zh_CN.js"></script>
-
+    <script type="application/javascript" src="/js/jquery-3.2.1/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="/js/layui-v2.2.5/layui/css/layui.css">
+    <script type="application/javascript" src="/js/layui-v2.2.5/layui/layui.js"></script>
 
 
     <STYLE>
@@ -148,7 +150,7 @@
         }
 
         .left_handing {
-            background: url("images/left-handing.png") no-repeat;
+            background: url("/js/images/left-handing.png") no-repeat;
             width: 30px;
             height: 20px;
             position: absolute;
@@ -157,7 +159,7 @@
         }
 
         .right_handinging {
-            background: url("images/right_handing.png") no-repeat;
+            background: url("/js/images/right_handing.png") no-repeat;
             width: 30px;
             height: 20px;
             position: absolute;
@@ -243,7 +245,7 @@
 
         <P style="margin: 0px 35px 20px 45px;">
 				<SPAN style="float: left;">
-                    <A style="color: rgb(204, 204, 204);" href="#">忘记密码?</A>
+                   <A style="color: rgb(204, 204, 204);" href="javascript:Usersubmit()">忘记密码?</A>
 				</SPAN>
             <SPAN style="float: right;">
                     <A style="color: rgb(204, 204, 204); margin-right: 10px;" href="#">注册</A>
@@ -281,6 +283,43 @@
     }
     function tophoneloginpage(){
         location.href="../phonelogin.jsp";
+    }
+
+    //忘记密码怎么办！快去修改啊啊
+    function Usersubmit(){
+        layui.use('layer', function() {
+            var layer = layui.layer;
+            layer.open({
+                id: 1,
+                type: 1,
+                title: '修改密码',
+                skin: 'layui-layer-rim',
+                area: ['450px', 'auto'],
+
+                content: ' <div class="row" style="width: 420px;  margin-left:7px; margin-top:10px;">'
+                + '<div class="col-sm-12">'
+                + '<div class="input-group">'
+                + '<span class="input-group-addon"> 新 密 码   :</span>'
+                + '<input id="firstpwd" type="password" class="form-control" placeholder="请输入密码">'
+                + '</div>'
+                + '</div>'
+                + '<div class="col-sm-12" style="margin-top: 10px">'
+                + '<div class="input-group">'
+                + '<span class="input-group-addon">确认密码:</span>'
+                + '<input id="secondpwd" type="password" class="form-control" placeholder="请再输入一次密码">'
+                + '</div>'
+                + '</div>'
+                + '</div>'
+                ,
+                btn: ['保存', '取消'],
+                btn1: function (index, layero) {
+                    layer.close(index);
+                },
+                btn2: function (index, layero) {
+                    layer.close(index);
+                }
+            });
+        })
     }
 </script>
 </html>

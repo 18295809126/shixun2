@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
-  User: ACER
-  Date: 2018/3/21
-  Time: 14:49
+  User: xzkp
+  Date: 2018/3/22
+  Time: 23:01
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -14,10 +14,10 @@
     <script src="/js/layui/layui.js"></script>
 </head>
 <body>
-<form class="layui-form" id="addContractForm">
+<form class="layui-form" id="addSellContractForm">
 
     <div class="layui-form-item">
-        <label class="layui-form-label">房源租赁</label>
+        <label class="layui-form-label">房源出卖</label>
         <div class="layui-input-block">
             <select name="house_id" id="house_id"  lay-filter="123">
             </select>
@@ -26,25 +26,25 @@
 
 
 
-  <div class="layui-form-item" style="width:1250px">
+    <div class="layui-form-item" style="width:1250px">
 
-      <label class="layui-form-label">起租时间</label>
-      <div class="layui-input-block" style="width: 180px; display: inline-block; margin-left: 0px; float: left;">
-          <input type="text"  class="layui-input" id="rent_time" name="rent_time">
-      </div>
-      <label class="layui-form-label">到租时间</label>
-      <div class="layui-input-block" style="width: 180px; display: inline-block; margin-left: 10px; float: left;">
-          <input type="text"  class="layui-input" id="finish_time" name="finish_time">
-      </div>
+        <label class="layui-form-label">起租时间</label>
+        <div class="layui-input-block" style="width: 180px; display: inline-block; margin-left: 0px; float: left;">
+            <input type="text"  class="layui-input" id="rent_time" name="rent_time">
+        </div>
+        <label class="layui-form-label">到租时间</label>
+        <div class="layui-input-block" style="width: 180px; display: inline-block; margin-left: 10px; float: left;">
+            <input type="text"  class="layui-input" id="finish_time" name="finish_time">
+        </div>
 
-      <label class="layui-form-label">出租方</label>
-      <div class="layui-input-block" style="width: 180px; display: inline-block; margin-left: 10px; float: left;">
-          <input type="text" name="lease_name" value="" id="lease_name" required  lay-verify="required" placeholder="请选择房源租赁" autocomplete="off" class="layui-input">
-      </div>
-      <label class="layui-form-label">承租方</label>
-      <div class="layui-input-block" style="width: 180px; display: inline-block; margin-left: 10px; float: left;">
-          <input type="text" name="lessee_name" id="lessee_name" required  lay-verify="required" placeholder="请输入承租方名称" autocomplete="off" class="layui-input">
-      </div>
+        <label class="layui-form-label">出租方</label>
+        <div class="layui-input-block" style="width: 180px; display: inline-block; margin-left: 10px; float: left;">
+            <input type="text" name="lease_name" value="" id="lease_name" required  lay-verify="required" placeholder="请选择房源租赁" autocomplete="off" class="layui-input">
+        </div>
+        <label class="layui-form-label">承租方</label>
+        <div class="layui-input-block" style="width: 180px; display: inline-block; margin-left: 10px; float: left;">
+            <input type="text" name="lessee_name" id="lessee_name" required  lay-verify="required" placeholder="请输入承租方名称" autocomplete="off" class="layui-input">
+        </div>
     </div>
 
     <div class="layui-form-item" style="width:1250px">
@@ -77,7 +77,7 @@
             <input type="text"  class="layui-input" placeholder="1~31号" id="mention_rent" name="mention_rent">
         </div>
         <div class="layui-form-mid layui-word-aux">号</div>
-        <label class="layui-form-label">违约金</label>
+        <label class="layui-form-label">违约金比例</label>
         <div class="layui-input-block" style="width: 180px; display: inline-block; margin-left: 10px; float: left;">
             <input type="text"  class="layui-input" placeholder="$" id="liquidated_damages_ercentage" name="liquidated_damages_ercentage">
         </div>
@@ -94,14 +94,11 @@
         <a class="layui-btn layui-btn-mini" onclick="calculateMonet()" lay-event="edit">计算金额</a>
         <a class="layui-btn layui-btn-mini" onclick="addContract()" lay-event="edit">添加</a>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a class="layui-btn layui-btn-mini" onclick="toSellHouse()" lay-event="edit">卖房合同</a>
+        <a class="layui-btn layui-btn-mini" onclick="toRentHouse()" lay-event="edit">租房合同</a>
     </center>
 </form>
 </body>
-
 <script>
-
-
     layui.use(['form', 'layedit', 'laydate'], function(){
         var form = layui.form
             ,layer = layui.layer
@@ -109,7 +106,7 @@
             ,laydate = layui.laydate;
 
 
-    layui.use('laydate', function(){
+        layui.use('laydate', function(){
             var laydate = layui.laydate;
             //执行一个laydate实例
             laydate.render({
@@ -117,13 +114,13 @@
             });
         })
 
-    layui.use('laydate', function(){
-        var laydate = layui.laydate;
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#rent_time',//指定元素
+        layui.use('laydate', function(){
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#rent_time',//指定元素
+            })
         })
-    })
 
         //监听指定开关
         form.on('switch(switchTest)', function(data){
@@ -134,24 +131,24 @@
         });
 
 
-       form.on('select(123)', function(data){
-           var categoryName = data.elem[data.elem.selectedIndex].value;
-           //查询出租金，押金
-           $.ajax({
-               url:"../house/getRent.do",
-               data:{"id":categoryName},
-               type:"post",
-               dataType:"json",
-               success:function (data) {
-                   for(var i=0;i<data.length;i++){
-                     $("#rent_money").val(data[i].rent_money);
-                     $("#lease_name").val(data[i].name);
-                     $("#deposit_money").val(data[i].deposit_money);
-                   }
-               }
-           })
+        form.on('select(123)', function(data){
+            var categoryName = data.elem[data.elem.selectedIndex].value;
+            //查询出租金，押金
+            $.ajax({
+                url:"../house/getRent.do",
+                data:{"id":categoryName},
+                type:"post",
+                dataType:"json",
+                success:function (data) {
+                    for(var i=0;i<data.length;i++){
+                        $("#rent_money").val(data[i].rent_money);
+                        $("#lease_name").val(data[i].name);
+                        $("#deposit_money").val(data[i].deposit_money);
+                    }
+                }
+            })
 
-       });
+        });
 
         //监听提交
         form.on('submit(demo1)', function(data){
@@ -166,13 +163,13 @@
      * 查询房源信息
      */
     $.ajax({
-        url:"../house/getHouseAndEmp.do",
+        url:"../house/getHouseAndEmpSell.do",
         type:"post",
         dataType:"json",
         async:false,
         success:function(data){
             $("#house_id").html("");
-            var  house= '<option value="-1">请选择需要租赁的房源</option>';
+            var  house= '<option value="-1">请选择需要卖的房源</option>';
             for(var i=0;i<data.length;i++){
                 house += '<option  value="'+data[i].id+'">'+data[i].title+'</option>'
             }
@@ -223,14 +220,14 @@
             dataType:"json",
             type:"post",
             success:function (data) {
-             if(data.msg==false){
-                 alert("请选择有效日期");
-                 return false;
-             }
+                if(data.msg==false){
+                    alert("请选择有效日期");
+                    return false;
+                }
                 $("#one_money").val(data.one_money);
             },
             error:function () {
-            alert("GG");
+                alert("GG");
             }
 
         });
@@ -254,10 +251,9 @@
         });
     }
 
-    function toSellHouse(){
-        location.href="../house/sellHosueContrct.do"
+    function toRentHouse(){
+        location.href="../toAddContract.do"
     }
 
 </script>
-
 </html>
