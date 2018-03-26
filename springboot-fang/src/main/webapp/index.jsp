@@ -11,7 +11,10 @@
 
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <div class="layui-logo"><h2>༺ཉི།千钧阁།ཉྀ༻</h2></div>
+        <div class="layui-logo">
+            <img src='${company.company_logo}' class="layui-nav-img">
+            ${company.company_name}
+        </div>
 
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">

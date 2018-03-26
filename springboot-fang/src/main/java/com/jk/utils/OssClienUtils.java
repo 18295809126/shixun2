@@ -24,10 +24,10 @@ public class OssClienUtils {
     // endpoint以北京为例，其它region请按实际情况填写
     private String endpoint = "http://oss-cn-beijing.aliyuncs.com";
     // accessKey和accessKeySecret 为购买阿里云服务时官方提供
-    private String accessKeyId = "LTAI1QmrXjnYULNk";
-    private String accessKeySecret = "7NU2CoKfjv8CWfk7a5gXmCkvjCQ59z";
+    private String accessKeyId = "LTAIDWJJcHLYf4PW";
+    private String accessKeySecret = "AbV5vglbs97UIJJPdEtJyOnXxOgYeP";
     //空间
-    private String bucketName = "1708one";
+    private String bucketName = "1708bone";
 
     //文件存储目录    (上传时在key前面加上目录 默认创建)
     private String date = "img/";
