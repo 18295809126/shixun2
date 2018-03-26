@@ -179,4 +179,14 @@ public class TreeController {
 
         return "Trading/Addtrading";
     }
+
+	@RequestMapping(value = "toShowDiv")
+    public String toShowDiv(){
+        return "contract/showDiv";
+    }
+
+    @RequestMapping(value = "toAddSellContract")
+    public String toAddSellContract(){
+        return "contract/addSellContract";
+    }
 }

@@ -91,9 +91,6 @@ public class Contract implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date  emigration_time;
 
-    //时间戳 订单号
-    private String ordernumber;
-
     private String eid;//建合同的员工ID
 
     private String eidname;//员工
@@ -105,6 +102,81 @@ public class Contract implements Serializable {
 
     //交易类型 租或者卖（1租，2卖）
     private Integer tradingType;
+
+    private Double unit_price;
+
+    private String contractType;
+
+
+    private String ordernumber;
+
+    private Integer outOfDay;
+
+    private Double two_money;
+
+    private Double three_money;
+
+    private Double four_money;
+
+    private Integer house_type;
+
+
+
+    public Integer getHouse_type() {
+        return house_type;
+    }
+
+    public void setHouse_type(Integer house_type) {
+        this.house_type = house_type;
+    }
+
+    public Integer getOutOfDay() {
+        return outOfDay;
+    }
+
+    public void setOutOfDay(Integer outOfDay) {
+        this.outOfDay = outOfDay;
+    }
+
+    public Double getTwo_money() {
+        return two_money;
+    }
+
+    public void setTwo_money(Double two_money) {
+        this.two_money = two_money;
+    }
+
+    public Double getThree_money() {
+        return three_money;
+    }
+
+    public void setThree_money(Double three_money) {
+        this.three_money = three_money;
+    }
+
+    public Double getFour_money() {
+        return four_money;
+    }
+
+    public void setFour_money(Double four_money) {
+        this.four_money = four_money;
+    }
+
+    public String getContractType() {
+        return contractType;
+    }
+
+    public void setContractType(String contractType) {
+        this.contractType = contractType;
+    }
+
+    public Double getUnit_price() {
+        return unit_price;
+    }
+
+    public void setUnit_price(Double unit_price) {
+        this.unit_price = unit_price;
+    }
 
     public Double getLiquidated_damages_ercentage() {
         return liquidated_damages_ercentage;

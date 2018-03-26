@@ -100,6 +100,16 @@ public class HouseResource implements Serializable {
 
     private String value;
 
+    private String  companyName;
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
     @Override
     public String toString() {
         return "HouseResource{" +

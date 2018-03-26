@@ -205,19 +205,19 @@ public interface HouseMapper {
             "LEFT JOIN t_notice n ON e.id=n.empid WHERE n.id=#{id}")
     List<Temp> getEmpEmail(String id);
 
-	    /**
+    /**
      * 新增合同
      * @param contract
      */
-    @Select("INSERT INTO t_contract(code,lease_name,lessee_name,house_id,rent_time,finish_time,payment_method,staging_state,generation_time,mention_rent,liquidated_damages,one_money,eid) " +
-            "values(#{code},#{lease_name},#{lessee_name},#{house_id},#{rent_time},#{finish_time},#{payment_method},#{staging_state},#{generation_time},#{mention_rent},#{liquidated_damages},#{one_money},#{eid})")
+    @Select("INSERT INTO t_contract(code,lease_name,lessee_name,house_id,rent_time,finish_time,payment_method,staging_state,generation_time,mention_rent,liquidated_damages,one_money,two_money,three_money,four_money,outOfDay,emigration_time,payment_period,predetermined_period,contractType,tradingType,ordernumber) " +
+            "values(#{code},#{lease_name},#{lessee_name},#{house_id},#{rent_time},#{finish_time},#{payment_method},#{staging_state},#{generation_time},#{mention_rent},#{liquidated_damages},#{one_money},#{two_money},#{three_money},#{four_money},#{outOfDay},#{emigration_time},#{payment_period},#{predetermined_period},#{contractType},#{tradingType},#{ordernumber})")
     void addContract(Contract contract);
 
     /**
      * 修改房源状态
      * @param house_id
      */
-    @Update("update t_sell_house_resource set housing_state=2 where  id=#{house_id} and housing_state=1")
+    @Update("update t_sell_house_resource set housing_state=2 where  id=#{house_id}")
     void updHouseFalg(String house_id);
 
     /**
@@ -241,9 +241,8 @@ public interface HouseMapper {
      * 查询房源和员工名称
      * @return
      */
-    @Select("SELECT shr.id,shr.title,e.name AS emp_id FROM t_sell_house_resource shr \n" +
-            "LEFT JOIN t_emp e ON e.id=shr.emp_id where shr.housing_state=1 and shr.house_type=1")
-    List<HouseResource> getHouseAndEmp();
+    @Select("SELECT shr.id,shr.title,shr.house_type,shr.companyName,shr.house_floor,shr.unit_price,shr.release_time,shr.rent_money,shr.deposit_money FROM t_sell_house_resource shr where shr.housing_state=1 and shr.house_type=1")
+    List<HouseResource> getHouseAndEmp(@Param("page") Integer page,@Param("limit")Integer limit);
 
     /**
      * 查询分期方式
@@ -276,4 +275,12 @@ public interface HouseMapper {
     @Select("SELECT shr.id,shr.title,e.name AS emp_id,shr.housing_state,shr.house_type FROM t_sell_house_resource shr \n" +
             "LEFT JOIN t_emp e ON e.id=shr.emp_id WHERE shr.housing_state=3 AND shr.house_type=2")
     List<HouseResource> getHouseAndEmpSell();
+    /**
+     * 卖房合同
+     * @param page
+     * @param limit
+     * @return
+     */
+    @Select("SELECT shr.id,shr.title,shr.companyName,shr.house_floor,shr.unit_price,shr.release_time,shr.rent_money,shr.house_type,shr.deposit_money FROM t_sell_house_resource shr WHERE shr.housing_state=1 AND shr.house_type=2")
+    List<HouseResource> getSellHouseAndEmp(Integer page, Integer limit);
 }

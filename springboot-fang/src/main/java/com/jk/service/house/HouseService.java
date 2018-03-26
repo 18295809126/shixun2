@@ -92,13 +92,13 @@ public interface HouseService {
 
     List<Temp> getEmpEmail(String id);
 
-    Map<String,Object> addContract(Contract contract, HttpServletRequest request);
+   void addContract(Contract contract);
 
     List<Contract> getContractList(Integer page, Integer limit);
 
     void delContract(String code);
 
-    List<HouseResource> getHouseAndEmp();
+    List<HouseResource> getHouseAndEmp(Integer page,Integer limit);
 
     List<Stages> getStagingType();
 
@@ -111,5 +111,7 @@ public interface HouseService {
     void toFreePdf(String code) throws Exception;
 
     List<HouseResource> getHouseAndEmpSell();
+
+    List<HouseResource> getSellHouseAndEmp(Integer page, Integer limit);
 }
 

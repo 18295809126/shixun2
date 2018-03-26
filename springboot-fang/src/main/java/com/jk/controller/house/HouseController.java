@@ -572,7 +572,7 @@ public class HouseController {
      * @param contract
      * @return
      */
-    @RequestMapping("addContract")
+   /* @RequestMapping("addContract")
     @ResponseBody
     public Map<String,Object> addContract(Contract contract, HttpServletRequest request){
         Map<String,Object> map=new HashMap<String, Object>();
@@ -598,7 +598,7 @@ public class HouseController {
             }
         }
         return map;
-    }
+    }*/
 
     /**
      * 查询合同信息
@@ -633,16 +633,6 @@ public class HouseController {
             map.put("success",false);
         }
         return map;
-    }
-
-    /**
-     * 查询房源信息
-     * @return
-     */
-    @RequestMapping("getHouseAndEmp")
-    @ResponseBody
-    public List<HouseResource> getHouseAndEmp(){
-        return houseService.getHouseAndEmp();
     }
 
     /**
@@ -689,45 +679,6 @@ public class HouseController {
     }
 
     /**
-     * 计算钱
-     * @param contract
-     * @return
-     */
-    @RequestMapping("calculateMonet")
-    @ResponseBody
-    public Map<String,Object> calculateMonet(Contract contract){
-        Map<String,Object> map=new HashMap<String, Object>();
-        String rent_time = contract.getRent_time();
-        String finish_time = contract.getFinish_time();
-        SimpleDateFormat sim= new SimpleDateFormat("yyyy-MM-dd");
-        Date parse = null;
-        Date parse1 =null;
-        try {
-            parse = sim.parse(finish_time);
-            parse1 = sim.parse(rent_time);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        long finishtime = parse.getTime();
-        long renttime = parse1.getTime();
-        long aa=finishtime-renttime;
-        System.out.println(finishtime);
-        System.out.println(renttime);
-        if(aa<0){
-            map.put("msg",false);
-        }else{
-            long dayCount=aa/(3600*24*1000);
-            int cc= (int) (dayCount % 30 == 0 ? (dayCount / 30) : (dayCount / 30)+1);
-            System.out.println(cc);
-            System.out.println(dayCount);
-            double one_money = (cc * (contract.getRent_money()) / (contract.getStaging_state())) + contract.getDeposit_money();
-            System.out.println(one_money);
-            map.put("one_money",one_money);
-        }
-        return map;
-    }
-
-    /**
      * 跳转卖房合同
      * @return
      */
@@ -736,6 +687,125 @@ public class HouseController {
         return "/contract/addSellContract";
     }
 
+    /**
+     * 查询房源信息
+     * @return
+     */
+    @RequestMapping("getSellHouseAndEmp")
+    @ResponseBody
+    public  Map<String,Object> getSellHouseAndEmp(Integer page,Integer limit){
+        Map<String,Object> map = new HashMap<String, Object>();
+        List<HouseResource> houseList = houseService.getSellHouseAndEmp(page,limit);
+        map.put("data",houseList);
+        map.put("count",houseList.size());
+        map.put("msg","");
+        map.put("code",0);
+        return map;
+    }
 
+
+    /**
+     * 计算钱
+     * @param contract
+     * @return
+     */
+    @RequestMapping(value = "calculateMonets")
+    @ResponseBody
+    public Map<String,Object> calculateMonets(Contract contract){
+        System.out.println(contract);
+        Map<String,Object> map=new HashMap<String, Object>();
+        SimpleDateFormat sim= new SimpleDateFormat("yyyy-MM-dd");
+        //计算违约金
+        Double unit_price = contract.getUnit_price();
+        Double liquidated_damages_ercentage = (contract.getLiquidated_damages_ercentage()*0.01);
+        double liquidatedCamages = unit_price * liquidated_damages_ercentage;
+        map.put("liquidatedCamages",liquidatedCamages);
+        //结束
+
+        //计算迁出时间
+        Date date = new Date();
+        long time = date.getTime();
+        try {
+            Date emigration_time = sim.parse(contract.getEmigration_time());
+            long time1 = emigration_time.getTime();
+            long ouOfDay = time1 - time;
+            int ouOfDays = (int) (ouOfDay / (3600 * 24 * 1000));
+            if (ouOfDays<0) {
+                map.put("mags",false);
+            }
+            map.put("ouOfDays",ouOfDays);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        //结束
+        if(contract.getStaging_state()==1){
+            double one_money = (contract.getRent_money() * 3) + contract.getDeposit_money();
+            map.put("one_money",one_money);
+            double two_money = contract.getRent_money() * 3;
+            map.put("two_money",two_money);
+        }
+        if(contract.getStaging_state()==2){
+            double one_money = (contract.getRent_money() * 6) + contract.getDeposit_money();
+            map.put("one_money",one_money);
+            double two_money = contract.getRent_money() * 6;
+            map.put("two_money",two_money);
+        }
+        if(contract.getStaging_state()==3){
+            double one_money = (contract.getRent_money() * 12) + contract.getDeposit_money();
+            map.put("one_money",one_money);
+        }
+        return map;
+    }
+
+
+    /**
+     * 新增合同
+     * @param contract
+     * @return
+     */
+    @RequestMapping("addContract")
+    @ResponseBody
+    public Map<String,Object> addContract(Contract contract){
+        Map<String,Object> map=new HashMap<String, Object>();
+        try{
+            String time = String.valueOf(new Date().getTime());
+            String code="6000";
+            SimpleDateFormat sim=new SimpleDateFormat("yyyy-MM-dd");
+            Date date = new Date();
+            ;
+            String format = sim.format(date);
+            Date parse = sim.parse(format);
+            System.out.println(parse);
+            String time2 = String.valueOf(parse.getTime());
+            String i = String.valueOf((int) ((Math.random() * 9 + 1) * 1000));
+            System.out.println(code+time2+i);
+            contract.setOrdernumber(code+time2+i);
+            contract.setCode(time);
+            contract.setGeneration_time(new Date());
+            houseService.addContract(contract);
+            map.put("success",true);
+        }catch (Exception e){
+            e.printStackTrace();
+            map.put("success",false);
+        }
+        return map;
+    }
+
+
+    /**
+     * 查询房源信息
+     * @return
+     */
+    @RequestMapping("getHouseAndEmp")
+    @ResponseBody
+    public  Map<String,Object> getHouseAndEmp(Integer page,Integer limit){
+        Map<String,Object> map = new HashMap<String, Object>();
+        List<HouseResource> houseList = houseService.getHouseAndEmp(page,limit);
+        map.put("data",houseList);
+        map.put("count",houseList.size());
+        map.put("msg","");
+        map.put("code",0);
+        return map;
+    }
 
 }

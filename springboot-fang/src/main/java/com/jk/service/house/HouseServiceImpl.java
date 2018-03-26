@@ -211,25 +211,14 @@ public class HouseServiceImpl implements HouseService {
         return houseMapper.getEmpEmail(id);
     }
 
-    /**
-     * 新增合同方法
-     * @param contract
-     */
     @Override
-    public Map<String,Object> addContract(Contract contract, HttpServletRequest request) {
-        Map<String,Object> map = new HashMap<String, Object>();
+    public void addContract(Contract contract) {
+        houseMapper.addContract(contract);
         try{
             houseMapper.updHouseFalg(contract.getHouse_id());
-            HttpSession session = request.getSession();
-            Temp attribute = (Temp) session.getAttribute(session.getId());
-            contract.setEid(attribute.getId());
-            houseMapper.addContract(contract);
-            map.put("success",true);
         }catch (Exception e){
             e.printStackTrace();
-            map.put("success",false);
         }
-        return map;
     }
 
     @Override
@@ -243,8 +232,9 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public List<HouseResource> getHouseAndEmp() {
-        return houseMapper.getHouseAndEmp();
+    public List<HouseResource> getHouseAndEmp(Integer page,Integer limit) {
+        page=(page-1)*limit;
+        return houseMapper.getHouseAndEmp(page,limit);
     }
 
     @Override
@@ -347,6 +337,12 @@ public class HouseServiceImpl implements HouseService {
     @Override
     public List<HouseResource> getHouseAndEmpSell() {
         return houseMapper.getHouseAndEmpSell();
+    }
+
+    @Override
+    public List<HouseResource> getSellHouseAndEmp(Integer page, Integer limit) {
+        page=(page-1)*limit;
+        return houseMapper.getSellHouseAndEmp(page,limit);
     }
 }
 

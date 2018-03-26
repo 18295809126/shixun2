@@ -17,7 +17,7 @@
     <script type="application/javascript" src="/js/layui-v2.2.5/layui/layui.js"></script>
 </head>
 <body>
-<div style="padding-left: 500px; " style="background:url('http://1708bone.oss-cn-beijing.aliyuncs.com/file1521386800800.jpg?Expires=1836746798&OSSAccessKeyId=LTAIDWJJcHLYf4PW&Signature=iS9vEcpJqIFYcHlr0lcWxaeh%2FDA%3D') no-repeat;">
+<div style="padding-left: 300px; " style="background:url('http://1708bone.oss-cn-beijing.aliyuncs.com/file1521386800800.jpg?Expires=1836746798&OSSAccessKeyId=LTAIDWJJcHLYf4PW&Signature=iS9vEcpJqIFYcHlr0lcWxaeh%2FDA%3D') no-repeat;">
     <form class="layui-form" id="addcompanyForm" data-align="center">
 
         <input type="hidden" name="id" id="id">
