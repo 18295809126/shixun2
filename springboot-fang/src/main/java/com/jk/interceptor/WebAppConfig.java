@@ -29,23 +29,21 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/js/**").addResourceLocations("classpath:/js/**");
-        registry.addResourceHandler("/WEB-INF/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX+"/WEB-INF/**");
-        super.addResourceHandlers(registry);
+         super.addResourceHandlers(registry);
     }
 
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 
-        registry.addInterceptor(powerConfig()).addPathPatterns("/**")  .excludePathPatterns("/error/**")
+        registry.addInterceptor(powerConfig()).addPathPatterns("/*/**")  .excludePathPatterns("/error/**")
                 .excludePathPatterns("*.js")
                 .excludePathPatterns("/login/login.do")
                 .excludePathPatterns("/login/getInterfaceSMS")
                 //.excludePathPatterns("/js/layui-v2.2.5/layui/layui.js")
                 .excludePathPatterns("*.css")
                 .excludePathPatterns("/login/userLoginMethod");
-        registry.addInterceptor(interceptorConfig()).addPathPatterns("/**")
+        registry.addInterceptor(interceptorConfig()).addPathPatterns("/*/**")
                 .excludePathPatterns("/login/login.do")
                 .excludePathPatterns("/login/getInterfaceSMS") .excludePathPatterns("/login/userLoginMethod");
                 // .excludePathPatterns("/error/**")

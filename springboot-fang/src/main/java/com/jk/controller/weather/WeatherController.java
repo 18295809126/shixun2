@@ -41,7 +41,7 @@ public class WeatherController {
         List<String> LowList = new ArrayList<String>();
         String url = "http://wthrcdn.etouch.cn/weather_mini";
         HashMap<String, Object> params = new HashMap<String, Object>();
-        params.put("city", " ");
+        params.put("city", "北京");
         String s = HttpClient.get(url, params);
         //System.out.println(s);
         JsonNode jsonNode = null;
@@ -68,7 +68,6 @@ public class WeatherController {
         }
         return map;
     }
-
     //饼状图
     @RequestMapping(value = "getHouse")
     @ResponseBody

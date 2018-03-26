@@ -488,7 +488,7 @@
      * 天气查询
      */
     $.ajax({
-        url:"../getWeather.do",
+        url:"getWeather",
         dataType:"json",
         success:function(data){
             var weekArray = data.weekList;
