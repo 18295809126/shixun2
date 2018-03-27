@@ -2,6 +2,7 @@ package com.jk.controller.house;
 
 import com.jk.model.Notice.Notice;
 import com.jk.model.area.Area;
+import com.jk.model.company.t_company;
 import com.jk.model.contract.Contract;
 import com.jk.model.decorate.Decorate;
 import com.jk.model.house.Community;
@@ -176,7 +177,12 @@ public class HouseController {
                 houseService.updateHouseDatasource(house,request);
             }else{
                 house.setHousing_state(housing_state);
+
+                t_company company = (t_company) request.getSession().getAttribute("company");
+                house.setCompanyName(company.getCompany_name());
+
                 houseService.addHouseDatasource(house,request);
+
                 map.put("success", true);
             }
         } catch (Exception e) {

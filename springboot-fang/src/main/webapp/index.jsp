@@ -89,7 +89,7 @@
                                 <div class="layui-col-md6" style="background: white;height: 50%">
                                     <div class="layui-collapse">
                                         <div class="layui-colla-item">
-                                            <h2 class="layui-colla-title">订单查看</h2>
+                                            <h2 class="layui-colla-title">最新交易记录</h2>
                                             <div class="layui-colla-content layui-show">
                                                 <table id="trad" lay-filter="test" align="center"></table>
                                             </div>

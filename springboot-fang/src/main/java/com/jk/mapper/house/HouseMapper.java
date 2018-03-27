@@ -45,7 +45,7 @@ public interface HouseMapper {
     /**
      * 添加房源信息
      * */
-    @Insert("INSERT INTO t_sell_house_resource (id,emp_id,title,price,room,hall,toilet,house_area,community,province,city,county,building_time,room_type,room_direction,house_floor,decorate,unit_price,Monthly_payments,Selling_point,owner_mentality,community_complete,service_introduce,release_time,room_num,housing_state,deposit_money,rent_money,house_type) values(#{id},#{emp_id},#{title},#{price},#{room},#{hall},#{toilet},#{house_area},#{community},#{province},#{city},#{county},#{building_time},#{room_type},#{room_direction},#{house_floor},#{decorate},#{unit_price},#{monthly_payments},#{selling_point},#{owner_mentality},#{community_complete},#{service_introduce},#{release_time},#{room_num},#{housing_state},#{deposit_money},#{rent_money},#{house_type})")
+    @Insert("INSERT INTO t_sell_house_resource (id,emp_id,title,price,room,hall,toilet,house_area,community,province,city,county,building_time,room_type,room_direction,house_floor,decorate,unit_price,Monthly_payments,Selling_point,owner_mentality,community_complete,service_introduce,release_time,room_num,housing_state,deposit_money,rent_money,house_type,companyName) values(#{id},#{emp_id},#{title},#{price},#{room},#{hall},#{toilet},#{house_area},#{community},#{province},#{city},#{county},#{building_time},#{room_type},#{room_direction},#{house_floor},#{decorate},#{unit_price},#{monthly_payments},#{selling_point},#{owner_mentality},#{community_complete},#{service_introduce},#{release_time},#{room_num},#{housing_state},#{deposit_money},#{rent_money},#{house_type},#{companyName})")
     void addHouseDatasource(HouseResource house);
     /**
      * 向房源图片表中上传图片
@@ -176,7 +176,7 @@ public interface HouseMapper {
      * @param limit
      * @return
      */
-    @Select("select * from t_notice")
+    @Select("select * from t_notice tnc order by tnc.releasetime desc")
     List<Notice> queryNotice(@Param("page")Integer page, @Param("limit") Integer limit);
 
     /**
