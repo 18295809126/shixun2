@@ -69,19 +69,25 @@
             //,cellMinWidth: 100
             ,cols: [[ //表头
                 {field: 'code', title: '选择',width:80, sort: true, fixed: 'left',type:'checkbox'}
-                ,{field: 'lease_name', title: '出租方', fixed: 'left', width: 80}
-                ,{field: 'lessee_name', title: '承租方', fixed: 'left', width: 80}
-                ,{field: 'title', title: '房屋租赁', fixed: 'left', width: 80}
-                ,{field: 'rent_time', title: '起租时间', fixed: 'left', width: 120}
-                ,{field: 'finish_time', title: '到租时间', fixed: 'left', width: 120}
-                ,{field: 'payment_name', title: '付款方式关联id', fixed: 'left', width: 80}
-                ,{field: 'name', title: '分期状态关联id', fixed: 'left', width: 80}
-                ,{field: 'generation_time', title: '合同生成日期', fixed: 'left', width: 120}
-                ,{field: 'mention_rent', title: '收租金时间', fixed: 'left', width: 100}
-                ,{field: 'liquidated_damages', title: '违约金', fixed: 'left', width: 80}
-                ,{field: 'one_money', title: '第一次支付金额', fixed: 'left', width: 130}
-                ,{field: 'xxx', title: '删除',templet:function (d) {
+                ,{field: 'lease_name', title: '出租方', fixed: 'left', align:'center'}
+                ,{field: 'lessee_name', title: '承租方', fixed: 'left', align:'center'}
+                ,{field: 'title', title: '房屋租赁', fixed: 'left', align:'center'}
+                ,{field: 'rent_time', title: '起租时间', fixed: 'left', align:'center'}
+                ,{field: 'finish_time', title: '到租时间', fixed: 'left', align:'center'}
+                ,{field: 'payment_name', title: '付款方式关联id', fixed: 'left', align:'center'}
+                ,{field: 'name', title: '分期状态关联id', fixed: 'left', align:'center'}
+                ,{field: 'generation_time', title: '合同生成日期', fixed: 'left', align:'center'}
+                ,{field: 'mention_rent', title: '收租金时间', fixed: 'left', align:'center'}
+                ,{field: 'liquidated_damages', title: '违约金', fixed: 'left', align:'center'}
+                ,{field: 'one_money', title: '第一次支付金额', fixed: 'left', align:'center'}
+                ,{field: 'xxx', title: '删除',align:'center',templet:function (d) {
                     return '<a href="javascript:delHouse('+'\''+d.code+'\''+')" class="layui-btn layui-btn-sm">删除</a>';
+                }}
+                ,{field: 'xxx', title: '导出word',align:'center',templet:function (d) {
+                    return '<a href="javascript:???('+'\''+d.code+'\''+')" class="layui-btn layui-btn-sm">导出word</a>';
+                }}
+                ,{field: 'xxx', title: '导出pdf',align:'center',templet:function (d) {
+                    return '<a href="javascript:???('+'\''+d.code+'\''+')" class="layui-btn layui-btn-sm">导出pdf</a>';
                 }}
             ]]
             , height: 600
