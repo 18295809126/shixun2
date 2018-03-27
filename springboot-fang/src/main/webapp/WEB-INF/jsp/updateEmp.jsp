@@ -23,12 +23,12 @@
 <div id="addstaff" style="padding-left: 300px; " style="background:url('http://1708bone.oss-cn-beijing.aliyuncs.com/file1521386800800.jpg?Expires=1836746798&OSSAccessKeyId=LTAIDWJJcHLYf4PW&Signature=iS9vEcpJqIFYcHlr0lcWxaeh%2FDA%3D') no-repeat;">
     <form class="layui-form" id="addstaffForm" data-align="center">
 
-        <%--<input type="hidden" name="id" id="id" value="${emp.id}"> value="${emp.photo}"value="${emp.password}"value="${emp.loginnumber}" value="${emp.phonenumer}" value="${emp.name}"value="${emp.weixin}"--%>
+        <input type="hidden" name="id" id="id" value="${emp.id}">
 
         <div class="layui-form-item">
             <label class="layui-form-label">员工姓名:</label>
             <div class="layui-input-inline">
-                <input type="text" name="name" id="name"  required lay-verify="required" placeholder="请输入名称" autocomplete="off" class="layui-input">
+                <input type="text" name="name" id="name" value="${emp.name}" required lay-verify="required" placeholder="请输入名称" autocomplete="off" class="layui-input">
             </div>
         </div>
 
@@ -38,7 +38,7 @@
             <div class="layui-upload">
                 <button type="button" class="layui-btn" id="test3">微信上传</button>
 
-                <input type="hidden" name="weixin" id="image2" >
+                <input type="hidden" name="weixin" id="image2" value="${emp.weixin}">
 
             </div>
             <div class="layui-input-inline">
@@ -49,20 +49,20 @@
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">手机号:</label>
             <div class="layui-input-inline">
-                <input type="text" name="phonenumer"   id="phonenumer" required lay-verify="required" placeholder="请输入手机号" autocomplete="off" class="layui-input">
+                <input type="text" name="phonenumer" value="${emp.phonenumer}"  id="phonenumer" required lay-verify="required" placeholder="请输入手机号" autocomplete="off" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item">            <label class="layui-form-label">登陆账号:</label>
             <div class="layui-input-inline">
-                <input type="text" name="loginnumber" id="loginnumber"   required lay-verify="required" placeholder="请输入名称" autocomplete="off" class="layui-input">
+                <input type="text" name="loginnumber" id="loginnumber" value="${emp.loginnumber}"   required lay-verify="required" placeholder="请输入名称" autocomplete="off" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label">密码:</label>
             <div class="layui-input-inline">
-                <input type="text" name="password" id="password"   required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                <input type="text" name="password" id="password" value="${emp.password}"  required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
             </div>
         </div>
 
@@ -72,7 +72,7 @@
             <div class="layui-upload">
                 <button type="button" class="layui-btn" id="test2">多图片上传</button>
 
-                <input type="hidden" name="photo" id="image" >
+                <input type="hidden" name="photo" id="image" value="${emp.photo}">
             </div>
         </div>
 
@@ -84,15 +84,16 @@
 </div>
 
 <script>
-/*    $(function () {
+    $(function () {
         var a = "${emp.id}";
         //alert(a);
         if(a != null && a != ""){
             //alert(a);
             $('#demo4').append('<img src="${emp.weixin}" class="layui-upload-img" height="100" width="100">');
+            $('#demo2').append('<img src="${emp.photo}" class="layui-upload-img" height="100" width="100">');
         }
 
-    });*/
+    });
 
 
 
@@ -154,20 +155,20 @@
     //新增
     $("#add").click(function(){
 
-                    $.ajax({
-                        url:"../Emp/submitEmp.do",
-                        type:"post",
-                        data:$("#addstaffForm").serialize(),
-                        success:function (map) {
-                            if(map.success){
-                                alert("操作成功！");
-                                location.href="../Emp/toEmp.do";
-                            }else{
-                                layer.alert("出错了！");
-                                location.href="../Emp/toEmp.do";
-                            }
-                        }
-                    })
+        $.ajax({
+            url:"../Emp/submitEmp.do",
+            type:"post",
+            data:$("#addstaffForm").serialize(),
+            success:function (map) {
+                if(map.success){
+                    alert("操作成功！");
+                    location.href="../Emp/toEmp.do";
+                }else{
+                    layer.alert("出错了！");
+                    location.href="../Emp/toEmp.do";
+                }
+            }
+        })
 
     })
 

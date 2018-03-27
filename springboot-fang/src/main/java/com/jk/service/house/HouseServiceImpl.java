@@ -344,5 +344,19 @@ public class HouseServiceImpl implements HouseService {
         page=(page-1)*limit;
         return houseMapper.getSellHouseAndEmp(page,limit);
     }
+
+    @Override
+    public String queryContract(Map<String, String> map) {
+        long total = houseMapper.queryContract(map).size();
+        List<Contract> list = houseMapper.queryContractPage(map);
+        System.out.println(list);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("code", 0);
+        jsonObject.put("msg", "");
+        jsonObject.put("count", total);
+        jsonObject.put("data", list);
+
+        return jsonObject.toString();
+    }
 }
 

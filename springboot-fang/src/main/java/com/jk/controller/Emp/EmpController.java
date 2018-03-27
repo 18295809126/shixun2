@@ -137,7 +137,7 @@ public class EmpController {
     @RequestMapping("huixianById")
     @ResponseBody
     public ModelAndView huixianById(String id){
-        ModelAndView mode = new ModelAndView("AddEmp");
+        ModelAndView mode = new ModelAndView("updateEmp");
         t_emp emp = empService.huixianById(id);
         mode.addObject("emp",emp);
         return mode;

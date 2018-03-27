@@ -106,6 +106,40 @@ public class HouseController {
 
 
     /**
+     * 查询合同信息
+     * @return
+     */
+    @RequestMapping(value = "getContractList")
+    @ResponseBody
+    public String getContractList(Contract contract,Integer page, Integer limit){
+        Map map = new HashMap();
+        page =(page-1)* limit;
+        map.put("page",page);
+        map.put("limit",limit);
+        map.put("code",contract.getCode());
+        map.put("lessee_name",contract.getLessee_name());
+        return queryContract(map);
+    }
+
+    /**
+     * 条件查询合同信息
+     * @param map
+     * @return
+     */
+    private String queryContract(Map<String,String> map) {
+        String booklist="";
+        try {
+            System.out.println(map);
+            booklist=houseService.queryContract(map);
+            return  booklist;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return booklist;
+    }
+
+
+    /**
      * 删除房源信息
      * @param id
      * @return
@@ -606,21 +640,7 @@ public class HouseController {
         return map;
     }*/
 
-    /**
-     * 查询合同信息
-     * @return
-     */
-    @RequestMapping(value = "getContractList")
-    @ResponseBody
-    public Map<String,Object> getContractList(Integer page, Integer limit){
-        Map<String,Object> map = new HashMap<String, Object>();
-        List<Contract> appointmentList = houseService.getContractList(page,limit);
-        map.put("data",appointmentList);
-        map.put("count",appointmentList.size());
-        map.put("msg","");
-        map.put("code",0);
-        return map;
-    }
+
 
     /**
      * 删除合同

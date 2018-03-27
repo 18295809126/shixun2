@@ -283,4 +283,10 @@ public interface HouseMapper {
      */
     @Select("SELECT shr.id,shr.title,shr.companyName,shr.house_floor,shr.unit_price,shr.release_time,shr.rent_money,shr.house_type,shr.deposit_money FROM t_sell_house_resource shr WHERE shr.housing_state=1 AND shr.house_type=2")
     List<HouseResource> getSellHouseAndEmp(Integer page, Integer limit);
+
+    @SelectProvider(type = SqlProvider.class, method ="contract")
+    List<Contract> queryContract(Map<String, String> map);
+
+    @SelectProvider(type = SqlProvider.class, method ="contractPage" )
+    List<Contract> queryContractPage(Map<String, String> map);
 }

@@ -113,5 +113,7 @@ public interface HouseService {
     List<HouseResource> getHouseAndEmpSell();
 
     List<HouseResource> getSellHouseAndEmp(Integer page, Integer limit);
+
+    String queryContract(Map<String, String> map);
 }
 

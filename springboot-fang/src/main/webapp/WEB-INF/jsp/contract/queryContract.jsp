@@ -14,12 +14,55 @@
     <script type="application/javascript" src="/js/layui-v2.2.5/layui/layui.js"></script>
 </head>
 <body>
-<table id="contract" lay-filter="test"></table>
+<form class="layui-form" id="contractForm">
+
+    <div class="layui-form-item" style="width:1000px">
+        <label class="layui-form-label">编号</label>
+        <div class="layui-input-inline" style="width: 200px; display: inline-block; margin-left: 10px; float: left;">
+            <input type="text" name="code"id="codename"  size="10" lay-verify="title" autocomplete="off" placeholder="请输入编号" lay-verify="required" class="layui-input">
+        </div>
+        <label class="layui-form-label">承租方</label>
+        <div class="layui-input-block" style="width: 200px; display: inline-block; margin-left: 10px; float: left;">
+            <input type="text" name="lessee_name" id="lesseename"   lay-verify="" placeholder="请输入承租方" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div style=" height:100%;margin:0;height:100%">
+        <div>
+            <a class="layui-btn layui-btn-danger layui-btn-mini" id="searchSellcontract">搜索</a>
+            <button type="reset" class="layui-btn layui-btn-mini">重置</button>
+            <table class="layui-table" id="contract" lay-filter="test"></table>
+        </div>
+    </div>
+</form>
+<%--<table id="contract" lay-filter="test"></table>--%>
 <script>
+
+    //form表单封装成json
+    $.fn.serializeJson = function(){
+        var serializeObj={};
+        var array=this.serializeArray();
+        var str=this.serialize();
+        $(array).each(function(){
+            if(serializeObj[this.name]){
+                if($.isArray(serializeObj[this.name])){
+                    serializeObj[this.name].push(this.value);
+                }else{
+                    serializeObj[this.name]=[serializeObj[this.name],this.value];
+                }
+            }else{
+                serializeObj[this.name]=this.value;
+            }
+        });
+        return serializeObj;
+    };
+
+
+
     layui.use('table', function(){
         var table = layui.table;
         //第一个实例
-        table.render({
+        tableList  = table.render({
             elem: '#contract'
             ,url: '../house/getContractList.do' //数据接口
             ,page: true //开启分页
@@ -62,8 +105,15 @@
                 })
             }
         });
+        //搜索
+        $('#searchSellcontract').on('click', function(){
+            //alert("1");
+            tableList.reload({
+                where:$('#contractForm').serializeJson()
+            });
+            return false;
+        });
     });
-
 
     //删除合同
     function delHouse(code){

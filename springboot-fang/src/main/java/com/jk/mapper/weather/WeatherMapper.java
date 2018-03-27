@@ -16,7 +16,7 @@ public interface WeatherMapper {
 /*
     @Select("SELECT sh.flag AS NAME,sh.flag AS VALUE FROM t_sell_house_resource sh\n" + "LEFT JOIN t_hetong ht ON sh.id= ht.houseid")
 */
-    @Select("SELECT sh.house_type AS NAME,sh.house_type AS VALUE  FROM t_sell_house_resource sh LEFT JOIN t_contract ht ON sh.id= ht.code")
+    @Select("SELECT sh.house_type AS NAME,COUNT(sh.house_type) AS VALUE  FROM t_sell_house_resource sh LEFT JOIN t_contract ht ON sh.id= ht.code GROUP BY sh.house_type")
     List<HouseResource> getHouse();
 
     @Select("select id,name,full_name from xx_area where parent=0")

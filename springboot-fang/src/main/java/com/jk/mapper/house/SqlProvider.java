@@ -257,4 +257,88 @@ public class SqlProvider {
         return house.toString();
     }
 
+
+
+
+
+
+    /*
+   * 查询合同所有
+   *   SQL
+   */
+    public String contract(Map<String , Object> map){
+        StringBuffer contract = new StringBuffer();
+        try {
+
+            /**
+             * Sql省
+             */
+            final String code = (String)map.get("code");
+            /**
+             * Sql市
+             */
+            final String lessee_name = (String)map.get("lessee_name");
+
+
+            contract.append("SELECT t.code,t.lease_name,t.lessee_name,h.title as title,t.rent_time,t.finish_time,h.rent_money,p.payment_name,d.name,h.deposit_money,t.generation_time,t.mention_rent,t.liquidated_damages,t.one_money FROM t_contract AS t LEFT JOIN t_sell_house_resource AS h ON t.house_id=h.id LEFT JOIN t_payment AS p ON t.payment_method =p.id LEFT JOIN t_stages AS d ON t.staging_state=d.id");
+            contract.append(" where 1 = 1 ");
+            if( code != null && code != "" ){
+                contract.append(" and");
+                contract.append("  t.code = #{code}");
+            }
+            if(lessee_name != null && lessee_name !="" ){
+                contract.append("  and");
+                contract.append(" t.lessee_name LIKE '%"+ lessee_name+ "%'");
+            }
+
+            System.out.println(contract.toString());
+
+        }catch (Exception e){
+
+            e.printStackTrace();
+        }
+        return contract.toString();
+    }
+
+
+    /*
+     * 查询所有
+     *   SQL
+     */
+    public String contractPage(Map<String , Object> map){
+        StringBuffer contract = new StringBuffer();
+        try {
+
+            /**
+             * Sql省
+             */
+            final String code = (String)map.get("code");
+            /**
+             * Sql市
+             */
+            final String lessee_name = (String)map.get("lessee_name");
+
+
+            contract.append("SELECT t.code,t.lease_name,t.lessee_name,h.title as title,t.rent_time,t.finish_time,h.rent_money,p.payment_name,d.name,h.deposit_money,t.generation_time,t.mention_rent,t.liquidated_damages,t.one_money FROM t_contract AS t LEFT JOIN t_sell_house_resource AS h ON t.house_id=h.id LEFT JOIN t_payment AS p ON t.payment_method =p.id LEFT JOIN t_stages AS d ON t.staging_state=d.id");
+            contract.append(" where 1 = 1 ");
+            if( code != null && code != "" ){
+                contract.append(" and");
+                contract.append("  t.code = #{code}");
+            }
+            if(lessee_name != null && lessee_name !="" ){
+                contract.append("  and");
+                contract.append(" t.lessee_name LIKE '%"+ lessee_name+ "%'");
+            }
+
+            contract.append("LIMIT #{page},#{limit}");
+
+            System.out.println(contract.toString());
+
+        }catch (Exception e){
+
+            e.printStackTrace();
+        }
+        return contract.toString();
+    }
+
 }
