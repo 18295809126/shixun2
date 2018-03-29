@@ -267,10 +267,15 @@ public interface HouseMapper {
             "LEFT JOIN t_emp e ON e.id=shr.emp_id where  shr.id=#{id}")
     List<HouseResource> getRent(String id);
 
-    @Select("SELECT c.lease_name,c.generation_time,c.lessee_name,c.liquidated_damages,c.rent_time,shr.rent_money as rent_money,s.name as staging_name,shr.deposit_money as deposit_money,c.finish_time,(MONTH(c.finish_time) - MONTH(c.rent_time)) yueNum,c.one_money FROM t_contract c\n" +
+   /* *//**
+  * 生成租房WORD以及PDF   通过id与匹配的code查询出相关信息
+  * @param
+  * @return
+  *//*
+    @Select("SELECT c.lease_name,c.generation_time,c.lessee_name,c.liquidated_damages,c.rent_time,shr.rent_money as rent_money,s.name as staging_name,shr.deposit_money as deposit_money,c.finish_time,(MONTH(c.finish_time) - MONTH(c.rent_time)) yueNum,c.one_money,,c.tradingType FROM t_contract c\n" +
             "left join  t_sell_house_resource shr on shr.id=c.house_id\n" +
             "left join  t_stages s on s.id=c.staging_state where c.code=#{id}")
-    Contract queryContracById(String id);
+    Contract queryContracById(String id);*/
 
     @Select("SELECT shr.id,shr.title,e.name AS emp_id,shr.housing_state,shr.house_type FROM t_sell_house_resource shr \n" +
             "LEFT JOIN t_emp e ON e.id=shr.emp_id WHERE shr.housing_state=3 AND shr.house_type=2")
@@ -289,4 +294,39 @@ public interface HouseMapper {
 
     @SelectProvider(type = SqlProvider.class, method ="contractPage" )
     List<Contract> queryContractPage(Map<String, String> map);
+
+    /**
+     * 生成卖房合同Word文档以及PDF    通过code查询相关信息
+     * @param code
+     * @return
+     */
+    @Select("SELECT \n" +
+            " tct.buyHouseMan AS buyHouseManl,\n" +
+            " tct.buyHouseManIdCard,\n" +
+            " tct.payment_period,\n" +
+            " tct.generation_time,\n" +
+            " tct.liquidated_damages_ercentage,\n" +
+            " tct.emigration_time AS emigration_time,\n" +
+            " tshr.thenameofthelandlord AS thenameofthelandlord,\n" +
+            " tshr.house_area AS houseArea,\n" +
+            " tshr.price AS housePrice,\n" +
+            " tshr.contactinformation AS contactInformation,\n" +
+            " tshr.idcard AS idcards,\n" +
+            " tcu.name AS communityName,\n" +
+            " tct.tradingType,\n" +
+            " tct.lease_name,\n" +
+            " tct.lessee_name,\n" +
+            " tct.liquidated_damages,\n" +
+            " tct.rent_time,\n" +
+            " tshr.rent_money AS rent_money,\n" +
+            " s.name AS staging_name,\n" +
+            " tshr.deposit_money AS deposit_money,\n" +
+            " tct.finish_time,\n" +
+            " (MONTH(tct.finish_time) - MONTH(tct.rent_time)) yueNum,\n" +
+            " tct.one_money,\n" +
+            " tct.tradingType\n" +
+            " FROM t_contract tct LEFT JOIN t_sell_house_resource tshr ON tct.house_id = tshr.id\n" +
+            " LEFT JOIN t_community tcu ON tshr.community = tcu.id \n" +
+            " LEFT JOIN t_stages s ON s.id=tct.staging_state WHERE tct.code = #{code}")
+    Contract queryContractByCodes(String code);
 }

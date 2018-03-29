@@ -809,6 +809,7 @@ public class HouseController {
             contract.setCode(time);
             contract.setGeneration_time(new Date());
             houseService.addContract(contract);
+
             map.put("success",true);
         }catch (Exception e){
             e.printStackTrace();
@@ -834,4 +835,24 @@ public class HouseController {
         return map;
     }
 
+
+    /**
+     * 通过对应编号的合同信息（word）
+     * @param code
+     */
+    @RequestMapping(value = "generateWordFile")
+    @ResponseBody
+    public void generateWordFile(String code){
+        houseService.queryContractByCodes(code);
+    }
+
+    /**
+     * 生成PDF
+     * @param code
+     */
+    @RequestMapping(value = "generatePDFFile")
+    @ResponseBody
+    public void generatePDFFile(String code) throws Exception {
+        houseService.generatePDFFile(code);
+    }
 }

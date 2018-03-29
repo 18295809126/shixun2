@@ -78,10 +78,179 @@ public class Contract implements Serializable {
 
     private  String  payment_name;
 
+    @Override
+    public String toString() {
+        return "Contract{" +
+                "code='" + code + '\'' +
+                ", lease_name='" + lease_name + '\'' +
+                ", lessee_name='" + lessee_name + '\'' +
+                ", house_id='" + house_id + '\'' +
+                ", rent_time=" + rent_time +
+                ", finish_time=" + finish_time +
+                ", payment_method=" + payment_method +
+                ", staging_state=" + staging_state +
+                ", one_money=" + one_money +
+                ", rent_money=" + rent_money +
+                ", deposit_money=" + deposit_money +
+                ", yueNum=" + yueNum +
+                ", cnliquidateddamages='" + cnliquidateddamages + '\'' +
+                ", cnrentmoney='" + cnrentmoney + '\'' +
+                ", cndeposit_money='" + cndeposit_money + '\'' +
+                ", cnonemoney='" + cnonemoney + '\'' +
+                ", generation_time=" + generation_time +
+                ", mention_rent='" + mention_rent + '\'' +
+                ", liquidated_damages=" + liquidated_damages +
+                ", title='" + title + '\'' +
+                ", name='" + name + '\'' +
+                ", payment_name='" + payment_name + '\'' +
+                ", staging_name='" + staging_name + '\'' +
+                ", liquidated_damages_ercentage=" + liquidated_damages_ercentage +
+                ", predetermined_period=" + predetermined_period +
+                ", payment_period=" + payment_period +
+                ", emigration_time=" + emigration_time +
+                ", eid='" + eid + '\'' +
+                ", eidname='" + eidname + '\'' +
+                ", tradingroom='" + tradingroom + '\'' +
+                ", roomname='" + roomname + '\'' +
+                ", tradingType=" + tradingType +
+                ", unit_price=" + unit_price +
+                ", contractType='" + contractType + '\'' +
+                ", ordernumber='" + ordernumber + '\'' +
+                ", outOfDay=" + outOfDay +
+                ", two_money=" + two_money +
+                ", three_money=" + three_money +
+                ", four_money=" + four_money +
+                ", house_type=" + house_type +
+                ", paymentMethodName='" + paymentMethodName + '\'' +
+                ", chineseRentMoney='" + chineseRentMoney + '\'' +
+                ", loseDay='" + loseDay + '\'' +
+                ", buyHouseManl='" + buyHouseManl + '\'' +
+                ", buyHouseManIdCard='" + buyHouseManIdCard + '\'' +
+                ", liquidatedDamages=" + liquidatedDamages +
+                ", communityName='" + communityName + '\'' +
+                ", contractPrice='" + contractPrice + '\'' +
+                ", thenameofthelandlord='" + thenameofthelandlord + '\'' +
+                ", houseArea='" + houseArea + '\'' +
+                ", housePrice=" + housePrice +
+                ", contactInformation='" + contactInformation + '\'' +
+                ", idcards='" + idcards + '\'' +
+                '}';
+    }
+
+    public String getPaymentMethodName() {
+        return paymentMethodName;
+    }
+
+    public void setPaymentMethodName(String paymentMethodName) {
+        this.paymentMethodName = paymentMethodName;
+    }
+
+    public String getChineseRentMoney() {
+        return chineseRentMoney;
+    }
+
+    public void setChineseRentMoney(String chineseRentMoney) {
+        this.chineseRentMoney = chineseRentMoney;
+    }
+
+    public String getLoseDay() {
+        return loseDay;
+    }
+
+    public void setLoseDay(String loseDay) {
+        this.loseDay = loseDay;
+    }
+
+    public String getBuyHouseManl() {
+        return buyHouseManl;
+    }
+
+    public void setBuyHouseManl(String buyHouseManl) {
+        this.buyHouseManl = buyHouseManl;
+    }
+
+    public String getBuyHouseManIdCard() {
+        return buyHouseManIdCard;
+    }
+
+    public void setBuyHouseManIdCard(String buyHouseManIdCard) {
+        this.buyHouseManIdCard = buyHouseManIdCard;
+    }
+
+    public Double getLiquidatedDamages() {
+        return liquidatedDamages;
+    }
+
+    public void setLiquidatedDamages(Double liquidatedDamages) {
+        this.liquidatedDamages = liquidatedDamages;
+    }
+
+    public String getCommunityName() {
+        return communityName;
+    }
+
+    public void setCommunityName(String communityName) {
+        this.communityName = communityName;
+    }
+
+    public String getContractPrice() {
+        return contractPrice;
+    }
+
+    public void setContractPrice(String contractPrice) {
+        this.contractPrice = contractPrice;
+    }
+
+    public String getThenameofthelandlord() {
+        return thenameofthelandlord;
+    }
+
+    public void setThenameofthelandlord(String thenameofthelandlord) {
+        this.thenameofthelandlord = thenameofthelandlord;
+    }
+
+    public String getHouseArea() {
+        return houseArea;
+    }
+
+    public void setHouseArea(String houseArea) {
+        this.houseArea = houseArea;
+    }
+
+    public Double getHousePrice() {
+        return housePrice;
+    }
+
+    public void setHousePrice(Double housePrice) {
+        this.housePrice = housePrice;
+    }
+
+    public String getContactInformation() {
+        return contactInformation;
+    }
+
+    public void setContactInformation(String contactInformation) {
+        this.contactInformation = contactInformation;
+    }
+
+    public String getIdcards() {
+        return idcards;
+    }
+
+    public void setIdcards(String idcards) {
+        this.idcards = idcards;
+    }
+
     private String staging_name;
 
+    /**
+     * 违约金比例
+     */
     private Double liquidated_damages_ercentage;
 
+    /**
+     * 预售期
+     */
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date  predetermined_period;
 
@@ -110,6 +279,7 @@ public class Contract implements Serializable {
 
     private String ordernumber;
 
+    //迁出天数
     private Integer outOfDay;
 
     private Double two_money;
@@ -119,6 +289,41 @@ public class Contract implements Serializable {
     private Double four_money;
 
     private Integer house_type;
+
+    /**
+     * 业务字段  租房合同  卢杰
+     */
+    private String paymentMethodName;
+
+    private String chineseRentMoney;
+
+    private String loseDay;//交付乙方时间
+
+    /**
+     * 业务字段 卖房合同
+     * @return
+     */
+    //买房人姓名
+    private String buyHouseManl;
+    //买房人省份证号
+    private String buyHouseManIdCard;
+    //违约金
+    private Double liquidatedDamages;
+    //小区名称
+    private String communityName;
+
+    //售价大写
+    private String contractPrice;
+    //房东
+    private String thenameofthelandlord;
+    //房屋面积
+    private String houseArea;
+    //房屋售价
+    private Double housePrice;
+    //联系方式
+    private String contactInformation;
+    //房东身份证号
+    private String idcards;
 
 
 
@@ -428,45 +633,6 @@ public class Contract implements Serializable {
 
     public void setOne_money(Double one_money) {
         this.one_money = one_money;
-    }
-
-    @Override
-    public String toString() {
-        return "Contract{" +
-                "code='" + code + '\'' +
-                ", lease_name='" + lease_name + '\'' +
-                ", lessee_name='" + lessee_name + '\'' +
-                ", house_id='" + house_id + '\'' +
-                ", rent_time=" + rent_time +
-                ", finish_time=" + finish_time +
-                ", payment_method=" + payment_method +
-                ", staging_state=" + staging_state +
-                ", one_money=" + one_money +
-                ", rent_money=" + rent_money +
-                ", deposit_money=" + deposit_money +
-                ", yueNum=" + yueNum +
-                ", cnliquidateddamages='" + cnliquidateddamages + '\'' +
-                ", cnrentmoney='" + cnrentmoney + '\'' +
-                ", cndeposit_money='" + cndeposit_money + '\'' +
-                ", cnonemoney='" + cnonemoney + '\'' +
-                ", generation_time=" + generation_time +
-                ", mention_rent='" + mention_rent + '\'' +
-                ", liquidated_damages=" + liquidated_damages +
-                ", title='" + title + '\'' +
-                ", name='" + name + '\'' +
-                ", payment_name='" + payment_name + '\'' +
-                ", staging_name='" + staging_name + '\'' +
-                ", liquidated_damages_ercentage=" + liquidated_damages_ercentage +
-                ", predetermined_period=" + predetermined_period +
-                ", payment_period=" + payment_period +
-                ", emigration_time=" + emigration_time +
-                ", ordernumber='" + ordernumber + '\'' +
-                ", eid='" + eid + '\'' +
-                ", eidname='" + eidname + '\'' +
-                ", tradingroom='" + tradingroom + '\'' +
-                ", roomname='" + roomname + '\'' +
-                ", tradingType=" + tradingType +
-                '}';
     }
 
     public String getOrdernumber() {

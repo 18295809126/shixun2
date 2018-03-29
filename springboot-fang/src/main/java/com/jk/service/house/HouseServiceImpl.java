@@ -15,6 +15,7 @@ import com.jk.model.payment.Payment;
 import com.jk.model.pic.HousePhoto;
 import com.jk.model.stages.Stages;
 import com.jk.utils.CnNumberUtils;
+import com.jk.utils.ToChineseUtil;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -256,7 +257,7 @@ public class HouseServiceImpl implements HouseService {
      * 生成word文档
      *
      * @param id
-     */
+     *//*
     @Override
     public void toFreeWord(String id) {
         Map<String, Object> map = new HashMap<String, Object>();
@@ -275,13 +276,13 @@ public class HouseServiceImpl implements HouseService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     /**
      * 生成odf文档
      *
-     * @param id
-     */
+     * @param
+     *//*
     @Override
     public void toFreePdf(String id) throws Exception, TemplateException {
           //创建数据模型
@@ -332,7 +333,7 @@ public class HouseServiceImpl implements HouseService {
         }
         System.out.println("转换成功！");
         os.close();
-    }
+    }*/
 
     @Override
     public List<HouseResource> getHouseAndEmpSell() {
@@ -357,6 +358,170 @@ public class HouseServiceImpl implements HouseService {
         jsonObject.put("data", list);
 
         return jsonObject.toString();
+    }
+
+    /**
+     * 生成WORD文档   卖房2 租房1
+     * @param code
+     */
+    @Override
+    public void queryContractByCodes(String code) {
+        Contract contract = houseMapper.queryContractByCodes(code);
+        Integer tradingType = contract.getTradingType();
+        if (tradingType==2) {
+            Double price = contract.getHousePrice();
+            //违约比列
+            Double liquidated_damages_ercentage = contract.getLiquidated_damages_ercentage();
+            //违约金
+            Double liquidatedDamages = (price * liquidated_damages_ercentage) / 100;
+            //售价大写
+            //String contractPrice = CnNumberUtils.toUppercase(contract.getContractPrice());
+            String contractPrice = ToChineseUtil.toChinese(contract.getHousePrice());
+            contract.setLiquidatedDamages(liquidatedDamages);
+            contract.setContractPrice(contractPrice);
+            Map<Object, Object> map = new HashMap<Object, Object>();
+            Configuration configuration = new Configuration();
+            map.put("contract", contract);
+            String ftlpath = "D:\\practice\\fang";
+            String htmlName = "maifanghet.ftl";
+            try {
+                configuration.setDirectoryForTemplateLoading(new File(ftlpath));
+                Template template = configuration.getTemplate(htmlName);
+                // 合并模板文件以及数据将其进行输出
+                Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("D:\\practice\\fang\\accountMai.docx"), "utf-8"));
+                //进行处理(往map里面存放数据)
+                map.put("contract", contract);
+                template.process(map, out);
+                System.out.println("生成卖房Word文档成功");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else if (tradingType==1){
+            Map<String, Object> map = new HashMap<String, Object>();
+            Configuration configuration = new Configuration();
+            String ftlpath = "D:\\practice\\fang";
+            String htmlName = "account.ftl";
+            try {
+                configuration.setDirectoryForTemplateLoading(new File(ftlpath));
+                Template template = configuration.getTemplate(htmlName);
+                // 合并模板文件以及数据将其进行输出
+                Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("D:\\practice\\fang\\contract.docx"), "utf-8"));
+                //进行处理(往map里面存放数据)
+                map.put("contract", contract);
+                template.process(map, out);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 生成PDF   卖房2 租房1
+     * @param code
+     */
+    @Override
+    public void generatePDFFile(String code) throws Exception, TemplateException  {
+        Contract contract = houseMapper.queryContractByCodes(code);
+        Integer tradingType = contract.getTradingType();
+        if (tradingType==2){
+        Double price = contract.getHousePrice();
+        //违约比列
+        Double liquidated_damages_ercentage = contract.getLiquidated_damages_ercentage();
+        //违约金
+        Double liquidatedDamages = (price * liquidated_damages_ercentage) / 100;
+        //售价大写
+        //String contractPrice = CnNumberUtils.toUppercase(contract.getContractPrice());
+        String contractPrice = ToChineseUtil.toChinese(contract.getHousePrice());
+        contract.setLiquidatedDamages(liquidatedDamages);
+        contract.setContractPrice(contractPrice);
+        Map<Object, Object> map = new HashMap<Object, Object>();
+        map.put("contract", contract);
+        //创建配置
+        Configuration cfg = new Configuration();
+        // 指定模板存放的路径
+        cfg.setDirectoryForTemplateLoading(new File("D:\\practice\\fang"));
+        cfg.setDefaultEncoding("UTF-8");
+        // 从上面指定的模板目录中加载对应的模板文件
+        Template temp = cfg.getTemplate("contractMaiPDF.ftl");
+
+        //将生成的内容写入hello .html中
+        String fileName = UUID.randomUUID().toString().replace("-", "");
+        String file1 = "D:\\practice\\fang" + fileName + ".html";
+        File file = new File(file1);
+        if (!file.exists())
+            file.createNewFile();
+        Writer out = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream(file), "UTF-8"));
+        temp.process(map, out);
+        out.flush();
+
+        String url = new File(file1).toURI().toURL().toString();
+        String outputFile = "D:\\practice\\fang\\contractMAIPDF" + fileName + ".pdf";
+        OutputStream os = new FileOutputStream(outputFile);
+        ITextRenderer renderer = new ITextRenderer();
+        renderer.setDocument(url);
+        // 解决中文问题
+        ITextFontResolver fontResolver = renderer.getFontResolver();
+        try {
+            fontResolver.addFont("D:\\practice\\fang\\simsun.ttc", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        renderer.layout();
+        try {
+            renderer.createPDF(os);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("转换买房pdf成功！");
+        os.close();
+    }else if (tradingType==1){
+            contract.setCnliquidateddamages(CnNumberUtils.toUppercase(contract.getLiquidated_damages()));//违约金
+            contract.setCnrentmoney(CnNumberUtils.toUppercase(contract.getRent_money()));
+            contract.setCndeposit_money(CnNumberUtils.toUppercase(contract.getDeposit_money()));
+            contract.setCnonemoney(CnNumberUtils.toUppercase(contract.getOne_money()));
+            Map<Object, Object> map = new HashMap<Object, Object>();
+            map.put("contract", contract);
+            //创建配置
+            Configuration cfg = new Configuration();
+            // 指定模板存放的路径
+            cfg.setDirectoryForTemplateLoading(new File("D:\\practice\\fang"));
+            cfg.setDefaultEncoding("UTF-8");
+            // 从上面指定的模板目录中加载对应的模板文件
+            Template temp = cfg.getTemplate("contractPDF.ftl");
+
+            //将生成的内容写入hello .html中
+            String fileName = UUID.randomUUID().toString().replace("-", "");
+            String file1 = "D:\\practice\\fang" + fileName + ".html";
+            File file = new File(file1);
+            if (!file.exists())
+                file.createNewFile();
+            Writer out = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(file), "UTF-8"));
+            temp.process(map, out);
+            out.flush();
+
+            String url = new File(file1).toURI().toURL().toString();
+            String outputFile = "D:\\practice\\fang\\contractPDF" + fileName + ".pdf";
+            OutputStream os = new FileOutputStream(outputFile);
+            ITextRenderer renderer = new ITextRenderer();
+            renderer.setDocument(url);
+            // 解决中文问题
+            ITextFontResolver fontResolver = renderer.getFontResolver();
+            try {
+                fontResolver.addFont("D:\\practice\\fang\\simsun.ttc", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            renderer.layout();
+            try {
+                renderer.createPDF(os);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            System.out.println("转换租房pdf成功！");
+            os.close();
+        }
     }
 }
 

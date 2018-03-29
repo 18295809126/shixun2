@@ -81,13 +81,9 @@
                 ,{field: 'liquidated_damages', title: '违约金', fixed: 'left', align:'center'}
                 ,{field: 'one_money', title: '第一次支付金额', fixed: 'left', align:'center'}
                 ,{field: 'xxx', title: '删除',align:'center',templet:function (d) {
-                    return '<a href="javascript:delHouse('+'\''+d.code+'\''+')" class="layui-btn layui-btn-sm">删除</a>';
-                }}
-                ,{field: 'xxx', title: '导出word',align:'center',templet:function (d) {
-                    return '<a href="javascript:???('+'\''+d.code+'\''+')" class="layui-btn layui-btn-sm">导出word</a>';
-                }}
-                ,{field: 'xxx', title: '导出pdf',align:'center',templet:function (d) {
-                    return '<a href="javascript:???('+'\''+d.code+'\''+')" class="layui-btn layui-btn-sm">导出pdf</a>';
+                    return '<a href="javascript:delHouse('+'\''+d.code+'\''+')" class="layui-btn layui-btn-sm">删除</a>'+
+                        '<a href="javascript:generateWordFile('+'\''+d.code+'\''+')" class="layui-btn layui-btn-sm">生成Word</a>' +
+                        '<a href="javascript:generatePDFFile('+'\''+d.code+'\''+')" class="layui-btn layui-btn-sm">生成PDF</a>' ;
                 }}
             ]]
             , height: 600
@@ -140,6 +136,20 @@
                 alert("系统出错，请联系管理员");
             }
         })
+    }
+
+    /**
+     * 生成Word文档方法
+     */
+    function generateWordFile(code) {
+        location.href = "../house/generateWordFile.do?code="+code;
+    }
+
+    /**
+     * 生成PDF
+     */
+    function generatePDFFile(code) {
+        location.href = "../house/generatePDFFile.do?code="+code;
     }
 
 </script>

@@ -106,14 +106,26 @@ public interface HouseService {
 
     List<HouseResource> getRent(String id);
 
-    void toFreeWord(String code);
+    /*void toFreeWord(String code);
 
-    void toFreePdf(String code) throws Exception;
+    void toFreePdf(String code) throws Exception;*/
 
     List<HouseResource> getHouseAndEmpSell();
 
     List<HouseResource> getSellHouseAndEmp(Integer page, Integer limit);
 
     String queryContract(Map<String, String> map);
+
+    /**
+     * 生成WORD文档
+     * @param code
+     */
+    void queryContractByCodes(String code);
+
+    /**
+     * 生成PDF
+     * @param code
+     */
+    void generatePDFFile(String code) throws Exception;
 }
 
